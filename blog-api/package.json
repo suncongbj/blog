@@ -1,0 +1,17 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "koa": "^2.6.2",
+    "koa-onerror": "^4.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
