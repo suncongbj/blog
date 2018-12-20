@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "koa": "^2.6.2",
-    "koa-onerror": "^4.1.0"
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^7.4.0"
   },
   "devDependencies": {},
   "scripts": {
