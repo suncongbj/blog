@@ -1,0 +1,14 @@
+.text_hover{
+  cursor: pointer;
+}
+.text_hover:hover{
+  color: -webkit-link !important;
+  transition:color .3s;
+}
+.btn_hover{
+  cursor: pointer;
+  transition: opacity .3s
+}
+.btn_hover:hover{
+  opacity: 0.7;
+}
