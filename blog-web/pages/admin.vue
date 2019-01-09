@@ -1,6 +1,6 @@
 <template>
-	<div class="footer">
-		© 2018 cong , theme-Adoubi
+	<div>
+		我是后台
 	</div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 		}
 	},
 	methods:{
-
+		
 	},
 	mounted(){
 		
@@ -21,10 +21,5 @@ export default {
 </script>
 
 <style scoped>
-.footer{
-	margin: 10px auto;
-	color: #969696;
-	font-size: 13px;
-	user-select: none;
-}
+
 </style>

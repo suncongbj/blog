@@ -18,18 +18,18 @@
 export default {
 	data(){
 		return {
-
+			
 		}
 	},
 	methods:{
 		about() {
-
+			
 		},
 		classfy() {
-
+			
 		},
 		search() {
-
+			
 		}
 	},
 	mounted(){
@@ -46,6 +46,17 @@ export default {
 	width: 35px;height: 35px;
 	cursor: pointer;
 	margin: 0 10px;
+	animation: icon_in 1.5s
+}
+@keyframes icon_in{
+	from {
+		opacity: 0;
+		transform: translate(0,-15px)
+	}
+	to{
+		opacity: 1;
+		transform: translate(0,0);
+	}
 }
 .header{
 	width: 100%;

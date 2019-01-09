@@ -10,13 +10,14 @@
 
 <script>
 export default {
-  layout: 'default',
+  layout: 'box',
 }
 </script>
 
 <style>
 .content_list_item{
   font-size: 15px;line-height: 1.7;letter-spacing: 0.018em;font-weight: 300;text-decoration: underline;
+  white-space: nowrap;
   cursor: pointer;
 }
 .content {
