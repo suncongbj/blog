@@ -11,6 +11,15 @@
 				<img src="../assets/img/search.png" alt="">
 			</div>
 		</div>
+		<div class="search">
+			<div class="search_close">
+				<svg class="icon" aria-hidden="true" style="">
+				  <use xlink:href="#icon-guanbi"></use>
+				</svg>
+			</div>
+			<div></div>
+			<div></div>
+		</div>
 	</div>
 </template>
 
@@ -39,6 +48,20 @@ export default {
 </script>
 
 <style scoped>
+.search_close>svg{
+	color: #fff;font-size: 30px;
+	margin-right: 10%;margin-top: 20px;
+	cursor: pointer;
+}
+.search_close{
+	width: 100%;
+	display: flex;justify-content: flex-end;
+}
+.search{
+	position: fixed;top: 0;left: 0;
+	width: 100%;height: 100%;
+	background: rgba(0,0,0,.3);
+}
 .header_img{
 	display: flex;
 }

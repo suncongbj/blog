@@ -1,17 +1,17 @@
 <template>
   <div class="g_box">
-    <Header/>
+    <vHeader/>
     <nuxt/>
-    <Footer/>
+    <vFooter/>
   </div>
 </template>
 
 <script>
-import Footer from '~/components/footer'
-import Header from '~/components/header'
+import vFooter from '~/components/v-footer'
+import vHeader from '~/components/v-header'
 export default {
     components: {
-      Footer, Header
+      vFooter, vHeader
     },
     mounted() {
 

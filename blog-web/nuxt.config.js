@@ -18,6 +18,9 @@ module.exports = {
       { hid: 'description', name: 'description', content: '博客,个人博客,技术,技术博客,技术分享' },
       { name:'keywords' , content:'js,html,web,css,node,前端开发,web开发' }
     ],
+    script: [
+      { src: '/js/iconfont.js' },
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
@@ -56,6 +59,12 @@ module.exports = {
     */
     extend(config, ctx) {
       
-    }
+    },
+    postcss:[require('autoprefixer')({ browsers: [
+      'Android > 4.4',
+      "iOS >= 8",
+      "> 1%",
+      "last 7 versions"
+    ]})]
   }
 }
