@@ -11,15 +11,23 @@
 				<img src="../assets/img/search.png" alt="">
 			</div>
 		</div>
-		<div class="search">
-			<div class="search_close">
-				<svg class="icon" aria-hidden="true" style="">
-				  <use xlink:href="#icon-guanbi"></use>
-				</svg>
+		<transition name="fade">
+			<div class="search" v-if="search_show">
+				<div class="search_close">
+					<svg class="icon" aria-hidden="true" @click="search_show = false">
+					  <use xlink:href="#icon-guanbi"></use>
+					</svg>
+				</div>
+				<div class="search_input">
+					<input type="text">
+				</div>
+				<div class="search_association">
+					<div>
+						<div v-for=" v in 20">{{v}}</div>
+					</div>
+				</div>
 			</div>
-			<div></div>
-			<div></div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -27,7 +35,9 @@
 export default {
 	data(){
 		return {
-			
+			search_show: false,
+
+			classfy_show: false,
 		}
 	},
 	methods:{
@@ -38,7 +48,7 @@ export default {
 			
 		},
 		search() {
-			
+			this.search_show = true
 		}
 	},
 	mounted(){
@@ -48,6 +58,47 @@ export default {
 </script>
 
 <style scoped>
+.search_association{
+	display: flex;justify-content: center;
+	width: 100%;color: #333
+}
+.search_association>div{
+	width: 400px;max-width: 400px;
+	max-height: 400px;
+	margin-top: 1px;
+	overflow-y: auto;
+}
+.search_association>div>div{
+	background: #fff;
+	width: 100%;
+	padding: 10px 8px;box-sizing: border-box;
+	border-bottom: 1px solid #f6f6f6;
+	cursor: pointer;
+	transition: padding .5s , color .5s;
+}
+.search_association>div>div:hover{
+	background: #f3f3f3;
+	padding-left: 20px;
+	color: blue
+}
+.search_input{
+	display: flex;justify-content: center;
+	width: 100%;
+	margin-top: 20px;
+}
+.search_input>input{
+	max-width: 420px;width: 400px;height: 36px;
+	border: none;
+	border-radius: 6px;
+	padding-left: 8px;box-sizing: border-box;
+	outline: none;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+}
 .search_close>svg{
 	color: #fff;font-size: 30px;
 	margin-right: 10%;margin-top: 20px;
