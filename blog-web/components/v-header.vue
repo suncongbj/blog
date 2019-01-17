@@ -63,7 +63,7 @@ export default {
 	width: 100%;color: #333
 }
 .search_association>div{
-	width: 400px;max-width: 400px;
+	width: 400px;
 	max-height: 400px;
 	margin-top: 1px;
 	overflow-y: auto;
@@ -87,7 +87,7 @@ export default {
 	margin-top: 20px;
 }
 .search_input>input{
-	max-width: 420px;width: 400px;height: 36px;
+	width: 400px;height: 36px;
 	border: none;
 	border-radius: 6px;
 	padding-left: 8px;box-sizing: border-box;
@@ -139,5 +139,10 @@ export default {
 }
 img{
 	width: 100%;height: 100%;
+}
+@media screen and (max-width: 960px){
+	.search_association>div,.search_input>input{
+		width: 90%;
+	}
 }
 </style>
