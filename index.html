@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#app{
+			display: flex;flex-direction: column;align-items: center;
+		}
+		.btns{
+			display: flex;
+		}
+		.btns>div{
+			display: flex;justify-content: center;align-items: center;
+			width: 120px;height: 60px;background: pink;
+			margin-left: 12px;
+		}
+		.list{
+			margin-top: 20px;
+			display: flex;flex-direction: column;
+			background: #f6f6f6;
+		}
+		.list>div{
+			width: 300px;
+			height: 46px;
+			display: flex;align-items: center;
+			border-bottom: 1px solid #000;
+			cursor: pointer;
+		}
+		.active{
+			background: blue;
+			color: #fff
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="btns">
+			<div @click="dosth">新建</div>
+			<div @click="dosth">修改</div>
+			<div @click="dosth">删除</div>
+		</div>
+		<div class="list">
+			<div v-for=" v in chanpin.list" @click="selectItem(v.index,v.name)" :class="{ active: v.index == selected }">{{v.name}}</div>
+		</div>
+	</div>
+</body>
+<script>
+new Vue({
+	el: '#app',
+	data(){
+		return {
+				chanpin:{
+					name: '产品',
+					index: 0,
+					list: [
+						{
+							index: 0,
+							name: '技术后台'
+						},{
+							name: '技术中台',
+							index: 1,
+						},{
+							name: '技术前台',
+							index: 2,
+						},{
+							name: '其他的什么鬼',
+							index: 3,
+						}
+					],
+				},//这里是你的数组列表
+				selected: -1,//这里保存当前选中项目，以index为索引对应
+				selected_name: ''//选中的项目的名字
+		}
+	},
+	methods:{
+		dosth() {
+			if(this.selected == -1) return alert('尚未选中条目')
+			let str = '当权选中索引为：' + this.selected + '。名称为：'+ this.selected_name 
+			alert(str)
+			this.selected = -1
+			this.selected_name = ''
+		},
+		selectItem:function(index,name) {
+			this.selected = index
+			this.selected_name = name
+		}
+	},
+	mounted:function() {
+		
+	}
+})
+</script>
+</html>
