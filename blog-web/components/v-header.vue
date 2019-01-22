@@ -216,7 +216,7 @@ export default {
 	}
 }
 .header{
-	width: 100%;
+	width: 100%;min-height: 35px;
 	margin-top: 20px;
 	display: flex;justify-content: center;
 }

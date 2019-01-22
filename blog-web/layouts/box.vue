@@ -24,7 +24,7 @@ html,body,#__nuxt,#__layout{
   width: 100%;height: 100%;
 }
 .g_box{
-  width: 100%;height: 100%;
+  width: 100%;
   display: flex;flex-direction: column;justify-content: space-between;
 }
 html {

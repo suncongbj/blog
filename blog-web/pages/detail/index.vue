@@ -10,7 +10,6 @@
 
 <script>
 export default {
-	layout: 'box',
 	data(){
 		return {
 

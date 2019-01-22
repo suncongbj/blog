@@ -1,7 +1,7 @@
 <template>
-	<footer class="footer">
-		© 2018 suncong , theme-Adoubi
-	</footer>
+	<div class="footer">
+		© 2018 cong , theme-Adoubi
+	</div>
 </template>
 
 <script>
