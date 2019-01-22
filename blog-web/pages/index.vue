@@ -2,7 +2,7 @@
   <div class="content">
     <div class="content_box">
       <div class="content_list">
-        <div class="content_list_item text_hover" v-for="v in 20">js基础-原型链</div>
+        <div class="content_list_item text_hover" v-for="v in 20" @click="artDetail">js基础-原型链</div>
       </div>
     </div>
   </div>
@@ -11,6 +11,11 @@
 <script>
 export default {
   layout: 'box',
+  methods: {
+    artDetail() {
+      this.$router.push({path: '/detail',query:{id:1}})
+    },
+  },
 }
 </script>
 
