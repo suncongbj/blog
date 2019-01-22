@@ -5,8 +5,8 @@
         <div class="content_list_item text_hover" v-for="v in 10" @click="artDetail">js基础-原型链</div>
       </div>
     </div>
-    <div class="content_page text_hover">
-      <div v-if="!loading">more></div>
+    <div class="content_page">
+      <div class="text_hover" v-if="!loading">more></div>
       <div v-else>{{loading_text}}</div>
     </div>
   </div>
