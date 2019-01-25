@@ -1,6 +1,5 @@
 <template>
   <div class="g_box">
-    <vHeader/>
     <nuxt/>
     <vFooter/>
   </div>
@@ -8,10 +7,9 @@
 
 <script>
 import vFooter from '~/components/v-footer'
-import vHeader from '~/components/v-header'
 export default {
     components: {
-      vFooter, vHeader
+      vFooter
     },
     mounted() {
 

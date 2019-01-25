@@ -20,6 +20,7 @@ module.exports = {
     ],
     script: [
       { src: '/js/iconfont.js' },
+      { src: '//unpkg.com/wangeditor/release/wangEditor.min.js'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

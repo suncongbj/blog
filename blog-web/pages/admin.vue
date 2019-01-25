@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="admin_tag_list">
-				<div v-for="v in 10" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
+				<div v-for="v in 20" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
 					{{v}}
 				</div>
 			</div>
@@ -22,10 +22,16 @@
 			</div>
 		</div>
 		<div class="admin_list">
-			<div>新建文章</div>
+			<div class="admin_list_add">⊕ 新建文章</div>
+			<div class="admin_list_arts">
+				<div v-for="v in 10" :class="{'admin_list_arts__active': art_index==v}" @click="handlerArt(v)">{{v}}</div>
+			</div>
 		</div>
 		<div class="admin_detail">
-			文章详情
+			<input type="text">
+			<div id="editor">
+		        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+		    </div>
 		</div>
 	</div>
 </template>
@@ -34,21 +40,100 @@
 export default {
 	data(){
 		return {
-			tag_index: 1
+			tag_index: 1,
+			art_index: 1,
 		}
 	},
 	methods:{
 		handlerTag(index) {
 			this.tag_index = index
-		}
+		},
+		handlerArt(index) {
+			this.art_index = index
+		},
+		initEditor() {
+			var E = window.wangEditor
+	        var editor = new E('#editor')
+	        editor.customConfig.colors = [
+		        '#555',
+		        '#eeece0',
+		        '#1c487f',
+		        '#4d80bf',
+		        '#c24f4a',
+		        '#8baa4a',
+		        '#7b5ba1',
+		        '#46acc8',
+		        '#f9963b',
+		        '#ffffff'
+		    ]
+		    editor.customConfig.menus = [
+			    'head',  // 标题
+			    'bold',  // 粗体
+			    'fontSize',  // 字号
+			    'fontName',  // 字体
+			    'italic',  // 斜体
+			    'underline',  // 下划线
+			    'strikeThrough',  // 删除线
+			    'foreColor',  // 文字颜色
+			    'backColor',  // 背景颜色
+			    'link',  // 插入链接
+			    'list',  // 列表
+			    'justify',  // 对齐方式
+			    'quote',  // 引用
+			    'image',  // 插入图片
+			    'code',  // 插入代码
+			    'undo',  // 撤销
+			    'redo'  // 重复
+			]
+	        editor.create()
+		},
 	},
 	mounted(){
-		
+		this.initEditor()
 	}
 }
 </script>
 
 <style scoped>
+.admin_detail>input{
+	width: 100%;
+    padding: 20px 80px 10px 40px;
+    margin-bottom: 0;
+    border: none;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 30px;
+    box-shadow: none;
+    color: #595959;
+    background-color: transparent;
+    outline: none;
+    border-radius: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.admin_list_arts__active{
+	border-left: 3px solid #ec7259 !important;
+}
+.admin_list_arts>div:hover{
+	background-color: #e6e6e6;
+}
+.admin_list_arts>div{
+    height: 90px;
+    color: #595959;
+    background-color: #fff;
+    margin-bottom: 0;
+    padding: 15px 10px 15px 20px;
+    -webkit-box-shadow: 0 0 0 1px #d9d9d9;
+    box-shadow: 0 0 0 1px #d9d9d9;
+    border-left: 5px solid transparent;
+    list-style: none;
+    line-height: 60px;    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
 .admin_tag_opt>p:nth-child(2){
 	color: #ec7259
 }
@@ -68,8 +153,9 @@ export default {
 .admin_tag_list>div{
 	padding: 0 15px;
 	line-height: 40px;
+	max-width: 100%;
 	cursor: pointer;
-	overflow: hidden;white-space: nowrap;
+	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 }
 .admin_tag_list>div:hover{
 	background: #666
@@ -78,7 +164,7 @@ export default {
 	display: none;
 }
 .admin_tag_list{
-	width: 100%;
+	width: 100%;height: 100%;
 	margin-top: 20px;
 	overflow-y: auto;
 }
@@ -107,7 +193,6 @@ export default {
 }
 .admin_tag_add {
 	display: flex;justify-content: center;align-items: center;
-
     font-size: 15px;
     padding: 9px 0;
     margin: 30px auto 0 auto;
@@ -121,9 +206,20 @@ export default {
 	flex: 16;
 	overflow-y: auto;
 }
+.admin_list_add{
+	line-height: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 20px 0 20px 25px;
+    cursor: pointer;
+    color: #595959;
+}
 .admin_list {
 	flex: 8;
 	overflow-y: scroll;
+}
+.admin_tag>div:nth-child(1){
+	min-height: 154px;
 }
 .admin_tag{
 	flex: 4;
