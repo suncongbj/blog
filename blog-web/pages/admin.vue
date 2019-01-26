@@ -67,23 +67,18 @@ export default {
 		        '#ffffff'
 		    ]
 		    editor.customConfig.menus = [
-			    'head',  // 标题
-			    'bold',  // 粗体
+			    'foreColor',  // 文字颜色
 			    'fontSize',  // 字号
+			    'code',  // 插入代码
+			    'quote',  // 引用
+			    'emoticon',  //表情
+			    'bold',  // 粗体
 			    'fontName',  // 字体
 			    'italic',  // 斜体
-			    'underline',  // 下划线
-			    'strikeThrough',  // 删除线
-			    'foreColor',  // 文字颜色
-			    'backColor',  // 背景颜色
 			    'link',  // 插入链接
-			    'list',  // 列表
-			    'justify',  // 对齐方式
-			    'quote',  // 引用
 			    'image',  // 插入图片
-			    'code',  // 插入代码
+			    'video',  // 插入视频
 			    'undo',  // 撤销
-			    'redo'  // 重复
 			]
 	        editor.create()
 		},

@@ -55,7 +55,7 @@
             </svg>
           </div>
           <div class="classfies_box">
-            <div v-for="v in 10">{{v}}</div>
+            <div v-for="v in 20">{{v}}</div>
           </div>
         </div>
       </transition>
@@ -66,7 +66,7 @@
         <p class="content_list_instruct">以下展示为"<b>xxx</b>"的搜索结果。<span class="text_hover">返回></span></p>
         <p class="content_list_instruct">以下展示为"<b>xxx</b>"分类下的结果。<span class="text_hover">返回></span></p>
         <div class="content_list_instruct_hold"></div>
-        <div class="content_list_item text_hover" v-for="v in 10" @click="artDetail">js基础-原型链</div>
+        <div class="content_list_item text_hover" v-for="v in 30" @click="artDetail">js基础-原型链</div>
       </div>
     </div>
     <div class="content_page">
