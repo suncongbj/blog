@@ -111,6 +111,7 @@ export default {
     search() {
       this.search_show = true
     }
+    
   },
   mounted() {
     this.setLoadingAnimate()
