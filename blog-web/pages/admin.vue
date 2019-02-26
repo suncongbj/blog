@@ -29,9 +29,7 @@
 		</div>
 		<div class="admin_detail">
 			<input type="text">
-			<div id="editor">
-		        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
-		    </div>
+			<textarea></textarea>
 		</div>
 	</div>
 </template>
@@ -51,45 +49,24 @@ export default {
 		handlerArt(index) {
 			this.art_index = index
 		},
-		initEditor() {
-			var E = window.wangEditor
-	        var editor = new E('#editor')
-	        editor.customConfig.colors = [
-		        '#555',
-		        '#eeece0',
-		        '#1c487f',
-		        '#4d80bf',
-		        '#c24f4a',
-		        '#8baa4a',
-		        '#7b5ba1',
-		        '#46acc8',
-		        '#f9963b',
-		        '#ffffff'
-		    ]
-		    editor.customConfig.menus = [
-			    'foreColor',  // 文字颜色
-			    'fontSize',  // 字号
-			    'code',  // 插入代码
-			    'quote',  // 引用
-			    'emoticon',  //表情
-			    'bold',  // 粗体
-			    'fontName',  // 字体
-			    'italic',  // 斜体
-			    'link',  // 插入链接
-			    'image',  // 插入图片
-			    'video',  // 插入视频
-			    'undo',  // 撤销
-			]
-	        editor.create()
-		},
 	},
 	mounted(){
-		this.initEditor()
+
 	}
 }
 </script>
 
 <style scoped>
+.admin_detail>textarea{
+	border: none;
+	border-top: 4px solid #f6f6f6;
+	width: 100%;
+	height: 100%;
+	padding: 12px;box-sizing: border-box;
+	outline: none;
+	font-size: 18px;
+    color: #595959;
+}
 .admin_detail>input{
 	width: 100%;
     padding: 20px 80px 10px 40px;
