@@ -1,5 +1,5 @@
-let host
-host = process.env.NODE_ENV == 'development' ? '127.0.0.1' : '39.105.32.55'
+let host = 'localhost'
+// host = process.env.NODE_ENV == 'development' ? '127.0.0.1' : '39.105.32.55'
 
 const Sequelize = require('sequelize');
 
