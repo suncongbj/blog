@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import {List} from '~/assets/server/index'
 export default {
   layout: 'box',
   data() {
@@ -110,11 +111,17 @@ export default {
     },
     search() {
       this.search_show = true
+    },
+    getData() {
+      List().then(res=>{
+        console.log(res)
+      })
     }
     
   },
   mounted() {
     this.setLoadingAnimate()
+    this.getData()
   }
 }
 </script>
