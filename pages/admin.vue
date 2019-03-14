@@ -1,14 +1,12 @@
 <template>
 	<div class="admin_box">
 		<div class="admin_tag">
-			<div>
-				<div class="admin_tag_add">新建文集</div>
-				<div class="admin_tag_input">
-					<input type="text" placeholder="请输入文集名...">
-					<div class="admin_tag_input_btn">
-						<div>提 交</div>
-						<div>取 消</div>
-					</div>
+			<div class="admin_tag_add" @click="addTag">新建文集</div>
+			<div class="admin_tag_input" v-show="add_tag_show">
+				<input type="text" placeholder="请输入文集名...">
+				<div class="admin_tag_input_btn">
+					<div @click="submitAddArticle">提 交</div>
+					<div @click="add_tag_show = false">取 消</div>
 				</div>
 			</div>
 			<div class="admin_tag_list">
@@ -17,51 +15,143 @@
 				</div>
 			</div>
 			<div class="admin_tag_opt">
-				<p>改 名</p>
+				<p @click="reviseTagName()">改 名</p>
 				<p>删 除</p>
 			</div>
 		</div>
 		<div class="admin_list">
-			<div class="admin_list_add">⊕ 新建文章</div>
+			<div class="admin_list_add" @click="addArticle">⊕ 新建文章</div>
 			<div class="admin_list_arts">
 				<div v-for="v in 10" :class="{'admin_list_arts__active': art_index==v}" @click="handlerArt(v)">{{v}}</div>
 			</div>
 		</div>
 		<div class="admin_detail">
+			<el-popover
+			  placement="right"
+			  width="400"
+			  style="position: absolute;top: 40px;right: 20px;"
+			  trigger="click">
+			  <div>
+			  	<p>#一级标题</p>
+				<p>###三级标题</p>
+				<p>######六级标题</p>
+				<p>普通文字</p><br/>
+				<p>插入链接</p>
+				<p>[百度](www.baiudu.com)</p><br/>
+				<p>插入图片</p>
+				<p>![图片描述](https://www.baidu.com/xxx.jpg)</p><br/>
+				<p>插入代码</p>
+				<p>```</p>
+				<p>//some code</p>
+				<p>```</p><br>
+				<p>列表</p>
+				<p>无序列表</p>
+				<p>- 什么什么什么</p>
+				<p>- 什么什么什么2</p>
+				<p>- 什么什么3</p><br>
+				<p>有序列表</p>
+				<p>1. 什么什么1</p>
+				<p>2. 什么什么2</p>
+				<p>3. 什么什么3</p><br>
+				<p>表格</p>
+				<p>| 姓名|年龄|电话|</p>
+				<p>|-|-|-|</p>
+				<p>|大明|12|12332123323|</p>
+				<p>|sam|13|12312312313|</p>
+				<p>|玲玲|11|13213210451|</p><br>
+				<p>引用</p>
+				<p>>我是引用哦</p>
+			  </div>
+			  <el-button slot="reference" style="width: 20px;height: 20px;box-sizing: border-box;padding: 0;border-radius: 100%;">?</el-button>
+			</el-popover>
+			<div class="admin_detail_tip">{{article_tip}}</div>
 			<input type="text">
-			<textarea></textarea>
+			<textarea v-model="content"></textarea>
 		</div>
 	</div>
 </template>
 
 <script>
+import {addTag,reviseTag,addArticle,saveArticle,articleList,tagList,test} from '~/assets/server/index'
 export default {
 	data(){
 		return {
 			tag_index: 1,
 			art_index: 1,
+			add_tag_show: false,
+			add_tag_inpit: '',
+
+			article_tip: "已保存",//保存中...
+
+			shake_time: 1000,//防抖时间
+			content: '',//markdown内容
+			title: '',//文章标题
 		}
 	},
-	methods:{
-		handlerTag(index) {
-			this.tag_index = index
-		},
-		handlerArt(index) {
-			this.art_index = index
+	watch: {
+		content() {
+			
 		},
 	},
+	methods:{
+		reviseTagName() {//修改标签名称
+			this.$prompt('修改（当前标签名）为：', {
+	          confirmButtonText: '确定',
+	          cancelButtonText: '取消',
+	        }).then(({ value }) => {
+	          //点击提交
+	        }).catch(() => {
+	          //点击取消
+	        });
+		},
+		submitContent() {//提交文章修改内容
+			this.article_tip = '已保存'
+		},
+		handlerTag(index) {//点击文集
+			this.tag_index = index
+		},
+		handlerArt(index) {//点击文章
+			this.art_index = index
+		},
+		addTag() {//新建文集
+			this.add_tag_show = true
+			this.add_tag_inpit = ''
+		},
+		submitAddArticle() {//提交新建文集
+			//addTag接口,成功关闭提交框,获取tag列表
+			this.add_tag_show = false
+			this.add_tag_inpit = ''
+		},
+		addArticle() {//添加文章
+	        this.$prompt('请输入文章标题', {
+	          confirmButtonText: '确定',
+	          cancelButtonText: '取消',
+	        }).then(({ value }) => {
+	          //点击提交
+	        }).catch(() => {
+	          //点击取消
+	        });
+	      }
+		},
 	mounted(){
-
+		test().then(res=>{
+			console.log(res)
+		})
 	}
 }
 </script>
 
 <style scoped>
+.admin_detail_tip{
+	position: absolute;
+	font-size: 14px;color: #666;
+	top: 10px;right: 10px;
+}
 .admin_detail>textarea{
 	border: none;
 	border-top: 4px solid #f6f6f6;
 	width: 100%;
-	height: 100%;
+	height: 80%;
 	padding: 12px;box-sizing: border-box;
 	outline: none;
 	font-size: 18px;
@@ -74,7 +164,7 @@ export default {
     border: none;
     font-size: 30px;
     font-weight: 400;
-    line-height: 30px;
+    line-height: 20%;
     box-shadow: none;
     color: #595959;
     background-color: transparent;
@@ -83,6 +173,9 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.admin_detail{
+	position: relative;
 }
 .admin_list_arts__active{
 	border-left: 3px solid #ec7259 !important;
@@ -189,9 +282,6 @@ export default {
 .admin_list {
 	flex: 8;
 	overflow-y: scroll;
-}
-.admin_tag>div:nth-child(1){
-	min-height: 154px;
 }
 .admin_tag{
 	flex: 4;

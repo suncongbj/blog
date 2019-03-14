@@ -3,6 +3,8 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../assets/css/global.css'
 
+import '../node_modules/element-ui/lib/theme-chalk/index.css'
+
 import _1a3ae615 from '../layouts/box.vue'
 import _6f6c098b from './layouts/default.vue'
 

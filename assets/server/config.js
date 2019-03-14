@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = process.env.NODE_ENV == 'development' ? 'localhost:80' : 'localhost:80'
+const baseURL = process.env.NODE_ENV == 'development' ? 'localhost:3000' : 'localhost:3000'
 
 axios.defaults.timeout = 12000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';

@@ -36,12 +36,19 @@ module.exports = {
   */
   css: [
     '~/assets/css/global.css',
+    'element-ui/lib/theme-chalk/index.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {
+      src: '~plugins/ElementUI',
+      ssr: true,
+    },{
+      src: '~plugins/mixins'
+    }
   ],
 
   /*
