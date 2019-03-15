@@ -25,6 +25,6 @@ router.get('/test',async(ctx)=>{
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(3000,()=>{
+app.listen(8080,()=>{
     console.log('[Server] starting at port 3000')
 })

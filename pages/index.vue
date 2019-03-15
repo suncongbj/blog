@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import {List} from '~/assets/server/index'
 export default {
   layout: 'box',
   data() {
@@ -113,9 +112,7 @@ export default {
       this.search_show = true
     },
     getData() {
-      List().then(res=>{
-        console.log(res)
-      })
+      
     }
     
   },
