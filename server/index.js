@@ -18,7 +18,13 @@ let router = new Router()
 router.get('/test',async(ctx)=>{
     ctx.body={
         code:200,
-        message:'注册成功'
+        message:'测试'
+    }
+})
+router.get('/',async(ctx)=>{
+    ctx.body={
+        code:200,
+        message:'首页'
     }
 })
 
@@ -26,5 +32,5 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 app.listen(8080,()=>{
-    console.log('[Server] starting at port 3000')
+    console.log('[Server] starting at port 8080')
 })
