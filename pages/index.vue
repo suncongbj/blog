@@ -160,13 +160,14 @@ export default {
   padding: 10px 20px;
   background: #fff;
   margin-top: 12px;
+  margin-left: 16px;
   border-radius: 1px;
   cursor: pointer;
   color: #71A9E4;
 }
 .classfies_box {
   width: 100%;
-  display: flex;flex-direction: column;align-items: center;
+  display: flex;flex-direction: row;align-items: center;flex-wrap: wrap;
   margin-top: 30px;
 }
 .classfy{

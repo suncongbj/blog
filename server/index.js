@@ -13,20 +13,10 @@ app.use(bodyParser())
     await connect()
 })()
 
-let router = new Router()
+let article = require('./api/article')
 
-router.get('/test',async(ctx)=>{
-    ctx.body={
-        code:200,
-        message:'测试'
-    }
-})
-router.get('/',async(ctx)=>{
-    ctx.body={
-        code:200,
-        message:'首页'
-    }
-})
+let router = new Router()
+router.use(article.routes())
 
 app.use(router.routes())
 app.use(router.allowedMethods())

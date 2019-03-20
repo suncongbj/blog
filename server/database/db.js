@@ -3,10 +3,10 @@ var url = "mongodb://localhost:27017";
 const db_name = 'blog'
 const db = {}
 //增
-obj={
-	table_name: 'table_name',
-	data: {},//插入对象
-}
+// obj={
+// 	table_name: 'table_name',
+// 	data: {},//插入对象
+// }
 db.addOne =(obj)=>{
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
@@ -28,11 +28,12 @@ db.delOne = (obj) => {
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db(db_name);
-	    var whereStr = {"id": obj.id};  // 查询条件
+	    var whereStr = {"id": obj._id};  // 查询条件
 	    dbo.collection(obj.table_name).deleteOne(whereStr, function(err, obj) {
 	        if (err) throw err;
 	        console.log("文档删除成功");
 	        db.close();
+	        return 200
 	    });
 	});
 }
@@ -48,12 +49,13 @@ db.revise = (obj) => {
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db(db_name);
-	    var whereStr = {"id": obj.id};  // 查询条件
-	    var updateStr = {$set: { obj.content_name : obj.content }};
+	    var whereStr = {"id": obj._id};  // 查询条件
+	    var updateStr = {$set: obj.condition};
 	    dbo.collection(obj.table_name).updateOne(whereStr, updateStr, function(err, res) {
 	        if (err) throw err;
 	        console.log("文档更新成功");
 	        db.close();
+	        return 200
 	    });
 	});
 }
@@ -68,8 +70,7 @@ db.findOne = (obj)=>{
 	return MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db(db_name);
-	    var whereStr = {obj.key: obj.value};  // 查询条件
-	    return dbo.collection(obj.table_name).find(whereStr).toArray(function(err, result) {
+	    return dbo.collection(obj.table_name).find(obj.condition).toArray(function(err, result) {
 	        if (err) throw err;
 	        db.close();
 	        return result;
@@ -83,14 +84,15 @@ db.findOne = (obj)=>{
 // 	page: 0,//页数
 // 	limit: 10,//条数
 // }
-db.findInPage = (obj) =>{
-    return MongoClient.connect(url, function(err, db) {
+db.findInPage = async(obj) =>{
+    MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db(db_name);
-	    return dbo.collection(obj.table_name).find().skip(page*limit).limit(obj.limit).toArray(function(err, result) {
+	    dbo.collection(obj.table_name).find().skip(obj.page*obj.limit).limit(obj.limit).toArray(function(err, result) {
 	        if (err) throw err;
 	        db.close();
-	        return result
+	        console.log(result)
+	        res=result
 	  });
 	});
 }
@@ -98,4 +100,4 @@ db.findInPage = (obj) =>{
 
 
 
-export default db
+module.exports = db
