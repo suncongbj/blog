@@ -83,9 +83,14 @@ export default {
 
 			article_tip: "已保存",//保存中...
 
-			shake_time: 1000,//防抖时间
-			content: '',//markdown内容
+			shake_time: 1500,//防抖时间
+
+			content: '',
+			content_md: '',//markdown内容
+			content_html: '',
 			title: '',//文章标题
+
+			timer: ''
 		}
 	},
 	watch: {
@@ -134,9 +139,7 @@ export default {
 	      }
 		},
 	mounted(){
-		test().then(res=>{
-			console.log(res)
-		})
+
 	}
 }
 </script>

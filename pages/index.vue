@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import {articleList} from '../assets/server/index'
 export default {
   layout: 'box',
   data() {
@@ -88,6 +89,8 @@ export default {
       search_show: false,
       classfy_show: false,
       about_show: false,
+
+      page: 1,
     }
   },
   methods: {
@@ -112,7 +115,12 @@ export default {
       this.search_show = true
     },
     getData() {
-      
+      let params = {
+        page: this.page,
+      }
+      articleList().then(res=>{
+        console.log(res)
+      })
     }
     
   },
