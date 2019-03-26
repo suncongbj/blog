@@ -1,4 +1,6 @@
-import dbopt from '../database/db/js'
+var MongoClient = require('mongodb').MongoClient;
+ObjectId = require('mongodb').ObjectID;
+var url = "mongodb://localhost:27017";
 const Router = require('koa-router')
 let router = new Router()
 
@@ -8,7 +10,7 @@ router.post('/login',async(ctx)=>{
 	let obj = {
 		table_name: 'user',
 	}
-	let data = await dbopt.findInPage(obj)
+	
     ctx.body={
         code: 200,
         msg: 'success',

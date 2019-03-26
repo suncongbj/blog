@@ -11,12 +11,21 @@ router.get('/article/list',async(ctx)=>{
 			MongoClient.connect(url, function(err, db) {
 			    if (err) throw err;
 			    var dbo = db.db('blog');
-			    dbo.collection('article').find().skip((params.page-1)*30).limit(30).toArray(function(err, result) {
-			        if (err) throw err;
-			        db.close();
-			        console.log(result)
-			        resolve(result)
-			  });
+			    if(params.tag_id) {
+					dbo.collection('article').find({"tag_id" : ObjectId(params.tag_id)}).toArray(function(err, result) {
+				        if (err) throw err;
+				        db.close();
+				        console.log(result)
+				        resolve(result)
+				    });
+			    }else{
+					dbo.collection('article').find().skip((params.page-1)*30).limit(30).toArray(function(err, result) {
+				        if (err) throw err;
+				        db.close();
+				        console.log(result)
+				        resolve(result)
+				    });
+			    }
 			});
 		})
 	}
@@ -93,7 +102,6 @@ router.post('/article/rearticle',async(ctx)=>{
     ctx.body={
         code: 200,
         msg: 'success',
-		data: data,
     }
 })
 //提交文章

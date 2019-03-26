@@ -14,9 +14,13 @@ app.use(bodyParser())
 })()
 
 let article = require('./api/article')
+let search = require('./api/search')
 
 let router = new Router()
+
 router.use(article.routes())
+router.use(search.routes())
+
 
 app.use(router.routes())
 app.use(router.allowedMethods())
