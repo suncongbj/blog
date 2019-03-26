@@ -1,8 +1,5 @@
 import fetch from './fetch'
 //文章
-export const tagList = ()=>{ //获取分类列表
-  return fetch('/tag/list')
-}
 export const articleList = (params)=>{ //获取文章列表，参数tag_id(为空不分tag但是分页，不为空需要分页)，page，limit
   return fetch('/article/list',params,'get')
 }
@@ -30,5 +27,10 @@ export const tagAdd = (params)=>{ //新建标签，title
   return fetch('/tag/add',params)
 }
 export const tagRearticle = (params)=>{ //修改标签名，_id，title，
+  return fetch('/tag/rearticle',params)
+}
+
+//登录
+export const tagRearticle = (params)=>{ //password
   return fetch('/tag/rearticle',params)
 }

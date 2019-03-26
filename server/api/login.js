@@ -7,13 +7,16 @@ let router = new Router()
 //密码登录
 router.post('/login',async(ctx)=>{
 	let params = ctx.request.query
-	let obj = {
-		table_name: 'user',
+	if(params.password == 'asui4132508') {
+		ctx.session.password = 'asui4132508'
+		ctx.body={
+	        code: 0,
+	        msg: 'welcome',
+	    }
+	}else{
+		ctx.body={
+	        code: 1,
+	        msg: 'wrong password',
+	    }
 	}
-	
-    ctx.body={
-        code: 200,
-        msg: 'success',
-		data: data,
-    }
 })

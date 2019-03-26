@@ -22,7 +22,7 @@ router.get('/tag/list',async(ctx)=>{
 	}
 	let data = await getList()
 	ctx.body={
-	    code: 200,
+	    code: 0,
 	    msg: 'success',
 		data: data,
 	}
@@ -30,6 +30,13 @@ router.get('/tag/list',async(ctx)=>{
 //新建标签
 router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.query
+	if(!ctx.session.password){
+		ctx.body={
+	        code: 2,
+	        msg: '无此权限',
+	    }
+	    return
+	}
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url , (err,db)=>{
@@ -45,13 +52,20 @@ router.post('/tag/add',async (ctx)=>{
 		})
 	}
 	ctx.body={
-		code: 200,
+		code: 0,
         msg: 'success',
 	}
 })
 //修改标签名称
 router.post('/tag/rearticle',async(ctx)=>{
 	let params = ctx.request.query
+	if(!ctx.session.password){
+		ctx.body={
+	        code: 2,
+	        msg: '无此权限',
+	    }
+	    return
+	}
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db('blog');
@@ -61,11 +75,11 @@ router.post('/tag/rearticle',async(ctx)=>{
 	        if (err) throw err;
 	        console.log("文档更新成功");
 	        db.close();
-	        return 200
+	        return 0
 	    });
 	});
     ctx.body={
-        code: 200,
+        code: 0,
         msg: 'success',
     }
 })

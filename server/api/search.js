@@ -23,7 +23,7 @@ router.get('/search',async(ctx)=>{
 	}
 	let data = await getList()
     ctx.body={
-        code: 200,
+        code: 0,
         msg: 'success',
         data: data
     }
