@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import {addTag,reviseTag,addArticle,saveArticle,articleList,tagList,test} from '~/assets/server/index'
+import {addTag,reviseTag,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
 export default {
 	data(){
 		return {
@@ -80,6 +80,8 @@ export default {
 			art_index: 1,
 			add_tag_show: false,
 			add_tag_inpit: '',
+
+			tag_list: [],
 
 			article_tip: "已保存",//保存中...
 
@@ -136,10 +138,15 @@ export default {
 	        }).catch(() => {
 	          //点击取消
 	        });
-	      }
-		},
+	    },
+	    getTags() {
+	    	tagList().then(res=>{
+	    		this.tag_list = res.data
+	    	})
+	    }
+	},
 	mounted(){
-
+		this.getTags()
 	}
 }
 </script>

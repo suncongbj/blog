@@ -27,11 +27,15 @@ app.use(session({
 
 let article = require('./api/article')
 let search = require('./api/search')
+let tag = require('./api/tag')
+let login = require('./api/login')
 
 let router = new Router()
 
 router.use(article.routes())
 router.use(search.routes())
+router.use(tag.routes())
+router.use(login.routes())
 
 
 app.use(router.routes())

@@ -32,7 +32,6 @@ export const tagAdd = (params)=>{ //新建标签，title
 export const tagRearticle = (params)=>{ //修改标签名，_id，title，
   return fetch('/tag/rearticle',params)
 }
-
 //登录
 export const login = (params)=>{ //password
   return fetch('/login',params)

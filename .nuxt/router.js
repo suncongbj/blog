@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _3c76fee0 = () => interopDefault(import('../pages/admin.vue' /* webpackChunkName: "pages/admin" */))
-const _331c3b93 = () => interopDefault(import('../pages/detail/index.vue' /* webpackChunkName: "pages/detail/index" */))
+const _237e7de0 = () => interopDefault(import('../pages/detail.vue' /* webpackChunkName: "pages/detail" */))
 const _56a1640c = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _46522af9 = () => interopDefault(import('../pages/template.vue' /* webpackChunkName: "pages/template" */))
 const _0b07aae3 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -71,7 +71,7 @@ export function createRouter() {
       name: "admin"
     }, {
       path: "/detail",
-      component: _331c3b93,
+      component: _237e7de0,
       name: "detail"
     }, {
       path: "/login",

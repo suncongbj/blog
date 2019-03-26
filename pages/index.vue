@@ -66,7 +66,7 @@
         <p class="content_list_instruct">以下展示为"<b>xxx</b>"的搜索结果。<span class="text_hover">返回></span></p>
         <p class="content_list_instruct">以下展示为"<b>xxx</b>"分类下的结果。<span class="text_hover">返回></span></p>
         <div class="content_list_instruct_hold"></div>
-        <div class="content_list_item text_hover" v-for="v in 30" @click="artDetail">js基础-原型链</div>
+        <div class="content_list_item text_hover" v-for="v in list" @click="artDetail(v._id)">{{v.title}}</div>
       </div>
     </div>
     <div class="content_page">
@@ -90,12 +90,14 @@ export default {
       classfy_show: false,
       about_show: false,
 
+      list: [],
+
       page: 1,
     }
   },
   methods: {
-    artDetail() {
-      this.$router.push({path: '/detail',query:{id:1}})
+    artDetail(_id) {
+      this.$router.push({path: '/detail',query:{_id:_id}})
     },
     setLoadingAnimate() {
       setInterval(()=>{
@@ -119,12 +121,11 @@ export default {
         page: this.page,
       }
       articleList().then(res=>{
-        console.log(res)
+        this.list = res.data
       }).catch(res=>{
-        
+      
       })
     }
-    
   },
   mounted() {
     this.setLoadingAnimate()
