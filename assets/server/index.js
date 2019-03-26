@@ -15,6 +15,9 @@ export const articleRearticle = (params)=>{ //根据文章_id获取文章详情�
 export const articleAdd = (params)=>{ //根据文章_id获取文章详情接口
   return fetch('/article/add',params)
 }
+export const articleDelete = (params)=>{ //根据文章_id删除文章
+  return fetch('/article/delete',params)
+}
 //搜索
 export const search = (params)=>{ //key查询文章列表
   return fetch('/search',params)
@@ -31,6 +34,6 @@ export const tagRearticle = (params)=>{ //修改标签名，_id，title，
 }
 
 //登录
-export const tagRearticle = (params)=>{ //password
-  return fetch('/tag/rearticle',params)
+export const login = (params)=>{ //password
+  return fetch('/login',params)
 }

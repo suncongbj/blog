@@ -120,6 +120,8 @@ export default {
       }
       articleList().then(res=>{
         console.log(res)
+      }).catch(res=>{
+        
       })
     }
     
