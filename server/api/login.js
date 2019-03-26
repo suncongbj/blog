@@ -20,3 +20,5 @@ router.post('/login',async(ctx)=>{
 	    }
 	}
 })
+
+module.exports = router
