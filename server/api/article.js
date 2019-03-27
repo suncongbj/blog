@@ -97,7 +97,7 @@ router.post('/article/rearticle',async(ctx)=>{
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db('blog');
-	    var whereStr = {"id": ObjectId(params._id)};  // 查询条件
+	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
 	    var updateStr = {$set: {content_md: params.content_md,content_html: params.content_html}};
 	    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 	        if (err) throw err;
@@ -156,7 +156,7 @@ router.post('/article/delete',async(ctx)=>{
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db('blog');
-	    var whereStr = {"id": params._id};  // 查询条件
+	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
 	    dbo.collection("article").deleteOne(whereStr, function(err, obj) {
 	        if (err) throw err;
 	        console.log("文档删除成功");

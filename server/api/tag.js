@@ -9,12 +9,21 @@ router.get('/tag/list',async(ctx)=>{
 	let getList = () => {
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url, function(err, db) {
-			    if (err) throw err;
+			    if (err) {
+			    	reject({
+			    		code: 1,
+			    		msg: err
+			    	})
+			    }
 			    var dbo = db.db('blog');
 			    dbo.collection('tag').find().toArray(function(err, result) {
-			        if (err) throw err;
+			        if (err) {
+			        	reject({
+			        		code: 1,
+			        		msg: err
+			        	})
+			        }
 			        db.close();
-			        console.log(result)
 			        resolve(result)
 			  });
 			});
@@ -62,28 +71,80 @@ router.post('/tag/add',async (ctx)=>{
 router.post('/tag/rearticle',async(ctx)=>{
 	let params = ctx.request.query
 	console.log(ctx.session.password)
-	if(!ctx.session.password){
-		ctx.body={
-	        code: 2,
-	        msg: '无此权限',
-	    }
-	    return
+	let p = () => {
+		return new Promise((resolve,reject)=>{
+			if(!ctx.session.password){
+				reject({
+			        code: 2,
+			        msg: '无此权限',
+			    })
+			}
+			MongoClient.connect(url, function(err, db) {
+			    if (err){
+			    	reject({
+			    		code: 1,
+			    		msg: err
+			    	})
+			    }
+			    var dbo = db.db('blog');
+			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
+			    var updateStr = {$set: {title: params.title}};
+			    dbo.collection('tag').updateOne(whereStr, updateStr, function(err, result) {
+			        if (err) {
+			        	reject({
+			        		code: 1,
+			        		msg: err
+			        	})
+			        }
+			        resolve({
+			        	code: 0,
+			        	msg: '文档更新成功'
+			        })
+			        db.close();
+			    });
+			});
+		})
 	}
-	MongoClient.connect(url, function(err, db) {
-	    if (err) throw err;
-	    var dbo = db.db('blog');
-	    var whereStr = {"id": ObjectId(params._id)};  // 查询条件
-	    var updateStr = {$set: {title: params.title}};
-	    dbo.collection('tag').updateOne(whereStr, updateStr, function(err, result) {
-	        if (err) throw err;
-	        console.log("文档更新成功");
-	        db.close();
-	        return 0
-	    });
-	});
-    ctx.body={
-        code: 0,
-        msg: 'success',
-    }
+	let result = await p()
+    ctx.body=result 
+})
+//删除标签
+router.post('/tag/delete' , async(ctx) => {
+	let params = ctx.request.query
+	let p = ()=>{
+		return new Promise((resolve,reject)=>{
+			if(!ctx.session.password) {
+				reject({
+					code: 2,
+					msg: '无此权限'
+				})
+			}
+			MongoClient.connect(url,(err,db)=>{
+				if(err){
+					reject({
+						code: 1,
+						msg: err 
+					})
+				}
+				let dbo = db.db('blog')
+				var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
+			    dbo.collection("tag").deleteOne(whereStr, function(err, obj) {
+			        if (err) throw err;
+			        resolve({
+			        	code: 0,
+			        	msg: '删除成功！'
+			        })
+			        db.close();
+			    });
+			})
+		})
+	}
+	let result = await p()
+	ctx.body = result
 })
 module.exports = router
+
+
+
+
+

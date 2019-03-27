@@ -15,6 +15,7 @@ router.post('/login',async(ctx)=>{
 	        msg: 'welcome',
 	    }
 	}else{
+		ctx.session.password = ''
 		ctx.body={
 	        code: 1,
 	        msg: 'wrong password',
