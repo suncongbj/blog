@@ -1,4 +1,4 @@
-import fetch from './fetch'
+import fetch from './axios.conf.js'
 //文章
 export const articleList = (params)=>{ //获取文章列表，参数tag_id(为空不分tag但是分页，不为空需要分页)，page，limit
   return fetch('/article/list',params,'get')
@@ -32,7 +32,7 @@ export const tagAdd = (params)=>{ //新建标签，title
 export const tagRearticle = (params)=>{ //修改标签名，_id，title，
   return fetch('/tag/rearticle',params)
 }
-export const tagDelete = (params)=>{ //删除变迁，_id
+export const tagDelete = (params)=>{ //删除标签，_id
   return fetch('/tag/delete',params)
 }
 //登录

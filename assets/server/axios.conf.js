@@ -1,9 +1,10 @@
 import axios from 'axios'
+import qs from 'qs'
 
 const baseURL = process.env.NODE_ENV == 'development' ? 'http://39.105.32.55:8080' : 'http://39.105.32.55:8080'
 
 axios.defaults.timeout = 12000;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = baseURL;
 axios.defaults.headers['Content-Type'];
 
@@ -36,4 +37,34 @@ axios.interceptors.response.use(function(response){
     return Promise.reject(error);
 });
 
-export default axios
+
+const fetch = function (url, params,type) {
+    console.log(params)
+    if(!params){
+        params = {}
+    }
+    return new Promise((resolve, reject) => {
+        if(type=='get'){
+            axios.get(url, {params:params})
+            .then(res => {
+                resolve(res.data);
+            }, err => {
+                reject(err);
+            })
+            .catch((error) => {
+               reject(error)
+            })
+        }else{
+            axios.post(url, qs.stringify(params))
+            .then(res => {
+                resolve(res.data);
+            }, err => {
+                reject(err);
+            })
+            .catch((error) => {
+               reject(error)
+            })
+        }
+    })
+}
+export default fetch

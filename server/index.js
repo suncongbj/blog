@@ -3,15 +3,12 @@ const koa = require('koa')
 const app = new koa()
 const Router = require('koa-router')
 const cors = require('koa2-cors')
-// const bodyParser = require('koa-bodyparser')
+const bodyParser = require('koa-bodyparser')
 const {connect} = require('./database/init.js')
 const session=require('koa-session');
-const koaBody = require('koa-body')({
-    multipart: true,  // 允许上传多个文件
-});
 
 app.use(cors())
-// app.use(bodyParser())
+app.use(bodyParser())
 
 ;(async () =>{
     await connect()
@@ -27,7 +24,6 @@ app.use(session({
   signed: true, /** (boolean) signed or not (default true) */
 },app));
 
-
 let article = require('./api/article')
 let search = require('./api/search')
 let tag = require('./api/tag')
@@ -39,7 +35,6 @@ router.use(article.routes())
 router.use(search.routes())
 router.use(tag.routes())
 router.use(login.routes())
-
 
 app.use(router.routes())
 app.use(router.allowedMethods())
