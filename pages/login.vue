@@ -2,12 +2,13 @@
 	<div class="login_box">
 		<div>
 			<el-input placeholder="请输入密码" v-model="password" show-password></el-input>
-			<el-button type="primary" style="margin-left: 10px;" size="small">login</el-button>
+			<el-button type="primary" style="margin-left: 10px;" size="small" @click="handlerLogin">login</el-button>
 		</div>
 	</div>
 </template>
 
 <script>
+import {login} from '~/assets/server/index'
 export default {
 	data(){
 		return {
@@ -15,7 +16,15 @@ export default {
 		}
 	},
 	methods:{
-
+		handlerLogin() {
+			login({
+				password: this.password
+			}).then(res=>{
+				if(!res.code) {
+					this.$router.push('/admin')
+				}
+			})
+		}
 	},
 	mounted(){
 		

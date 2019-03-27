@@ -30,6 +30,7 @@ router.get('/tag/list',async(ctx)=>{
 //新建标签
 router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.query
+	console.log(ctx.session.password)
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,
@@ -42,7 +43,7 @@ router.post('/tag/add',async (ctx)=>{
 			MongoClient.connect(url , (err,db)=>{
 				if (err) throw err
 				let dbo = db.db('blog');
-				dbo.collection('article').insertOne(params, function(err, result) {
+				dbo.collection('tag').insertOne(params, function(err, result) {
 			        if (err) throw err
 			        console.log("文档插入成功");
 			    	resolve('新建标签成功')
@@ -51,14 +52,16 @@ router.post('/tag/add',async (ctx)=>{
 			})
 		})
 	}
+	let msg = await p()
 	ctx.body={
 		code: 0,
-        msg: 'success',
+        msg: msg,
 	}
 })
 //修改标签名称
 router.post('/tag/rearticle',async(ctx)=>{
 	let params = ctx.request.query
+	console.log(ctx.session.password)
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,

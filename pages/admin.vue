@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="admin_tag_list">
-				<div v-for="v in 20" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
+				<div v-for="(v,k) in tag_list" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
 					{{v}}
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import {addTag,reviseTag,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
+import {tagAdd,reviseTag,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
 export default {
 	data(){
 		return {
@@ -126,8 +126,12 @@ export default {
 		},
 		submitAddArticle() {//提交新建文集
 			//addTag接口,成功关闭提交框,获取tag列表
-			this.add_tag_show = false
-			this.add_tag_inpit = ''
+			tagAdd({
+				title: this.add_tag_inpit
+			}).then(res=>{
+				this.add_tag_show = false
+				this.add_tag_inpit = ''
+			})
 		},
 		addArticle() {//添加文章
 	        this.$prompt('请输入文章标题', {
