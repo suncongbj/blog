@@ -1,6 +1,7 @@
 import axios from './config'
 import qs from 'qs'
 const fetch = function (url, params,type) {
+    console.log(params)
     if(!params){
         params = {}
     }

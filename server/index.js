@@ -3,18 +3,21 @@ const koa = require('koa')
 const app = new koa()
 const Router = require('koa-router')
 const cors = require('koa2-cors')
-const bodyParser = require('koa-bodyparser')
+// const bodyParser = require('koa-bodyparser')
 const {connect} = require('./database/init.js')
 const session=require('koa-session');
+const koaBody = require('koa-body')({
+    multipart: true,  // 允许上传多个文件
+});
 
 app.use(cors())
-app.use(bodyParser())
+// app.use(bodyParser())
 
 ;(async () =>{
     await connect()
 })()
 
- app.keys = ['this is my secret and fuck you all'];//我理解为一个加密的钥匙，类似一个token
+app.keys = ['this is my secret and fuck you all'];//我理解为一个加密的钥匙，类似一个token
 
 app.use(session({
   key: 'koa:sess', /** cookie的名称，可以不管 */
