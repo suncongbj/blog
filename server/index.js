@@ -7,8 +7,8 @@ const bodyParser = require('koa-bodyparser')
 const {connect} = require('./database/init.js')
 const session=require('koa-session');
 
-app.use(cors())
 app.use(bodyParser())
+app.use(cors())
 
 ;(async () =>{
     await connect()
