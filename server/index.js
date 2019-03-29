@@ -14,7 +14,7 @@ app.use(cors())
     await connect()
 })()
 
-app.keys = ['this is my secret and fuck you all'];//我理解为一个加密的钥匙，类似一个token
+app.keys = ['its like a token?'];//我理解为一个加密的钥匙，类似一个token
 
 app.use(session({
   key: 'koa:sess', /** cookie的名称，可以不管 */
@@ -24,12 +24,12 @@ app.use(session({
   signed: true, /** (boolean) signed or not (default true) */
 },app));
 
+let router = new Router()
 let article = require('./api/article')
 let search = require('./api/search')
 let tag = require('./api/tag')
 let login = require('./api/login')
 
-let router = new Router()
 
 router.use(article.routes())
 router.use(search.routes())

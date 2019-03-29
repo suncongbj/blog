@@ -3,7 +3,7 @@
 		<div class="admin_tag">
 			<div class="admin_tag_add" @click="addTag">新建文集</div>
 			<div class="admin_tag_input" v-show="add_tag_show">
-				<input type="text" placeholder="请输入文集名...">
+				<input type="text" placeholder="请输入文集名..." v-model="add_tag_inpit">
 				<div class="admin_tag_input_btn">
 					<div @click="submitAddArticle">提 交</div>
 					<div @click="add_tag_show = false">取 消</div>
