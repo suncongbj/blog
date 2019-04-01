@@ -11,7 +11,7 @@
 			</div>
 			<div class="admin_tag_list">
 				<div v-for="(v,k) in tag_list" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
-					{{v}}
+					{{v.title}}
 				</div>
 			</div>
 			<div class="admin_tag_opt">
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import {tagAdd,reviseTag,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
 export default {
 	data(){

@@ -8,7 +8,6 @@ let router = new Router()
 router.post('/login',async(ctx)=>{
 	let params = ctx.request.query
 	console.log(params)
-	console.log(JSON.stringify(ctx))
 	if(params.password == 'asui4132508') {
 		ctx.session.password = 'asui4132508'
 		ctx.body={

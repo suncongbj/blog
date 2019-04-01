@@ -4,7 +4,7 @@ import qs from 'qs'
 const baseURL = process.env.NODE_ENV == 'development' ? 'http://39.105.32.55:8080' : 'http://39.105.32.55:8080'
 
 axios.defaults.timeout = 12000;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers['Content-Type'];
 axios.defaults.baseURL = baseURL;
 
