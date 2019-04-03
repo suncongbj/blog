@@ -6,26 +6,20 @@ let router = new Router()
 
 //密码登录
 router.post('/login',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	console.log(ctx.request.body)
-	console.log(ctx.request.query)
-	// if(params.password == 'asui4132508') {
-	// 	ctx.session.password = 'asui4132508'
-	// 	ctx.body={
-	//         code: 0,
-	//         msg: 'welcome',
-	//     }
-	// }else{
-	// 	ctx.session.password = ''
-	// 	ctx.body={
-	//         code: 1,
-	//         msg: 'wrong password',
-	//     }
-	// }
-	ctx.body={
-		ctx: ctx,
-		request: ctx.request,
-		response: ctx.response
+	if(params.password == 'asui4132508') {
+		ctx.session.password = 'asui4132508'
+		ctx.body={
+	        code: 0,
+	        msg: 'welcome',
+	    }
+	}else{
+		ctx.session.password = ''
+		ctx.body={
+	        code: 1,
+	        msg: 'wrong password',
+	    }
 	}
 })
 
