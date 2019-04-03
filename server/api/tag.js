@@ -39,38 +39,33 @@ router.get('/tag/list',async(ctx)=>{
 //新建标签
 router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.query
-	console.log(params)
 	console.log(ctx.session.password)
+	if(!ctx.session.password){
+		ctx.body={
+	        code: 2,
+	        msg: '无此权限',
+	    }
+	    return
+	}
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
-			if(!ctx.session.password){
-				reject({
-					code: 2,
-					msg: '无此权限！'
-				})
-			}
-			if(!params.title) {
-				reject({
-					code: 1,
-					msg: '请输入标签名字'
-				})
-			}
 			MongoClient.connect(url , (err,db)=>{
 				if (err) throw err
 				let dbo = db.db('blog');
 				dbo.collection('tag').insertOne(params, function(err, result) {
 			        if (err) throw err
-			    	resolve({
-			    		msg: '文档插入成功！',
-			    		code: 0
-			    	})
+			        console.log("文档插入成功");
+			    	resolve('新建标签成功')
 			        db.close();
 			    });
 			})
 		})
 	}
-	let result = await p()
-	ctx.body= result
+	let msg = await p()
+	ctx.body={
+		code: 0,
+        msg: msg,
+	}
 })
 //修改标签名称
 router.post('/tag/rearticle',async(ctx)=>{
