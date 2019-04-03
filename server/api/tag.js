@@ -61,8 +61,10 @@ router.post('/tag/add',async (ctx)=>{
 				let dbo = db.db('blog');
 				dbo.collection('tag').insertOne(params, function(err, result) {
 			        if (err) throw err
-			        console.log("文档插入成功");
-			    	resolve('新建标签成功')
+			    	resolve({
+			    		msg: '文档插入成功！',
+			    		code: 0
+			    	})
 			        db.close();
 			    });
 			})
