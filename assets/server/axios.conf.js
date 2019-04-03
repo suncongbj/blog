@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-const baseURL = process.env.NODE_ENV == 'development' ? 'http://39.105.32.55:89' : 'http://39.105.32.55:89'
+const baseURL = process.env.NODE_ENV == 'development' ? 'http://39.105.32.55:3000' : 'http://39.105.32.55:3000'
 
 axios.defaults.timeout = 12000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

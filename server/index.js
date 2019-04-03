@@ -39,6 +39,6 @@ router.use(login.routes())
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(89,()=>{
-    console.log('[Server] starting at port 89')
+app.listen(3000,()=>{
+    console.log('[Server] starting at port 3000')
 })
