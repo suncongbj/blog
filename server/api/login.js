@@ -8,6 +8,7 @@ let router = new Router()
 router.post('/login',async(ctx)=>{
 	let params = ctx.request.query
 	console.log(ctx.request.body)
+	console.log(ctx.request.query)
 	// if(params.password == 'asui4132508') {
 	// 	ctx.session.password = 'asui4132508'
 	// 	ctx.body={
@@ -26,7 +27,6 @@ router.post('/login',async(ctx)=>{
 		request: ctx.request,
 		response: ctx.response
 	}
-
 })
 
 module.exports = router
