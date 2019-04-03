@@ -18,22 +18,13 @@ export default {
 	},
 	methods:{
 		handlerLogin() {
-			// login({
-			// 	password: this.password
-			// }).then(res=>{
-			// 	if(!res.code) {
-			// 		this.$router.push('/admin')
-			// 	}
-			// })
-			axios.post('/login', {
+			login({
 				password: this.password
-			  })
-			  .then(function (res) {
-			    console.log(res);
-			  })
-			  .catch(function (error) {
-			    console.log(error);
-			  });
+			}).then(res=>{
+				if(!res.code) {
+					this.$router.push('/admin')
+				}
+			})
 		}
 	},
 	mounted(){

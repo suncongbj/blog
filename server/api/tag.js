@@ -38,7 +38,7 @@ router.get('/tag/list',async(ctx)=>{
 })
 //新建标签
 router.post('/tag/add',async (ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	console.log(ctx.session.password)
 	if(!ctx.session.password){
 		ctx.body={
@@ -69,7 +69,7 @@ router.post('/tag/add',async (ctx)=>{
 })
 //修改标签名称
 router.post('/tag/rearticle',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	console.log(ctx.session.password)
 	let p = () => {
 		return new Promise((resolve,reject)=>{
@@ -110,7 +110,7 @@ router.post('/tag/rearticle',async(ctx)=>{
 })
 //删除标签
 router.post('/tag/delete' , async(ctx) => {
-	let params = ctx.request.query
+	let params = ctx.request.body
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
 			if(!ctx.session.password) {

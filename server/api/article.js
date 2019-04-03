@@ -62,7 +62,7 @@ router.get('/article/detail',async(ctx)=>{
 })
 //根据_id修改文章标题
 router.post('/article/retitle',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,
@@ -93,7 +93,7 @@ router.post('/article/retitle',async(ctx)=>{
 })
 //根据id修改文章内容
 router.post('/article/rearticle',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	MongoClient.connect(url, function(err, db) {
 	    if (err) throw err;
 	    var dbo = db.db('blog');
@@ -113,7 +113,7 @@ router.post('/article/rearticle',async(ctx)=>{
 })
 //提交文章
 router.post('/article/add',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,
@@ -145,7 +145,7 @@ router.post('/article/add',async(ctx)=>{
 })
 //删除文章
 router.post('/article/delete',async(ctx)=>{
-	let params = ctx.request.query
+	let params = ctx.request.body
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,
