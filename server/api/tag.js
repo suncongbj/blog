@@ -41,15 +41,21 @@ router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.query
 	console.log(params)
 	console.log(ctx.session.password)
-	if(!ctx.session.password){
-		ctx.body={
-	        code: 2,
-	        msg: '无此权限',
-	    }
-	    return
-	}
+	// if(!ctx.session.password){
+	// 	ctx.body={
+	//         code: 2,
+	//         msg: '无此权限',
+	//     }
+	//     return
+	// }
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
+			if(!params.title) {
+				reject({
+					code: 1,
+					msg: '请输入标签名字'
+				})
+			}
 			MongoClient.connect(url , (err,db)=>{
 				if (err) throw err
 				let dbo = db.db('blog');
@@ -62,11 +68,8 @@ router.post('/tag/add',async (ctx)=>{
 			})
 		})
 	}
-	let msg = await p()
-	ctx.body={
-		code: 0,
-        msg: msg,
-	}
+	let result = await p()
+	ctx.body= result
 })
 //修改标签名称
 router.post('/tag/rearticle',async(ctx)=>{

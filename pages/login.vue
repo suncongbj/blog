@@ -9,6 +9,7 @@
 
 <script>
 import {login} from '~/assets/server/index'
+import axios from 'axios'
 export default {
 	data(){
 		return {
@@ -17,13 +18,22 @@ export default {
 	},
 	methods:{
 		handlerLogin() {
-			login({
+			// login({
+			// 	password: this.password
+			// }).then(res=>{
+			// 	if(!res.code) {
+			// 		this.$router.push('/admin')
+			// 	}
+			// })
+			axios.post('/login', {
 				password: this.password
-			}).then(res=>{
-				if(!res.code) {
-					this.$router.push('/admin')
-				}
-			})
+			  })
+			  .then(function (res) {
+			    console.log(res);
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
 		}
 	},
 	mounted(){
