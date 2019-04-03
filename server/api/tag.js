@@ -41,15 +41,14 @@ router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.query
 	console.log(params)
 	console.log(ctx.session.password)
-	// if(!ctx.session.password){
-	// 	ctx.body={
-	//         code: 2,
-	//         msg: '无此权限',
-	//     }
-	//     return
-	// }
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
+			if(!ctx.session.password){
+				reject({
+					code: 2,
+					msg: '无此权限！'
+				})
+			}
 			if(!params.title) {
 				reject({
 					code: 1,
