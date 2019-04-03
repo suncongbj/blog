@@ -6,8 +6,8 @@ let router = new Router()
 
 //密码登录
 router.post('/login',async(ctx)=>{
-	console.log('body@@@'+ctx.request.body)
-	console.log('query@@@'+ctx.request.query)
+	console.log(ctx.request.body)
+	console.log(ctx.request.query)
 	if(ctx.request.body.password == 'asui4132508') {
 		ctx.session.password = 'asui4132508'
 		ctx.body={
