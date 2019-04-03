@@ -39,6 +39,8 @@ router.get('/tag/list',async(ctx)=>{
 //新建标签
 router.post('/tag/add',async (ctx)=>{
 	let params = ctx.request.body
+	console.log(ctx.request.body)
+	console.log(ctx.request.query)
 	console.log(ctx.session.password)
 	if(!ctx.session.password){
 		ctx.body={
