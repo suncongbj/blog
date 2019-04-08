@@ -8,7 +8,9 @@ const {connect} = require('./database/init.js')
 const session=require('koa-session');
 
 app.use(bodyParser())
-app.use(cors())
+app.use(cors({
+	credentials: true
+}))
 
 ;(async () =>{
     await connect()
@@ -29,7 +31,6 @@ let article = require('./api/article')
 let search = require('./api/search')
 let tag = require('./api/tag')
 let login = require('./api/login')
-
 
 router.use(article.routes())
 router.use(search.routes())

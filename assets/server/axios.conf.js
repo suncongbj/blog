@@ -7,7 +7,7 @@ axios.defaults.timeout = 12000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers['Content-Type'];
 axios.defaults.baseURL = baseURL;
-
+axios.defaults.withCredentials = true
 //添加一个返回拦截器
 axios.interceptors.response.use(function(response){
     //对返回的数据进行一些处理
