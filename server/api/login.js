@@ -10,6 +10,7 @@ router.post('/login',async(ctx)=>{
 	console.log(ctx.request.query)
 	if(ctx.request.body.password == 'asui4132508') {
 		ctx.session.password = 'asui4132508'
+		console.log(ctx.session.password)
 		ctx.body={
 	        code: 0,
 	        msg: 'welcome',
