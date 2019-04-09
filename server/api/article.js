@@ -98,7 +98,7 @@ router.post('/article/rearticle',async(ctx)=>{
 	    if (err) throw err;
 	    var dbo = db.db('blog');
 	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-	    var updateStr = {$set: {content_md: params.content_md,content_html: params.content_html}};
+	    var updateStr = {$set: {content: params.content}};
 	    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 	        if (err) throw err;
 	        console.log("文档更新成功");
@@ -124,8 +124,7 @@ router.post('/article/add',async(ctx)=>{
 	let obj = {
 			title: params.title,
 			tag_id: params.tag_id,
-			content_html: params.content_html,
-			content_md: params.content_md,
+			content: params.content,
 			ctime: new Date(),
 	}
 	MongoClient.connect(url, function(err, db) {
