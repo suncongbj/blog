@@ -15,8 +15,8 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
-      { hid: 'description', name: 'description', content: '博客,个人博客,技术,技术博客,技术分享' },
-      { name:'keywords' , content:'js,html,web,css,node,前端开发,web开发' }
+      { hid: 'description', name: 'description', content: 'suncong的个人博客' },
+      { name:'keywords' , content:'js,html,web,css,node,前端开发,web开发,博客,个人博客' }
     ],
     script: [
       { src: '/js/iconfont.js' },

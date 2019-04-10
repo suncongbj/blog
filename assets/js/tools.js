@@ -1,3 +1,4 @@
+//获取设备可视高度
 export const getWindowHeight = () => {
 	return window.screen.availHeight
 }

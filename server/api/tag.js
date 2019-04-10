@@ -69,7 +69,7 @@ router.post('/tag/add',async (ctx)=>{
 	}
 })
 //修改标签名称
-router.post('/tag/rearticle',async(ctx)=>{
+router.post('/tag/retitle',async(ctx)=>{
 	let params = ctx.request.body
 	console.log(ctx.session.password)
 	let p = () => {

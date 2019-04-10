@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="admin_tag_list">
-				<div v-for="(v,k) in tag_list" :class="{'admin_tag_list__active': tag_index==v}" @click="handlerTag(v)">
+				<div v-for="(v,k) in tag_list" :class="{'admin_tag_list__active': tag_index==k}" @click="handlerTag(v,k)">
 					{{v.title}}
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 			  </div>
 			  <el-button slot="reference" style="width: 20px;height: 20px;box-sizing: border-box;padding: 0;border-radius: 100%;">?</el-button>
 			</el-popover>
-			<div class="admin_detail_tip">{{article_tip}}</div>
+			<div class="admin_detail_tip">保存</div>
 			<input type="text">
 			<textarea v-model="content"></textarea>
 		</div>
@@ -73,41 +73,43 @@
 
 <script>
 import axios from 'axios'
-import {tagAdd,reviseTag,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
+import {tagAdd,tagRearticle,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
+// import showdown from 'showdown'
+// const m2h = new showdown.Converter()
 export default {
 	data(){
 		return {
-			tag_index: 1,
-			art_index: 1,
+			tag_index: 1,//tag索引
+			art_index: 1,//文章索引
+			tag_obj: {},//选中tag的信息
 			add_tag_show: false,
 			add_tag_inpit: '',
 
 			tag_list: [],
 
-			article_tip: "已保存",//保存中...
-
 			shake_time: 1500,//防抖时间
 
 			content: '',
-			content_md: '',//markdown内容
-			content_html: '',
 			title: '',//文章标题
 
 			timer: ''
 		}
 	},
 	watch: {
-		content() {
-			
-		},
+		
 	},
 	methods:{
 		reviseTagName() {//修改标签名称
-			this.$prompt('修改（当前标签名）为：', {
+			this.$prompt('修改 "'+this.tag_obj.title+'" 为：', {
 	          confirmButtonText: '确定',
 	          cancelButtonText: '取消',
 	        }).then(({ value }) => {
-	          //点击提交
+	          tagRearticle({
+	          	_id: this.tag_obj._id,
+	          	title: this.tag_obj.title
+	          }).then(res=>{
+				this.getTags()
+	          })
 	        }).catch(() => {
 	          //点击取消
 	        });
@@ -115,8 +117,9 @@ export default {
 		submitContent() {//提交文章修改内容
 			this.article_tip = '已保存'
 		},
-		handlerTag(index) {//点击文集
-			this.tag_index = index
+		handlerTag(v,k) {//点击文集
+			this.tag_index = k
+			this.tag_obj = v
 		},
 		handlerArt(index) {//点击文章
 			this.art_index = index
@@ -132,6 +135,7 @@ export default {
 			}).then(res=>{
 				this.add_tag_show = false
 				this.add_tag_inpit = ''
+				this.getTags()
 			})
 		},
 		addArticle() {//添加文章
@@ -147,11 +151,17 @@ export default {
 	    getTags() {
 	    	tagList().then(res=>{
 	    		this.tag_list = res.data
+	    		setTimeout(()=>{
+					this.handlerTag(this.tag_list[0],0)
+	    		},10)
 	    	})
+	    },
+	    initData() {
+			this.getTags()
 	    }
 	},
 	mounted(){
-		this.getTags()
+		this.initData()
 	}
 }
 </script>
@@ -159,8 +169,9 @@ export default {
 <style scoped>
 .admin_detail_tip{
 	position: absolute;
-	font-size: 14px;color: #666;
+	font-size: 14px;color: #4788C4;
 	top: 10px;right: 10px;
+	cursor: pointer;
 }
 .admin_detail>textarea{
 	border: none;
@@ -171,6 +182,7 @@ export default {
 	outline: none;
 	font-size: 18px;
     color: #595959;
+    resize: none;
 }
 .admin_detail>input{
 	width: 100%;

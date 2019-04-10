@@ -29,8 +29,8 @@ export const tagList = (params)=>{ //获取标签列表
 export const tagAdd = (params)=>{ //新建标签，title
   return fetch('/tag/add',params)
 }
-export const tagRearticle = (params)=>{ //修改标签名，_id，title，
-  return fetch('/tag/rearticle',params)
+export const tagRetitle = (params)=>{ //修改标签名，_id，title，
+  return fetch('/tag/retitle',params)
 }
 export const tagDelete = (params)=>{ //删除标签，_id
   return fetch('/tag/delete',params)
