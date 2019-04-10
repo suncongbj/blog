@@ -76,7 +76,7 @@ router.post('/article/retitle',async(ctx)=>{
 			    if (err) throw err;
 			    var dbo = db.db('blog');
 			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-			    var updateStr = {$set: {title: params.title}};
+			    var updateStr = {$set: {'title': params.title}};
 			    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 			        if (err) throw err;
 			        resolve("文档更新成功")
@@ -98,7 +98,7 @@ router.post('/article/rearticle',async(ctx)=>{
 	    if (err) throw err;
 	    var dbo = db.db('blog');
 	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-	    var updateStr = {$set: {content: params.content}};
+	    var updateStr = {$set: {'content': params.content}};
 	    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 	        if (err) throw err;
 	        console.log("文档更新成功");
