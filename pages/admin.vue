@@ -73,7 +73,7 @@
 
 <script>
 import axios from 'axios'
-import {tagAdd,tagRearticle,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
+import {tagAdd,tagRetitle,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
 // import showdown from 'showdown'
 // const m2h = new showdown.Converter()
 export default {
@@ -104,7 +104,7 @@ export default {
 	          confirmButtonText: '确定',
 	          cancelButtonText: '取消',
 	        }).then(({ value }) => {
-	          tagRearticle({
+	          tagRetitle({
 	          	_id: this.tag_obj._id,
 	          	title: this.tag_obj.title
 	          }).then(res=>{

@@ -80,6 +80,12 @@ router.post('/tag/retitle',async(ctx)=>{
 			        msg: '无此权限',
 			    })
 			}
+			if(!params.title) {
+				reject({
+					code: 1,
+					msg: 'error:can not fund params "title"',
+				})
+			}
 			MongoClient.connect(url, function(err, db) {
 			    if (err){
 			    	reject({
