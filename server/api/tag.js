@@ -71,6 +71,7 @@ router.post('/tag/add',async (ctx)=>{
 //修改标签名称
 router.post('/tag/retitle',async(ctx)=>{
 	let params = ctx.request.body
+	console.log(params)
 	console.log(ctx.session.password)
 	let p = () => {
 		return new Promise((resolve,reject)=>{
