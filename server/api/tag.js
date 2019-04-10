@@ -96,7 +96,7 @@ router.post('/tag/retitle',async(ctx)=>{
 			    }
 			    var dbo = db.db('blog');
 			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-			    var updateStr = {$set: {title: params.title}};
+			    var updateStr = {$set: {'title': params.title}};
 			    dbo.collection('tag').updateOne(whereStr, updateStr, function(err, result) {
 			        if (err) {
 			        	reject({
