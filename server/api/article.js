@@ -66,8 +66,9 @@ router.get('/article/detail',async(ctx)=>{
     }
 })
 //根据_id修改文章标题
-router.post('/article/retitle',async(ctx)=>{
+router.post('/article/reset',async(ctx)=>{
 	let params = ctx.request.body
+	console.log(params)
 	if(!ctx.session.password){
 		ctx.body={
 	        code: 2,
@@ -75,13 +76,13 @@ router.post('/article/retitle',async(ctx)=>{
 	    }
 	    return
 	}
-	let resetTit = ()=>{
+	let reset = ()=>{
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url, function(err, db) {
 			    if (err) throw err;
 			    var dbo = db.db('blog');
 			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-			    var updateStr = {$set: {'title': params.title}};
+			    var updateStr = {$set: {'title': params.title,'content': params.conetnt}};
 			    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 			        if (err) throw err;
 			        resolve("文档更新成功")
@@ -90,30 +91,10 @@ router.post('/article/retitle',async(ctx)=>{
 			});
 		})
 	}
-	let msg = await resetTit()
+	let msg = await reset()
     ctx.body={
         code: 0,
         msg: msg,
-    }
-})
-//根据id修改文章内容
-router.post('/article/rearticle',async(ctx)=>{
-	let params = ctx.request.body
-	MongoClient.connect(url, function(err, db) {
-	    if (err) throw err;
-	    var dbo = db.db('blog');
-	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-	    var updateStr = {$set: {'content': params.content}};
-	    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
-	        if (err) throw err;
-	        console.log("文档更新成功");
-	        db.close();
-	        return 0
-	    });
-	});
-    ctx.body={
-        code: 0,
-        msg: 'success',
     }
 })
 //提交文章

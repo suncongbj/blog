@@ -6,11 +6,8 @@ export const articleList = (params)=>{ //获取文章列表，参数tag_id(为�
 export const articleDetail = (params)=>{ //根据文章_id获取文章详情接口
   return fetch('/article/detail',params,'get')
 }
-export const articleRetitle = (params)=>{ //根据文章_id获取文章详情接口
-  return fetch('/article/retitle',params)
-}
-export const articleRearticle = (params)=>{ //根据文章_id获取文章详情接口
-  return fetch('/article/rearticle',params)
+export const articleReset = (params)=>{ //根据文章_id获取文章详情接口
+  return fetch('/article/reset',params)
 }
 export const articleAdd = (params)=>{ //根据文章_id获取文章详情接口
   return fetch('/article/add',params)

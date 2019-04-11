@@ -64,7 +64,7 @@
 			  </div>
 			  <el-button slot="reference" style="width: 20px;height: 20px;box-sizing: border-box;padding: 0;border-radius: 100%;">?</el-button>
 			</el-popover>
-			<div class="admin_detail_tip_save"><i style="margin-right: 9px" v-show="art_save_loading" class="el-icon-loading"></i><span v-show="!art_save_loading">保存</span></div>
+			<div class="admin_detail_tip_save"><i style="margin-right: 9px" v-show="art_save_loading" class="el-icon-loading"></i><span v-show="!art_save_loading" @click="saveArt">保存</span></div>
 			<div class="admin_detail_tip_delete" @click="deleteArt">删除</div>
 			
 			<input type="text" v-model="title">
@@ -93,7 +93,7 @@ export default {
 			tag_list: [],
 			art_list: [],
 
-			content: '',
+			content: '',//文章内容
 			title: '',//文章标题
 
 			timer: ''
@@ -103,6 +103,9 @@ export default {
 		
 	},
 	methods:{
+		saveArt() {//保存文章
+			
+		},
 		deleteArt() {//删除文章
 			this.$confirm('是否要删除文章： "'+this.art_obj.title+'"？', '提示', {
 				confirmButtonText: '确定',
@@ -114,7 +117,7 @@ export default {
 				}).then(res=>{
 					if(!res.code) {
 						this.$succ('删除成功!')
-						this.handlerTag(this.tag_obj,0)
+						this.handlerTag(this.tag_obj,this.tag_index)
 					}
 				})
 			}).catch(() => {
@@ -167,7 +170,7 @@ export default {
 			this.tag_index = k
 			this.tag_obj = v
 			articleList({
-				tag_id: v._id
+				// tag_id: v._id
 			}).then(res=>{
 				this.art_list =res.data
 				setTimeout(()=>{
@@ -181,7 +184,8 @@ export default {
 			articleDetail({
 				_id: v._id
 			}).then(res=>{
-				this.content = res.data.content
+				this.content = res.data[0].content
+				this.title = res.data[0].title
 			})
 		},
 		addTag() {//新建文集
