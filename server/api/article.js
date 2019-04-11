@@ -13,13 +13,15 @@ router.get('/article/list',async(ctx)=>{
 			    if (err) throw err;
 			    var dbo = db.db('blog');
 			    if(params.tag_id) {
-					dbo.collection('article').find({"tag_id" : ObjectId(params.tag_id)}).toArray(function(err, result) {
+					let whereStr = {'tag_id' : ObjectId(params.tag_id)}
+					dbo.collection('article').find(whereStr).toArray(function(err, result) {
 				        if (err) throw err;
 				        db.close();
 				        console.log(result)
 				        resolve(result)
 				    });
 			    }else{
+			    	console.log('get whth page')
 					dbo.collection('article').find().skip((params.page-1)*30).limit(30).toArray(function(err, result) {
 				        if (err) throw err;
 				        db.close();

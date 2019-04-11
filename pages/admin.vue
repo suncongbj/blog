@@ -64,8 +64,9 @@
 			  </div>
 			  <el-button slot="reference" style="width: 20px;height: 20px;box-sizing: border-box;padding: 0;border-radius: 100%;">?</el-button>
 			</el-popover>
-			<div class="admin_detail_tip"><i style="margin-right: 9px" v-show="art_save_loading" class="el-icon-loading"></i><span v-show="!art_save_loading">保存</span></div>
-
+			<div class="admin_detail_tip_save"><i style="margin-right: 9px" v-show="art_save_loading" class="el-icon-loading"></i><span v-show="!art_save_loading">保存</span></div>
+			<div class="admin_detail_tip_delete" @click="deleteArt">删除</div>
+			
 			<input type="text" v-model="title">
 			<textarea v-model="content"></textarea>
 		</div>
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail} from '~/assets/server/index'
+import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail,articleDelete} from '~/assets/server/index'
 import {formatDate} from '~/assets/js/tools'
 // import showdown from 'showdown'
 // const m2h = new showdown.Converter()
@@ -102,6 +103,23 @@ export default {
 		
 	},
 	methods:{
+		deleteArt() {//删除文章
+			this.$confirm('是否要删除文章： "'+this.art_obj.title+'"？', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				articleDelete({
+					_id: this.art_obj._id
+				}).then(res=>{
+					if(!res.code) {
+						this.$succ('删除成功!')
+					}
+				})
+			}).catch(() => {
+				
+			});
+		},
 		deleteTag() {//删除标签
 			this.$confirm('是否要删除标签： "'+this.tag_obj.title+'"？', '提示', {
 				confirmButtonText: '确定',
@@ -148,7 +166,7 @@ export default {
 			this.tag_index = k
 			this.tag_obj = v
 			articleList({
-				tag_id: this.tag_obj._id
+				tag_id: v._id
 			}).then(res=>{
 				this.art_list =res.data
 			})
@@ -159,7 +177,7 @@ export default {
 			articleDetail({
 				_id: v._id
 			}).then(res=>{
-				this.content = res.data
+				this.content = res.data.content
 			})
 		},
 		addTag() {//新建文集
@@ -182,10 +200,11 @@ export default {
 	          cancelButtonText: '取消',
 	        }).then(({ value }) => {
 	          //点击提交
-	          console.log(articleAdd)
+	          console.log(this.tag_obj)
 	          articleAdd({
 	          	title: value,
 	          	content: '',
+	          	tag_id: this.tag_obj._id
 	          }).then(res=>{
 	          	if(!res.code){
 	          		this.handlerTag(this.art_obj,0)
@@ -214,10 +233,16 @@ export default {
 </script>
 
 <style scoped>
-.admin_detail_tip{
+.admin_detail_tip_delete {
+	position: absolute;
+	font-size: 14px;color: #E0786F;
+	top: 10px;right: 10px;
+	cursor: pointer;
+}
+.admin_detail_tip_save{
 	position: absolute;
 	font-size: 14px;color: #4788C4;
-	top: 10px;right: 10px;
+	top: 10px;right: 48px;
 	cursor: pointer;
 }
 .admin_detail>textarea{
