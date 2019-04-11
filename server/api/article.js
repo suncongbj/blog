@@ -157,15 +157,36 @@ router.post('/article/delete',async(ctx)=>{
 	    }
 	    return
 	}
-	MongoClient.connect(url, function(err, db) {
-	    if (err) throw err;
-	    var dbo = db.db('blog');
-	    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-	    dbo.collection("article").deleteOne(whereStr, function(err, obj) {
-	        if (err) throw err;
-	        console.log("文档删除成功");
-	        db.close();
-	    });
-	});
+	let p = () =>{
+		return new Promise((resolve,reject)=>{
+			MongoClient.connect(url, function(err, db) {
+			    if (err) {
+			    	reject({
+			    		code: 1,
+			    		msg: err
+			    	})
+			    	throw err
+			    };
+			    var dbo = db.db('blog');
+			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
+			    dbo.collection("article").deleteOne(whereStr, function(err, obj) {
+			        if (err) {
+			        	reject({
+			        		code: 1,
+			        		msg: err
+			        	})
+			        	throw err
+			        };
+			        resolve({
+			        	code: 0,
+			        	msg: '文档删除成功！'
+			        })
+			        db.close();
+			    });
+			});
+		})
+	}
+	ctx.body = await p()
+	
 })
 module.exports = router

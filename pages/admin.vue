@@ -114,7 +114,7 @@ export default {
 				}).then(res=>{
 					if(!res.code) {
 						this.$succ('删除成功!')
-						this.handlerTag(this.tag_obj)
+						this.handlerTag(this.tag_obj,0)
 					}
 				})
 			}).catch(() => {
@@ -169,7 +169,7 @@ export default {
 			articleList({
 				tag_id: v._id
 			}).then(res=>{
-				this.art_list =res.data[0]
+				this.art_list =res.data
 				setTimeout(()=>{
 					this.handlerArt(this.art_list[0],0)
 				},10)
