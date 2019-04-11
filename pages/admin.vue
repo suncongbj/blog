@@ -169,7 +169,7 @@ export default {
 			articleList({
 				tag_id: v._id
 			}).then(res=>{
-				this.art_list =res.data
+				this.art_list =res.data[0]
 				setTimeout(()=>{
 					this.handlerArt(this.art_list[0],0)
 				},10)
