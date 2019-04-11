@@ -128,7 +128,7 @@ router.post('/article/add',async(ctx)=>{
 	}
 	let obj = {
 			title: params.title,
-			tag_id: params.tag_id,
+			tag_id: ObjectId(params.tag_id),
 			content: params.content,
 			ctime: new Date(),
 	}
