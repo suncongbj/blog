@@ -83,7 +83,7 @@ router.post('/article/reset',async(ctx)=>{
 			    var dbo = db.db('blog');
 			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
 			    var updateStr = {$set: {
-			    		'content': params.conetnt,
+			    		'content': params.content,
 			    		'title': params.title,
 			    	}
 			    };
