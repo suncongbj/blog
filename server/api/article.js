@@ -65,7 +65,7 @@ router.get('/article/detail',async(ctx)=>{
         data: data
     }
 })
-//根据_id修改文章标题
+//根据_id修改文章
 router.post('/article/reset',async(ctx)=>{
 	let params = ctx.request.body
 	console.log(params)
@@ -82,7 +82,11 @@ router.post('/article/reset',async(ctx)=>{
 			    if (err) throw err;
 			    var dbo = db.db('blog');
 			    var whereStr = {"_id": ObjectId(params._id)};  // 查询条件
-			    var updateStr = {$set: {'title': params.title,'content': params.conetnt}};
+			    var updateStr = {$set: {
+			    		'content': params.conetnt,
+			    		'title': params.title,
+			    	}
+			    };
 			    dbo.collection('article').updateOne(whereStr, updateStr, function(err, result) {
 			        if (err) throw err;
 			        resolve("文档更新成功")

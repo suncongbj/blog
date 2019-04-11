@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail,articleDelete} from '~/assets/server/index'
+import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail,articleDelete,articleReset} from '~/assets/server/index'
 import {formatDate} from '~/assets/js/tools'
 // import showdown from 'showdown'
 // const m2h = new showdown.Converter()
@@ -104,7 +104,13 @@ export default {
 	},
 	methods:{
 		saveArt() {//保存文章
-			
+			articleReset({
+				_id: this.art_obj._id,
+				title: this.title,
+				content: this.content
+			}).then(res=>{
+				this.$succ(res.msg)
+			})
 		},
 		deleteArt() {//删除文章
 			this.$confirm('是否要删除文章： "'+this.art_obj.title+'"？', '提示', {
