@@ -16,13 +16,13 @@
 			</div>
 			<div class="admin_tag_opt">
 				<p @click="reviseTagName()">改 名</p>
-				<p>删 除</p>
+				<p @click="deleteTag()">删 除</p>
 			</div>
 		</div>
 		<div class="admin_list">
 			<div class="admin_list_add" @click="addArticle">⊕ 新建文章</div>
 			<div class="admin_list_arts">
-				<div v-for="v in 10" :class="{'admin_list_arts__active': art_index==v}" @click="handlerArt(v)">{{v}}</div>
+				<div v-for="(v,k) in art_list" :class="{'admin_list_arts__active': art_index==k}" @click="handlerArt(v)">{{v.title}}</div>
 			</div>
 		</div>
 		<div class="admin_detail">
@@ -64,16 +64,17 @@
 			  </div>
 			  <el-button slot="reference" style="width: 20px;height: 20px;box-sizing: border-box;padding: 0;border-radius: 100%;">?</el-button>
 			</el-popover>
-			<div class="admin_detail_tip">保存</div>
-			<input type="text">
+			<div class="admin_detail_tip"><i style="margin-right: 9px" v-show="art_save_loading" class="el-icon-loading"></i><span v-show="!art_save_loading">保存</span></div>
+
+			<input type="text" v-model="title">
 			<textarea v-model="content"></textarea>
 		</div>
 	</div>
 </template>
 
 <script>
-import axios from 'axios'
-import {tagAdd,tagRetitle,addArticle,saveArticle,articleList,tagList} from '~/assets/server/index'
+import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail} from '~/assets/server/index'
+import {formatDate} from '~/assets/js/tools'
 // import showdown from 'showdown'
 // const m2h = new showdown.Converter()
 export default {
@@ -82,12 +83,14 @@ export default {
 			tag_index: 1,//tag索引
 			art_index: 1,//文章索引
 			tag_obj: {},//选中tag的信息
+			art_obj: {},//选中文章信息
 			add_tag_show: false,
 			add_tag_inpit: '',
 
-			tag_list: [],
+			art_save_loading: false,//点击保存文章loading
 
-			shake_time: 1500,//防抖时间
+			tag_list: [],
+			art_list: [],
 
 			content: '',
 			title: '',//文章标题
@@ -99,6 +102,23 @@ export default {
 		
 	},
 	methods:{
+		deleteTag() {//删除标签
+			this.$confirm('是否要删除标签： "'+this.tag_obj.title+'"？', '提示', {
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				type: 'warning'
+			}).then(() => {
+				tagDelete({
+					_id: this.tag_obj._id,
+					title: this.tag_obj.title
+				}).then(res=>{
+					this.$succ('删除成功！')
+					this.getTags()
+				})
+			}).catch(() => {
+				
+			});
+		},
 		reviseTagName() {//修改标签名称
 			this.$prompt('修改 "'+this.tag_obj.title+'" 为：', {
 	          confirmButtonText: '确定',
@@ -106,7 +126,7 @@ export default {
 	        }).then(({ value }) => {
 	          tagRetitle({
 	          	_id: this.tag_obj._id,
-	          	title: this.tag_obj.title
+	          	title: value
 	          }).then(res=>{
 				this.getTags()
 	          })
@@ -115,14 +135,32 @@ export default {
 	        });
 		},
 		submitContent() {//提交文章修改内容
-			this.article_tip = '已保存'
+			articleAdd({
+				title: this.title,
+				content: this.content,
+			}).then(res=>{
+				if(!res.code) {
+					this.$succ('保存成功！')
+				}
+			})
 		},
 		handlerTag(v,k) {//点击文集
 			this.tag_index = k
 			this.tag_obj = v
+			articleList({
+				tag_id: this.tag_obj._id
+			}).then(res=>{
+				this.art_list =res.data
+			})
 		},
-		handlerArt(index) {//点击文章
-			this.art_index = index
+		handlerArt(v,k) {//点击文章
+			this.art_index = k
+			this.art_obj = v
+			articleDetail({
+				_id: v._id
+			}).then(res=>{
+				this.content = res.data
+			})
 		},
 		addTag() {//新建文集
 			this.add_tag_show = true
@@ -144,6 +182,15 @@ export default {
 	          cancelButtonText: '取消',
 	        }).then(({ value }) => {
 	          //点击提交
+	          console.log(articleAdd)
+	          articleAdd({
+	          	title: value,
+	          	content: '',
+	          }).then(res=>{
+	          	if(!res.code){
+	          		this.handlerTag(this.art_obj,0)
+	          	}
+	          })
 	        }).catch(() => {
 	          //点击取消
 	        });

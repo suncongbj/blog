@@ -6,6 +6,7 @@ let router = new Router()
 //获取文章列表接口，分页，分类
 router.get('/article/list',async(ctx)=>{
 	let params = ctx.request.query
+	console.log(params)
 	let getList = () => {
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url, function(err, db) {
@@ -39,6 +40,7 @@ router.get('/article/list',async(ctx)=>{
 //根据文章id获取文章详情接口
 router.get('/article/detail',async(ctx)=>{
 	let params = ctx.request.query
+	console.log(params)
 	let getDetail = ()=>{
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url, (err, db) => {
