@@ -22,7 +22,7 @@
 		<div class="admin_list">
 			<div class="admin_list_add" @click="addArticle">⊕ 新建文章</div>
 			<div class="admin_list_arts">
-				<div v-for="(v,k) in art_list" :class="{'admin_list_arts__active': art_index==k}" @click="handlerArt(v)">{{v.title}}</div>
+				<div v-for="(v,k) in art_list" :class="{'admin_list_arts__active': art_index==k}" @click="handlerArt(v,k)">{{v.title}}</div>
 			</div>
 		</div>
 		<div class="admin_detail">
@@ -114,6 +114,7 @@ export default {
 				}).then(res=>{
 					if(!res.code) {
 						this.$succ('删除成功!')
+						this.handlerTag(this.tag_obj)
 					}
 				})
 			}).catch(() => {
@@ -169,6 +170,9 @@ export default {
 				tag_id: v._id
 			}).then(res=>{
 				this.art_list =res.data
+				setTimeout(()=>{
+					this.handlerArt(this.art_list[0],0)
+				},10)
 			})
 		},
 		handlerArt(v,k) {//点击文章
@@ -207,7 +211,7 @@ export default {
 	          	tag_id: this.tag_obj._id
 	          }).then(res=>{
 	          	if(!res.code){
-	          		this.handlerTag(this.art_obj,0)
+	          		this.handlerTag(this.tag_list[this.tag_index],0)
 	          	}
 	          })
 	        }).catch(() => {

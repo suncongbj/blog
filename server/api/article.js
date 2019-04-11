@@ -49,7 +49,7 @@ router.get('/article/detail',async(ctx)=>{
 			MongoClient.connect(url, (err, db) => {
 			    if (err) throw err;
 			    var dbo = db.db('blog');
-			    dbo.collection('article').find({"_id" : ObjectId(params._id)}).toArray( (err, result) => {
+			    dbo.collection('article').find({"_id" : ObjectId(params._id)}).then( (err, result) => {
 			        if (err) reject(err);
 			        db.close();
 			        console.log(result);
