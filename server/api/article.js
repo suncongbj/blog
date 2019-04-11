@@ -13,6 +13,7 @@ router.get('/article/list',async(ctx)=>{
 			    if (err) throw err;
 			    var dbo = db.db('blog');
 			    if(params.tag_id) {
+			    	console.log('get with tag_id')
 					let whereStr = {'tag_id' : ObjectId(params.tag_id)}
 					dbo.collection('article').find(whereStr).toArray(function(err, result) {
 				        if (err) throw err;
