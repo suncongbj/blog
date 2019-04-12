@@ -20,12 +20,8 @@
             </svg>
           </div>
           <div class="search_input">
-            <input type="text">
-          </div>
-          <div class="search_association">
-            <div>
-              <div v-for=" v in 20">{{v}}</div>
-            </div>
+            <input type="text" v-model="search_input">
+            <div @click="hanlderSerach"><i class="el-icon-search" style="font-size: 20px;color: #555;"></i></div>
           </div>
         </div>
       </transition>
@@ -55,7 +51,7 @@
             </svg>
           </div>
           <div class="classfies_box">
-            <div v-for="v in 20">{{v}}</div>
+            <div v-for="v in classfy_list" @click="handlerClassfy(v)">{{v.title}}</div>
           </div>
         </div>
       </transition>
@@ -63,39 +59,69 @@
     <div class="content_box">
       <div class="content_list">
         <!-- 搜索结果和分类结果时展示 -->
-        <p class="content_list_instruct">以下展示为"<b>xxx</b>"的搜索结果。<span class="text_hover">返回></span></p>
-        <p class="content_list_instruct">以下展示为"<b>xxx</b>"分类下的结果。<span class="text_hover">返回></span></p>
+        <p class="content_list_instruct" v-show="search_tip">以下展示为"<b>{{search_tip_title}}</b>"的搜索结果。<span class="text_hover" @click="backListPage(1)">返回></span></p>
+        <p class="content_list_instruct" v-show="classfy_tip">以下展示为"<b>{{classfy_tip_title}}</b>"分类下的结果。<span class="text_hover" @click="backListPage(2)">返回></span></p>
         <div class="content_list_instruct_hold"></div>
         <div class="content_list_item text_hover" v-for="v in list" @click="artDetail(v._id)">{{v.title}}</div>
       </div>
     </div>
     <div class="content_page">
       <!-- 三种加载状态 -->
-      <div class="text_hover" @click="getData">more></div>
-      <div>{{loading_text}}</div>
-      <div>nomore...</div>
+      <div v-show="loading_type == 0" class="text_hover" @click="getData(false)">more></div>
+      <div v-show="loading_type == 1">{{loading_text}}</div>
+      <div v-show="loading_type == 2">nomore...</div>
     </div>
   </div>
 </template>
 
 <script>
-import {articleList} from '../assets/server/index'
+import {articleList,tagList} from '../assets/server/index'
 export default {
   layout: 'box',
   data() {
     return {
-      loading: true,
       loading_text: 'loading',
       search_show: false,
       classfy_show: false,
       about_show: false,
 
+      search_tip: false,
+      search_tip_title: '',
+      classfy_tip: false,
+      classfy_tip_title: '',
+
+      search_input: '',
+
+      classfy_list: [],
+
       list: [],
 
       page: 1,
+
+      loading_type: 0,//0more,1loading,2nomore
     }
   },
   methods: {
+    hanlderSerach() {
+      
+    },
+    backListPage(n) {
+      if(n==1){
+        this.search_tip = false
+      }else{
+        this.classfy_tip = false
+      }
+      this.page = 1
+      this.getData(false)
+    },
+    handlerClassfy(v) {
+      this.getData(v._id)
+      this.page = 1
+      this.list = []
+      this.classfy_show = false
+      this.classfy_tip = true
+      this.classfy_tip_title = v.title
+    },
     artDetail(_id) {
       this.$router.push({path: '/detail',query:{_id:_id}})
     },
@@ -116,21 +142,40 @@ export default {
     search() {
       this.search_show = true
     },
-    getData() {
-      let params = {
-        page: this.page,
+    getData(tag_id) {
+      this.loading_type = 1
+      let params
+      if(tag_id) {
+        params = {
+          tag_id: tag_id,
+        }
+      }else{
+        params = {
+          page: this.page
+        }
       }
-      articleList().then(res=>{
+      articleList(params).then(res=>{
         this.list = this.list.concat(res.data)
         this.page++
+        if(res.data.length<30) {
+          this.loading_type = 2
+        }else{
+          this.loading_type = 0
+        }
       }).catch(res=>{
         
       })
-    }
+    },
+    getClassfyList() {
+      tagList().then(res=>{
+        this.classfy_list = res.data
+      })
+    },
   },
   mounted() {
     this.setLoadingAnimate()
     this.getData()
+    this.getClassfyList()
   }
 }
 </script>
@@ -243,6 +288,14 @@ export default {
   padding-left: 20px;
   color: blue
 }
+.search_input>div{
+  display: flex;justify-content: center;align-items: center;
+  height: 36px;width: 36px;
+  background: #fff;
+  margin-left: 8px;
+  border-radius: 100%;
+  cursor: pointer;
+}
 .search_input{
   display: flex;justify-content: center;
   width: 100%;
@@ -303,8 +356,6 @@ img{
   width: 100%;height: 100%;
 }
 @media screen and (max-width: 960px){
-  .search_association>div,.search_input>input{
-    width: 90%;
-  }
+  
 }
 </style>

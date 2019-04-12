@@ -174,4 +174,36 @@ router.post('/article/delete',async(ctx)=>{
 	ctx.body = await p()
 	
 })
+//搜索文章
+router.post('/article/search'),async(ctx)=>{
+	let params = ctx.request.body
+	let p = ()=>{
+		return new Promise((resolve,reject)=>{
+			MongoClient.connect(url , function(err,db) {
+				if(err){
+					reject({
+						code: 1,
+						msg: err
+					})
+					throw err
+				}
+				let dbo = db.db('blog')
+				dbo.collection('article').find('title':{$regex:{req.query.title}},(err,request)=>{
+					if(err) {
+						reject({
+							code: 1,
+							msg: err
+						})
+						throw err
+					}
+					resolve({
+						code: 0,
+						msg: ''
+					})
+					db.close()
+				}
+			})
+		})
+	}
+}
 module.exports = router

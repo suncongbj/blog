@@ -1,31 +1,34 @@
 <template>
 	<article class="content">
 		<header>{{title}}</header>
-		<p>2017-03-22</p>
-		<article class="art" v-html="content"></article>
+		<p>{{ctime}}</p>
+		<article v-html="content"></article>
 	</article>
 </template>
 
 <script>
 import {articleDetail} from '~/assets/server/index'
 import showdown from 'showdown'
-import showdownHighlight from 'showdown-highlight'
-const m2h = new showdown.Converter({extensions: [showdownHighlight]})
+import {formatDate} from '~/assets/js/tools'
 export default {
 	data(){
 		return {
 			content: '',
-			title: ''
+			title: '',
+			ctime: '',
 		}
 	},
 	methods:{
 		getData() {
+			let converter = new showdown.Converter()
 			let _id = this.$route.query._id
 			articleDetail({
 				_id: _id,
 			}).then(res=>{
-				this.content = m2h.makeHtml(res.data[0].content)
+				this.content = converter.makeHtml(res.data[0].content)
 				this.title = res.data[0].title
+				let stamp = Date.parse(res.data[0].ctime)
+				this.ctime = formatDate(stamp,'y')+'-'+formatDate(stamp,'m')+'-'+formatDate(stamp,'d')
 			})
 		}
 	},
@@ -36,12 +39,10 @@ export default {
 </script>
 
 <style scoped>
-.art>p{
-	line-height: 1.5;
-	color: #555;
-}
 .content>article{
 	margin-top: 40px;
+	color: #555;
+	line-height: 2.2;
 }
 .content>p{
 	text-align: center;
