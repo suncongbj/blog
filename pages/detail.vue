@@ -10,6 +10,8 @@
 import {articleDetail} from '~/assets/server/index'
 import showdown from 'showdown'
 import {formatDate} from '~/assets/js/tools'
+import hljs from 'highlight.js/lib/highlight'
+import '../node_modules/highlight.js/styles/atom-one-dark.css'
 export default {
 	data(){
 		return {
@@ -19,6 +21,12 @@ export default {
 		}
 	},
 	methods:{
+		setHighlight() {
+			const preEl = document.querySelectorAll('pre code')
+			preEl.forEach((el) => {
+				hljs.highlightBlock(el)
+			})
+		},
 		getData() {
 			let converter = new showdown.Converter()
 			let _id = this.$route.query._id
@@ -29,8 +37,11 @@ export default {
 				this.title = res.data[0].title
 				let stamp = Date.parse(res.data[0].ctime)
 				this.ctime = formatDate(stamp,'y')+'-'+formatDate(stamp,'m')+'-'+formatDate(stamp,'d')
+				setTimeout(()=>{
+					this.setHighlight()
+				},10)
 			})
-		}
+		},
 	},
 	mounted(){
 		this.getData()
