@@ -15,9 +15,8 @@ export const articleAdd = (params)=>{ //根据文章_id获取文章详情接口
 export const articleDelete = (params)=>{ //根据文章_id删除文章
   return fetch('/article/delete',params)
 }
-//搜索
-export const search = (params)=>{ //key查询文章列表
-  return fetch('/search',params)
+export const articleSearch = (params)=>{ //根据文章_id删除文章
+  return fetch('/article/search',params)
 }
 //标签
 export const tagList = (params)=>{ //获取标签列表

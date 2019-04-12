@@ -175,7 +175,7 @@ router.post('/article/delete',async(ctx)=>{
 	
 })
 //搜索文章
-router.post('/article/search'),async(ctx)=>{
+router.post('/article/search',async(ctx)=>{
 	let params = ctx.request.body
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{

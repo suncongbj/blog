@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import {articleList,tagList} from '../assets/server/index'
+import {articleList,tagList,articleSearch} from '../assets/server/index'
 export default {
   layout: 'box',
   data() {
@@ -103,7 +103,17 @@ export default {
   },
   methods: {
     hanlderSerach() {
-      
+      if(!this.search_input) return this.$error('请输入搜索内容...')
+      articleSearch({
+        key: this.search_input
+      }).then(res=>{
+        if(!res.code) {
+          this.list = res.data
+          this.search_tip = true
+          this.search_tip_title = this.search_input
+          this.search_show =false
+        }
+      })
     },
     backListPage(n) {
       if(n==1){
@@ -141,6 +151,7 @@ export default {
     },
     search() {
       this.search_show = true
+      this.search_input = ''
     },
     getData(tag_id) {
       this.loading_type = 1
