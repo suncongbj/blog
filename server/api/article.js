@@ -201,7 +201,7 @@ router.post('/article/search',async(ctx)=>{
 						msg: ''
 					})
 					db.close()
-				}
+				})
 			})
 		})
 	}
