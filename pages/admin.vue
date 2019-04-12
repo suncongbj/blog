@@ -76,8 +76,6 @@
 <script>
 import {tagAdd,tagRetitle,tagDelete,articleAdd,articleList,tagList,articleDetail,articleDelete,articleReset} from '~/assets/server/index'
 import {formatDate} from '~/assets/js/tools'
-// import showdown from 'showdown'
-// const m2h = new showdown.Converter()
 export default {
 	data(){
 		return {
@@ -159,7 +157,7 @@ export default {
 				this.getTags()
 	          })
 	        }).catch(() => {
-	          //点击取消
+
 	        });
 		},
 		submitContent() {//提交文章修改内容
@@ -176,9 +174,10 @@ export default {
 			this.tag_index = k
 			this.tag_obj = v
 			articleList({
-				// tag_id: v._id
+				tag_id: v._id
 			}).then(res=>{
 				this.art_list =res.data
+				if(!res.data.length) return
 				setTimeout(()=>{
 					this.handlerArt(this.art_list[0],0)
 				},10)
@@ -213,19 +212,17 @@ export default {
 	          confirmButtonText: '确定',
 	          cancelButtonText: '取消',
 	        }).then(({ value }) => {
-	          //点击提交
-	          console.log(this.tag_obj)
 	          articleAdd({
 	          	title: value,
 	          	content: '',
 	          	tag_id: this.tag_obj._id
 	          }).then(res=>{
 	          	if(!res.code){
-	          		this.handlerTag(this.tag_list[this.tag_index],0)
+	          		this.handlerTag(this.tag_list[this.tag_index],this.tag_index)
 	          	}
 	          })
 	        }).catch(() => {
-	          //点击取消
+	          
 	        });
 	    },
 	    getTags() {
@@ -277,7 +274,6 @@ export default {
     border: none;
     font-size: 30px;
     font-weight: 400;
-    line-height: 20%;
     box-shadow: none;
     color: #595959;
     background-color: transparent;

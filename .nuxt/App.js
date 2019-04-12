@@ -11,7 +11,7 @@ import _6f6c098b from './layouts/default.vue'
 const layouts = { "_box": _1a3ae615,"_default": _6f6c098b }
 
 export default {
-  head: {"title":"cong","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"},{"hid":"description","name":"description","content":"博客,个人博客,技术,技术博客,技术分享"},{"name":"keywords","content":"js,html,web,css,node,前端开发,web开发"}],"script":[{"src":"\u002Fjs\u002Ficonfont.js"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[]},
+  head: {"title":"cong","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"},{"hid":"description","name":"description","content":"suncong的个人博客"},{"name":"keywords","content":"js,html,web,css,node,前端开发,web开发,博客,个人博客"}],"script":[{"src":"\u002Fjs\u002Ficonfont.js"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[]},
 
   render(h, props) {
     const loadingEl = h('nuxt-loading', { ref: 'loading' })

@@ -39,7 +39,6 @@ axios.interceptors.response.use(function(response){
 
 
 const fetch = function (url, params,type) {
-    console.log(params)
     if(!params){
         params = {}
     }

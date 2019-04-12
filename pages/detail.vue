@@ -1,30 +1,45 @@
 <template>
 	<article class="content">
-		<header>我是文章标题</header>
+		<header>{{title}}</header>
 		<p>2017-03-22</p>
-		<article>
-			这里插入富文本编辑器内容
-		</article>
+		<article class="art" v-html="content"></article>
 	</article>
 </template>
 
 <script>
+import {articleDetail} from '~/assets/server/index'
+import showdown from 'showdown'
+import showdownHighlight from 'showdown-highlight'
+const m2h = new showdown.Converter({extensions: [showdownHighlight]})
 export default {
 	data(){
 		return {
-
+			content: '',
+			title: ''
 		}
 	},
 	methods:{
-
+		getData() {
+			let _id = this.$route.query._id
+			articleDetail({
+				_id: _id,
+			}).then(res=>{
+				this.content = m2h.makeHtml(res.data[0].content)
+				this.title = res.data[0].title
+			})
+		}
 	},
 	mounted(){
-
+		this.getData()
 	}
 }
 </script>
 
 <style scoped>
+.art>p{
+	line-height: 1.5;
+	color: #555;
+}
 .content>article{
 	margin-top: 40px;
 }
@@ -46,7 +61,7 @@ export default {
 }
 @media screen and (max-width: 960px){
 	.content{
-		width: 98%;
+		width: 90%;
 	}
 }
 </style>

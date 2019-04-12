@@ -71,7 +71,7 @@
     </div>
     <div class="content_page">
       <!-- 三种加载状态 -->
-      <div class="text_hover">more></div>
+      <div class="text_hover" @click="getData">more></div>
       <div>{{loading_text}}</div>
       <div>nomore...</div>
     </div>
@@ -105,7 +105,7 @@ export default {
         if(this.loading_text == 'loading....'){
           this.loading_text = 'loading'
         }
-      },800)
+      },250)
     },
     about() {
       this.about_show = true
@@ -121,9 +121,10 @@ export default {
         page: this.page,
       }
       articleList().then(res=>{
-        this.list = res.data
+        this.list = this.list.concat(res.data)
+        this.page++
       }).catch(res=>{
-      
+        
       })
     }
   },
