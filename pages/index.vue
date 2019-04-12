@@ -116,11 +116,8 @@ export default {
       })
     },
     backListPage(n) {
-      if(n==1){
-        this.search_tip = false
-      }else{
-        this.classfy_tip = false
-      }
+      this.search_tip = false
+      this.classfy_tip = false
       this.page = 1
       this.getData(false)
     },
