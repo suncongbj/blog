@@ -188,7 +188,7 @@ router.post('/article/search'),async(ctx)=>{
 					throw err
 				}
 				let dbo = db.db('blog')
-				dbo.collection('article').find('title':{$regex:{req.query.title}},(err,request)=>{
+				dbo.collection('article').find('title':{$regex:{req.query.key}},(err,request)=>{
 					if(err) {
 						reject({
 							code: 1,
