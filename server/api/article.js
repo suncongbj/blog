@@ -177,6 +177,11 @@ router.post('/article/delete',async(ctx)=>{
 //搜索文章
 router.post('/article/search',async(ctx)=>{
 	let params = ctx.request.body
+	let reg = {}
+	if(params.key) {
+		reg['title']=new RegExp(params.key)
+	}
+	console.log(reg)
 	let p = ()=>{
 		return new Promise((resolve,reject)=>{
 			MongoClient.connect(url , function(err,db) {
@@ -188,7 +193,7 @@ router.post('/article/search',async(ctx)=>{
 					throw err
 				}
 				let dbo = db.db('blog')
-				dbo.collection('article').find('title':{$regex:{req.query.key}},(err,request)=>{
+				dbo.collection('article').find(reg).toArray((err,request)=>{
 					if(err) {
 						reject({
 							code: 1,
@@ -198,7 +203,8 @@ router.post('/article/search',async(ctx)=>{
 					}
 					resolve({
 						code: 0,
-						msg: ''
+						msg: '',
+						data: request
 					})
 					db.close()
 				})
