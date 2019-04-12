@@ -206,5 +206,5 @@ router.post('/article/search',async(ctx)=>{
 		})
 	}
 	ctx.body = await p()
-}
+})
 module.exports = router
