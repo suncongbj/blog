@@ -98,7 +98,7 @@ export default {
 
       page: 1,
 
-      loading_type: 0,//0more,1loading,2nomore
+      loading_type: 1,//0more,1loading,2nomore
     }
   },
   methods: {
