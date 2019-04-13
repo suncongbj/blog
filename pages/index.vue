@@ -69,7 +69,7 @@
       <!-- 三种加载状态 -->
       <div v-show="loading_type == 0" class="text_hover" @click="getData(false)">more></div>
       <div v-show="loading_type == 1">{{loading_text}}</div>
-      <div v-show="loading_type == 2">nomore...</div>
+      <div v-show="loading_type == 2">----nomore----</div>
     </div>
   </div>
 </template>
