@@ -1,0 +1,29 @@
+<view class="content">
+  <view class="logo">
+    视聘
+  </view>
+  <form bindsubmit="formSubmit">
+    <view wx:if="step1">
+      <view class="input-area">
+        <view class="modal-input">
+          <input id="username" name="moblie" maxlength='40' type="text" placeholder="手机号" bindinput="getPhone" />
+        </view>
+         <view class="modal-input">
+          <input id="username" name="smscode" maxlength='40' type="text" placeholder="验证码" bindinput="getCode" />
+           <button class="btn-Code" bindtap="onCode" data-status="confirm">获取验证码</button>
+        </view>
+           <view class="modal-input">
+          <input id="username" name="username" maxlength='40' type="text" placeholder="手机号" bindinput="getusername" />
+        </view>
+        <view class="modal-input">
+          <input id="password" name="password" maxlength='20' type="password" placeholder="密码" bindinput="getpwd" />
+        </view>
+      </view>
+      <view class="btn-area">
+        <button style="background-color:{{loginBtnBgBgColor}}"> 下一步 </button>
+      </view>
+    </view>
+  </form>
+
+
+</view>

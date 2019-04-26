@@ -1,0 +1,172 @@
+<view class="box">
+
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">个人信息</view>
+		</view>
+		<view class="item_content">
+			<view class="item_content_line">
+				<view class="item_content_line_key">姓名：</view>
+				<view class="item_content_line_value">{{perSonalUser.name}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">性别：</view>
+				<view class="item_content_line_value">{{perSonalUser.gender}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">出生日期：</view>
+				<view class="item_content_line_value">{{perSonalUser.birthDate}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">参加工作时间：</view>
+				<view class="item_content_line_value">{{perSonalUser.workingDate}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">户口所在地：</view>
+				<view class="item_content_line_value">{{perSonalUser.bornProvince}}-{{perSonalUser.bornCity}}-{{perSonalUser.bornArea}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">现居城市：</view>
+				<view class="item_content_line_value">{{perSonalUser.livesProvince}}-{{perSonalUser.livesCity}}-{{perSonalUser.livesArea}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">手机号：</view>
+				<view class="item_content_line_value">{{perSonalUser.phone}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">邮箱：</view>
+				<view class="item_content_line_value">{{perSonalUser.email}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">求职意向</view>
+		</view>
+		<view class="item_content">
+			<view class="item_content_line">
+				<view class="item_content_line_key">工作性质：</view>
+				<view class="item_content_line_value">{{jobIntention.workNature}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">工作地点：</view>
+				<view class="item_content_line_value">{{jobIntention.workingProvince}}-{{jobIntention.workingCity}}-{{jobIntention.workingArea}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">期望薪资：</view>
+				<view class="item_content_line_value">{{jobIntention.expectSalaryMin}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">职位类别：</view>
+				<view class="item_content_line_value">{{jobIntention.positionCategory1}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">行业类别：</view>
+				<view class="item_content_line_value">{{jobIntention.positionCategory2}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">工作状态：</view>
+				<view class="item_content_line_value">{{jobIntention.jobStatus}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">教育背景</view>
+		</view>
+		<view class="item_content" wx:for="{{educationExperience}}">
+			<view class="item_content_line">
+				<view class="item_content_line_key">学校名称：</view>
+				<view class="item_content_line_value">{{item.schoolName}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">专业名称：</view>
+				<view class="item_content_line_value">{{item.professional}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">学历学位：</view>
+				<view class="item_content_line_value">{{item.degree}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">入学时间：</view>
+				<view class="item_content_line_value">{{item.schoolTimeStart}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">毕业时间：</view>
+				<view class="item_content_line_value">{{item.schoolTimeStop}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">工作经验</view>
+		</view>
+		<view class="item_content" wx:for="{{workExperience}}">
+			<view class="item_content_line">
+				<view class="item_content_line_key">公司名称：</view>
+				<view class="item_content_line_value">{{item.companyName}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">开始时间：</view>
+				<view class="item_content_line_value">{{item.workingTimeStart}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">结束时间：</view>
+				<view class="item_content_line_value">{{item.workingTimeStop}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">行业类别：</view>
+				<view class="item_content_line_value">{{item.jobCategory}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">职位名称：</view>
+				<view class="item_content_line_value">{{item.jobTitle}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">职位薪资：</view>
+				<view class="item_content_line_value">{{item.salary}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">工作描述：</view>
+				<view class="item_content_line_value">{{item.jobDescription}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">项目经验</view>
+		</view>
+		<view class="item_content" wx:for="{{projectExperience}}">
+			<view class="item_content_line">
+				<view class="item_content_line_key">项目名称：</view>
+				<view class="item_content_line_value">{{item.projectName}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">开始时间：</view>
+				<view class="item_content_line_value">{{item.projectTimeStart}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">结束时间：</view>
+				<view class="item_content_line_value">{{item.projectTimeStop}}</view>
+			</view>
+			<view class="item_content_line">
+				<view class="item_content_line_key">项目描述：</view>
+				<view class="item_content_line_value">{{item.projectDescription}}</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="item">
+		<view class="item_title">
+			<view class="item_title_text">自我评价</view>
+		</view>
+		<view class="item_content">
+			<view class="item_content_line">
+				<view style="padding: 24rpx;color: #414141;">
+					{{selfAssessment.selfAssessment}}
+				</view>
+			</view>
+		</view>
+	</view>
+
+</view>

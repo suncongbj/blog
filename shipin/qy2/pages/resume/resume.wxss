@@ -1,0 +1,72 @@
+.bgClass {
+    background: #f0f0f0;
+  }
+  
+  .search-bar {
+    z-index: 1;
+    background: #007acc;
+  }
+  .addbtn{
+      width: 20%;
+      float:right;
+      margin-right: 5rpx
+  }
+  .search-bar button {
+    height: 70rpx;
+    line-height: 70rpx;
+    width: 140rpx;
+    position: fixed;
+    top: 20rpx;
+    left: 585rpx;
+    font-size: 30rpx;
+    color: #fbf9fe;
+  }
+  .postion-list{
+flex-direction: column;
+  }
+  .list-wrapper {
+    background: #fff;
+    padding: 12px;
+    box-sizing: border-box;
+    margin: 5rpx
+  }
+  .list-wrapper .list-top, .list-wrapper .list-center, .list-wrapper .list-bottom {
+    display: flex;
+    font-size: 12px;
+    color: #666666;
+    line-height: 26px;
+  }
+  .list-wrapper .list-top .list-left, .list-wrapper .list-center .list-left, .list-wrapper .list-bottom .list-left {
+    flex: 1;
+    text-align: left;
+  }
+  .list-wrapper .list-top .list-right, .list-wrapper .list-center .list-right, .list-wrapper .list-bottom .list-right {
+    text-align: right;
+    flex: 0 0 80px;
+  }
+  .list-wrapper .list-top {
+    line-height: 33.3px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .list-wrapper .list-top .list-left {
+    color: #282828;
+  }
+  .list-wrapper .list-top .list-right {
+    color: #ec675d;
+  }
+  .list-wrapper .list-center {
+    line-height: 22px;
+  }
+  .list-wrapper .list-bottom {
+    line-height: 30.6px;
+  }
+  .list-center .list-top1{
+    display: block;
+    line-height: 15.3px;
+    font-size: 12px;
+  }
+  .list-center .list-bottom1{
+    line-height: 15.3px;
+    font-size: 12px;
+  }

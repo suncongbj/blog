@@ -1,0 +1,36 @@
+<view class="bgClass">
+  <view class="search-bar">
+    <button class="addbtn" style="background-color:#FDD000" type="primary" bindtap="Newfun">新增</button>
+  </view>
+  <scroll-view style="height: 100%;margin-top:30px;" scroll-y="true" class="container postion-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
+
+    <view wx:for="{{recommends}}">
+      <view class="list-wrapper" data-url="{{item}}" bindtap="handlerItem" bindlongtap="deleteItem">
+        <view class="list-top">
+          <view class="list-left">{{item.positionName}}</view>
+          <view class="list-right">{{item.MRMin}}/{{item.MRMax}}K</view>
+
+        </view>
+        <view class="list-center">
+          <view class="list-top1"> {{item.Wp}}|{{item.workingLifeMin}}-{{item.workingLifeMax}}年|{{item.minimumEducational}}</view>
+        </view>
+         <view class="list-center">
+          <view class="list-bottom1"> {{item.jobHighlights}}</view>
+         </view>
+        <view class="list-bottom">
+          <view class="list-left"> {{item.lengthRecruitment}} </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 数据加载 -->
+    <view wx:if="hasMore" style="display: flex;justify-content: center;">
+      <view class="weui-loading"></view>
+      <view style="color: #666;font-size: 14px">正在加载</view>
+    </view>
+    <!-- 没有更多了 -->
+    <view style="text-align: center;" wx:else>
+      <view style="color: #666;font-size:14px">- 暂无更多 -</view>
+    </view>
+  </scroll-view>
+</view>

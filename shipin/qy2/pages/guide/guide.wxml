@@ -1,0 +1,49 @@
+<view class="box">
+	<view class="tip">
+		<view class="tip_line">
+			<text class="tip_line_text">公司名称：</text>
+	        <input class="tip_line_input" type="text" placeholder="请输入公司名称" bindinput="tap1" value="{{inputVal}}"/>
+		</view>
+		<view class="tip_line">
+			<text class="tip_line_text">法人姓名：</text>
+	        <input class="tip_line_input" type="text" placeholder="请输入法定代表人姓名" bindinput="tap1" value="{{inputVal}}"/>
+		</view>
+		<view class="tip_img">
+			<button class="tip_img_btn">
+				<image src="../../images/icon-resume1.png" class="tip_img_addimg"></image>
+				<text class="tip_img_text">上传照片</text>
+			</button>
+			<text>营业执照</text>
+		</view>
+		<view class="tip_img">
+			<button class="tip_img_btn">
+				<image src="../../images/icon-resume1.png" class="tip_img_addimg"></image>
+				<text class="tip_img_text">上传照片</text>
+			</button>
+			<text>企业资质</text>
+		</view>
+		<button class="tip_btn">下一步</button>
+	</view>
+	<view class="tip">
+		<view class="tip_line">
+			<text class="tip_line_text">法人姓名：</text>
+	        <input class="tip_line_input" type="text" placeholder="请输入法定代表人姓名" bindinput="tap1" value="{{inputVal}}"/>
+		</view>
+		<view class="tip_line">
+			<text class="tip_line_text">法人姓名：</text>
+	        <input class="tip_line_input" type="text" placeholder="请输入法定代表人姓名" bindinput="tap1" value="{{inputVal}}"/>
+		</view>
+		<view class="tip_line">
+			<text class="tip_line_text">法人姓名：</text>
+	        <input class="tip_line_input" type="text" placeholder="请输入法定代表人姓名" bindinput="tap1" value="{{inputVal}}"/>
+		</view>
+		<view class="tip_img">
+			<button class="tip_img_btn">
+				<image src="../../images/icon-resume1.png" class="tip_img_addimg"></image>
+				<text class="tip_img_text">上传照片</text>
+			</button>
+			<text>工作证明</text>
+		</view>
+		<button class="tip_btn">认证</button>
+	</view>
+</view>

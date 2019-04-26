@@ -1,0 +1,136 @@
+ 
+<scroll-view class="myScrollView">
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label>  职位名称 </view>
+    </view>
+    <input placeholder="请输入职位名称" class="input0" bindinput="getJobName" value='{{jobName}}'>
+    </input>
+  </view>
+
+
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 职位类型 </view>
+    </view>
+    <input placeholder="请输入职位类型" class="input0" bindinput="getjobType" value='{{jobType}}'>
+    </input>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+ 
+
+    <view class="cellType1 cellType1_bottom" bindtap="salarySelect">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 职位月薪 </view>
+    </view>
+    <view class="weui_cell_bd2">
+      <view class="rightView"> {{salaryValue}} </view>
+    </view>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"><label style='color:red'>*</label>  职位性质 </view>
+    </view>
+    <input placeholder="请输入职位性质" class="input0" bindinput="getjobXz" value='{{jobXz}}'>
+    </input>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 上班地点 </view>
+    </view>
+    <input placeholder="请输入上班地点" class="input0" bindinput="getjobCity" value='{{jobCity}}'>
+    </input>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"><label style='color:red'>*</label>  详细地址 </view>
+    </view>
+    <input placeholder="请输入详细地址" class="input0" bindinput="getJobAddress" value='{{jobAddress}}'>
+    </input>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 招聘人数 </view>
+    </view>
+    <input placeholder="请输入招聘人数" type='number' class="input0" bindinput="getJobNum" value='{{jobNum}}'>
+    </input>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+ 
+
+  <view class="cellType1 cellType1_bottom" bindtap="xueliSelect">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 学历要求 </view>
+    </view>
+    <view class="weui_cell_bd2">
+      <view class="rightView"> {{xueliValue}} </view>
+    </view>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="cellType1 cellType1_bottom" bindtap="workAgeSelect">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"><label style='color:red'>*</label>  工作年限 </view>
+    </view>
+    <view class="weui_cell_bd2">
+      <view class="rightView"> {{workAgeValue}} </view>
+    </view>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view class="sepColorView">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 职位描述 </view>
+    </view>
+  </view>
+
+  <view>
+    <textarea value='{{jobDesc}}' class='textarea' bindinput="getJobDesc"></textarea>
+  </view>
+
+
+  <view class="sepColorView">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> 职位待遇 </view>
+    </view>
+  </view>
+  <view>
+    <textarea value='{{job_dy}}' class='textarea' bindinput="getJobDy"></textarea>
+  </view>
+
+
+
+  <button class="sureBtn" bindtap='submitInfo' style="color:white"> 保 存 </button>
+
+</scroll-view>
+
+  <action-sheet hidden="{{workAgeSelectShow}}" bindchange="workAgeSelect">
+    <block wx:for-items="{{workAge}}" wx:for-index="index">
+      <action-sheet-item bindtap="bindWorkAgeTap" data-name="{{item}}" data-id="{{index}}">{{item}}</action-sheet-item>
+    </block>
+    <action-sheet-cancel>取消</action-sheet-cancel>
+  </action-sheet>
+
+    <action-sheet hidden="{{xueliSelectShow}}" bindchange="xueliSelect">
+    <block wx:for-items="{{xueliArray}}" wx:for-index="index">
+      <action-sheet-item bindtap="bindxueliTap" data-name="{{item}}" data-id="{{index}}">{{item}}</action-sheet-item>
+    </block>
+    <action-sheet-cancel>取消</action-sheet-cancel>
+  </action-sheet>
+
+      <action-sheet hidden="{{salarySelectShow}}" bindchange="salarySelect">
+    <block wx:for-items="{{salaryArray}}" wx:for-index="index">
+      <action-sheet-item bindtap="bindsalaryTap" data-name="{{item}}" data-id="{{index}}">{{item}}</action-sheet-item>
+    </block>
+    <action-sheet-cancel>取消</action-sheet-cancel>
+  </action-sheet>
