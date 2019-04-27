@@ -12,6 +12,9 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    // wx.redirectTo({
+    //   url: '../guide/guide'
+    // })
     this.autoLogin()
   },
   onReady:function(){
@@ -65,28 +68,34 @@ Page({
             wx.showToast({
               title: '账号信息过期请重新登录',
             })
+            that.setLoginData2
           }else{
             app.globalData.mobile=that.data.inputUserName;
             app.globalData.token_type = res.data.token_type;
             app.globalData.access_token = res.data.access_token;
             var tokenarray = res.data.access_token.split(".");
+            console.log(tokenarray)
             var tokenone = that.base64_decode(tokenarray[1]);
             var userId = that.base64_decode(tokenarray[1])
             wx.setStorageSync('userId',userId)
+            wx.setStorageSync('enterprise', tokenone)
+            wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
             // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
-            if(!tokenone.enterpriseId){
+            if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
             //说明未认证企业去认证
+              wx.redirectTo({
+                url: '../guide/guide'
+              })
               wx.showToast({
-                title:'请完成企业认证',
+                title:'请先完成认证',
                 icon: 'none'
               })
               return
+            }else{
+              wx.switchTab({
+                url: '../main/main'//参数只能是字符串形式，不能为json对象
+              })
             }
-            wx.setStorageSync('enterprise', tokenone)
-            wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
-            wx.switchTab({
-              url: '../main/main'//参数只能是字符串形式，不能为json对象
-            })
           }
         }
       })
@@ -134,24 +143,26 @@ Page({
           app.globalData.access_token = res.data.access_token;
           var tokenarray = res.data.access_token.split(".");
           var tokenone = that.base64_decode(tokenarray[1]);
-          var tokenone = that.base64_decode(tokenarray[1]);
           var userId = that.base64_decode(tokenarray[1])
-          if(!tokenone.enterpriseId){
-            //说明未认证企业去认证
-            wx.showToast({
-              title:'请先完成企业认证',
-              icon: 'none'
-            })
-            return
-          }
-          // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
           wx.setStorageSync('enterprise', tokenone)
           wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
           wx.setStorageSync('mobile',phone)
           wx.setStorageSync('password',password)
-          wx.switchTab({
-            url: '../main/main'//参数只能是字符串形式，不能为json对象
-          })
+          if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
+            //说明未认证企业去认证证
+            wx.navigateTo({
+              url: '../guide/guide'
+            })
+            wx.showToast({
+              title:'请先完成认证',
+              icon: 'none'
+            })
+          }else{
+            wx.switchTab({
+              url: '../main/main'//参数只能是字符串形式，不能为json对象
+            })
+          }
+          // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
         }
       },
       fail: function () {

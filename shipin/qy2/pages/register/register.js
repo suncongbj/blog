@@ -1,14 +1,16 @@
- 
-var login_path = 'http://58.87.91.223:8080/oauth/token';
-const app = getApp();
+var app = getApp();
 Page({
   data:{
-    loginBtnTxt:"登录",
-    loginBtnBgBgColor:"#FDD000",
+    registBtnTxt:"提交",
+    registBtnBgBgColor:"#FDD000",
+    getSmsCodeBtnTxt:"获取验证码",
+    getSmsCodeBtnColor:"#FDD000",
+    // getSmsCodeBtnTime:60,
     btnLoading:false,
-    disabled:false,
-    inputUserName: '',
-    inputPassword: '',
+    registDisabled:false,
+    smsCodeDisabled:false,
+    phoneNum: '',
+    
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -20,6 +22,7 @@ Page({
   },
   onShow:function(){
     // 页面显示
+    
   },
   onHide:function(){
     // 页面隐藏
@@ -29,115 +32,51 @@ Page({
     // 页面关闭
     
   },
-  sendcode:function(){
-//sms-code/send
-wx.request({
-   
-  url: app.globalData.BaseUrl +'sms-code/send',
-  method: 'Post',
-  data: data,
-  header: {
-    'content-type': 'application/json' // 默认值
-  },
-  success: function (res) {
-    debugger;
-    console.log(res); 
-  },
-  fail: function (error) {
-    //   wx.hideLoading();
-    reject(false)
-  },
-  complete: function () {
-    //  wx.hideLoading();
-  }
-})
+  getPhoneNum:function(e){
+   var value  = e.detail.value;
+   this.setData({
+    phoneNum: value     
+   });
   },
   formSubmit:function(e){
     var param = e.detail.value;
     this.mysubmit(param);
   },
   mysubmit:function (param){
-    var flag = this.checkUserName(param)&&this.checkPassword(param)
-    if(flag){
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-        this.setLoginData1();
-    } 
-    
-  },
-  setLoginData1:function(){
-    this.setData({
-      loginBtnTxt:"登录中",
-      disabled: !this.data.disabled,
-      loginBtnBgBgColor:"#999",
-      btnLoading:!this.data.btnLoading
-    });
+    var num = param.username.trim();
+    var flag = this.checkUserName(num)&&this.checkPhoneIsRegist(param.username)&&this.checkPassword(param)&&this.checkSmsCode(param)
     var that = this;
-    var phone = this.data.inputUserName;
-    var password = this.data.inputPassword;
-    wx.request({
-      url: login_path,
-      data: {
-        username: phone,
-        password: password,
-        userType:'enterprise',
-        grant_type: 'password'
-      },
-      header: {
-        'Authorization':'Basic d2ViYXBwOjg4ODg=',
-        'content-type': 'application/x-www-form-urlencoded'
-        // 'content-type': 'application/json'
-      },
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
-      success: function (res) {
-        console.log("登录信息")
-        console.log(res)
-        if (res.statusCode == 401 || res.statusCode == 400) {
-      
-          wx.showModal({
-            title: '提示',
-            showCancel: false,
-            content: '登录失败',
-            success: function () {
-              that.setLoginData2();
-            }
-          })
-        } else {
-          var tokenarray = res.data.access_token.split(".");
-          var tokenone = comfun.base64_decode(tokenarray[1]);
-          var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
-          wx.setStorageSync('enterprise', enterprise)
-          wx.setStorageSync('enterpriseId', enterprise.enterpriseId)
-          wx.switchTab({
-            url: '../main/main'//参数只能是字符串形式，不能为json对象
-          })
-        }
-      },
-      fail: function () {
-        // fail
-        console.log('register fail')
-        that.setLoginData2();
-      },
-      complete: function () {
-        console.log('register complete')
-      }
-    })
-
-
+    if(flag){
+        this.setregistData1();
+        setTimeout(function(){
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 1500
+          });
+          that.setregistData2();
+          that.redirectTo(param);
+        },2000);
+    } 
   },
-  setLoginData2:function(){
+  setregistData1:function(){
     this.setData({
-      loginBtnTxt:"登录",
-      disabled: !this.data.disabled,
-      loginBtnBgBgColor:"#ff9900",
+      registBtnTxt:"提交中",
+      registDisabled: !this.data.registDisabled,
+      registBtnBgBgColor:"#999",
       btnLoading:!this.data.btnLoading
     });
   },
-  checkUserName:function(param){
-    
-    var phone = /^1(3|4|5|7|8)\d{9}$/;
-    var inputUserName = this.data.inputUserName;
-    if(phone.test(inputUserName)){
+  setregistData2:function(){
+    this.setData({
+      registBtnTxt:"提交",
+      registDisabled: !this.data.registDisabled,
+      registBtnBgBgColor:"#FDD000",
+      btnLoading:!this.data.btnLoading
+    });
+  },
+  checkUserName:function(num){ 
+    if(num.length == 11){
       return true;
     }else{
       wx.showModal({
@@ -148,56 +87,86 @@ wx.request({
       return false;
     }
   },
+  checkPhoneIsRegist:function(phoneNum){
+      var tempPhoneNum = "13211112222";//测试未注册手机号码
+      if(phoneNum==tempPhoneNum){
+          wx.showModal({
+          title: '提示',
+          showCancel:false,
+          content: '该手机尚未注册！'
+        });
+        return false;
+      }else{
+        return true;
+      }
+  },
   checkPassword:function(param){
-    var password = this.data.inputPassword;
+    var userName = param.username.trim();
+    var password = param.password.trim();
     if(password.length<=0){
       wx.showModal({
         title: '提示',
         showCancel:false,
-        content: '请输入密码'
+        content: '请设置新密码'
+      });
+      return false;
+    }else if(password.length<6||password.length>20){
+      wx.showModal({
+        title: '提示',
+        showCancel:false,
+        content: '密码长度为6-20位字符'
       });
       return false;
     }else{
       return true;
     }
   },
-  checkUserInfo:function(param){
-    var username = param.username.trim();
-    var password = param.password.trim();
+  getSmsCode:function(){
+    var phoneNum = this.data.phoneNum;
     var that = this;
-    if((username=='admin@163.com'||username=='18500334462')&&password=='000000'){
-        setTimeout(function(){
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 1500
+    var count = 60;
+    if(this.checkUserName(phoneNum)&&this.checkPhoneIsRegist(phoneNum)){
+      //获取验证码接口
+      
+      var si = setInterval(function(){
+        if(count > 0){
+          count--;
+          that.setData({
+            getSmsCodeBtnTxt:count+' s',
+            getSmsCodeBtnColor:"#999",
+            smsCodeDisabled: true
           });
-          that.setLoginData2();
-          that.redirectTo(param);
-        },2000);
-    }else{
+        }else{
+          that.setData({
+            getSmsCodeBtnTxt:"获取验证码",
+            getSmsCodeBtnColor:"#FDD000",
+            smsCodeDisabled: false
+          });
+          count = 60;
+          clearInterval(si);
+        }
+      },1000);
+    } 
+  },
+  checkSmsCode:function(param){
+    var smsCode = param.smsCode.trim();
+    var tempSmsCode = '000000';//演示效果临时变量，正式开发需要通过wx.request获取
+    if(smsCode!=tempSmsCode){
       wx.showModal({
         title: '提示',
         showCancel:false,
-        content: '用户名或密码有误，请重新输入'
+        content: '请输入正确的短信验证码'
       });
-      this.setLoginData2();
+      return false;
+    }else{
+      return true;
     }
   },
-  redirectTo:function(){
-    //需要将param转换为字符串 
+  redirectTo:function(param){
+    //需要将param转换为字符串
+    param = JSON.stringify(param);
     wx.redirectTo({
-      url: '../resume/main'//参数只能是字符串形式，不能为json对象
-    })
-  },
-  getPhone: function (e) {
-    this.setData({
-      inputUserName: e.detail.value
-    })
-  },
-  getpwd: function (e) {
-    this.setData({
-      inputPassword: e.detail.value
+      url: '../main/index?param='+ param//参数只能是字符串形式，不能为json对象
     })
   }
 

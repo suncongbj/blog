@@ -44,54 +44,52 @@ Page({
     var _this = this;
     var enterpriseId = wx.getStorageSync('enterpriseId') || ''
     let url = this.searchIng?'http://shipinzp.com/api/personal-search/resume':'http://shipinzp.com/api/personal-search/recommend'
-    if (!!enterpriseId) {
-      var data = {
-        keyword: this.data.searchKey,
-        page: _this.data.page,
-        size: 30,
-      }
-      wx.request({
-        url: url,
-        method: 'Get',
-        data: data,
-        header: {
-          'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
-          'content-type': 'application/json' // 默认值
-        },
-        success: function (res) {
-          if (!!res.data && !!res.data._embedded) {
-            if(res.data.totalPages == _this.data.page) {
-              _this.setData({
-                hasMore: false,
-              })
-            }
-            var jobdata = res.data._embedded.resumeListInfoes
-            for (let i = 0; i < jobdata.length;i++) {
-              if(jobdata[i].expectSalaryMin == 0){
-                jobdata[i].expectSalaryMin ='面议'
-              }else{
-                jobdata[i].expectSalaryMin = jobdata[i].expectSalaryMin +jobdata[i].expectSalaryMax
-              }
-            }
-            var new_list = _this.data.recommends.concat(jobdata)
+    var data = {
+      keyword: this.data.searchKey,
+      page: _this.data.page,
+      size: 30,
+    }
+    wx.request({
+      url: url,
+      method: 'Get',
+      data: data,
+      header: {
+        'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (!!res.data && !!res.data._embedded) {
+          if(res.data.totalPages == _this.data.page) {
             _this.setData({
-              recommends: new_list
-            })
-            var new_page = ++_this.data.page
-            _this.setData({
-              page: new_page
+              hasMore: false,
             })
           }
-        },
-        fail: function (error) {
-          
-          reject(false)
-        },
-        complete: function () {
-          
+          var jobdata = res.data._embedded.resumeListInfoes
+          for (let i = 0; i < jobdata.length;i++) {
+            if(jobdata[i].expectSalaryMin == 0){
+              jobdata[i].expectSalaryMin ='面议'
+            }else{
+              jobdata[i].expectSalaryMin = jobdata[i].expectSalaryMin +jobdata[i].expectSalaryMax
+            }
+          }
+          var new_list = _this.data.recommends.concat(jobdata)
+          _this.setData({
+            recommends: new_list
+          })
+          var new_page = ++_this.data.page
+          _this.setData({
+            page: new_page
+          })
         }
-      })
-    }
+      },
+      fail: function (error) {
+        
+        reject(false)
+      },
+      complete: function () {
+        
+      }
+    })
   },
   keyinputChange: function (e) {
 
@@ -100,9 +98,6 @@ Page({
     })
   },
   onLoad: function () {
-        wx.navigateTo({
-      url: '../guide/guide'
-    })
     this.queryBooks();
   },
   scroll: function (e) {

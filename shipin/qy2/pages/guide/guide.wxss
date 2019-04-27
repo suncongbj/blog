@@ -1,0 +1,23 @@
+ .box{
+ 	font-size: 14px;
+ }
+ .tip_line{
+ 	display: flex;
+ 	align-items: center;
+ 	padding: 28rpx;
+ 	border-bottom: 1px solid #f0f0f0; 
+ }
+ .tip_line_text{
+ 	width: 181rpx;
+	text-align: center;
+ }
+ .tip_img{
+ 	height: 291rpx;
+ }
+ .tip_btn{
+ 	display: flex;justify-content: center;align-items: center;
+ 	background: #FFBA00;
+ 	width: 695rpx;height: 90rpx;
+ 	color: #fff;
+ 	margin-top: 30rpx;
+ }

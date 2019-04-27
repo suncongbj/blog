@@ -1,4 +1,4 @@
-
+const app = getApp()
 Page({
 
   /**
@@ -28,72 +28,58 @@ Page({
 
     id:''
   },
-
+// /api/enterprise-position-positionInfo      POST新增
+// /api/enterprise-position-positionInfo      PUT全量更新
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.id != undefined) {
+    console.log(options)
+    if (options.id) {
       this.setData({
         id: options.id
       })
+      this.getPositionDetail()
     }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  getPositionDetail() {
+    var self = this
+    wx.showLoading({
+      title: '正在获取职位详情...'
+    })
+    wx.request({
+      url: app.globalData.BaseUrl+'enterprise-position-positionInfo',
+      method: 'GET',
+      header: {
+        'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+        'content-type': 'application/json' // 默认值
+      },
+      data: {
+        id: this.data.id,
+      },
+      success:function(res){
+        console.log(res.data._embedded.positionInfoes[0])
+        wx.hideLoading()
+      },
+      fail: function (error) {
+        wx.hideLoading()
+        wx.showToast({
+          title: error,
+          icon: 'none'
+        })
+      },
+    })
   },
   submitInfo:function(){
     //保存操作
     var position = {}
     position.jobName = this.data.jobName
-    position.jobDesc = this.data.jobDesc
-    position.job_dy = this.data.job_dy
     position.workAgeValue = this.data.workAgeValue
     position.xueliValue = this.data.xueliValue
     position.jobNum = this.data.jobNum
@@ -102,10 +88,84 @@ Page({
     position.jobType = this.data.jobType
     position.jobCity = this.data.jobCity
     position.jobXz = this.data.jobXz
-
+    for(var i in position) {
+      if(position[i] == '' ) {
+        return wx.showToast({
+          title: '请完善必填选项',
+          icon: 'none',
+        })
+      }
+    }
+    if(position.salaryValue == '面议'){
+      position.monthlyRangeMin = 0
+      position.monthlyRangeMax = 0
+    }else{
+      position.monthlyRangeMin = Number(position.salaryValue.split('~')[0])
+      position.monthlyRangeMax = Number(position.salaryValue.split('~')[1])
+    }
+    if(position.workAgeValue == '1年以下') {
+      position.workingLifeMin = 0
+      position.workingLifeMax = 1
+    }else if(position.workAgeValue == '无要求') {
+      position.workingLifeMin = 0 
+      position.workingLifeMax = 0
+    }else{
+      position.workingLifeMin = Number(position.workAgeValue.split('-')[0])
+      var max_str = position.workAgeValue.split('-')[1]
+      position.workingLifeMax = Number(max_str.substring(0,max_str.length-1))
+    }
+    position.workingPlaces = [{
+      province: '',
+      city: '',
+      county: '',
+      address: this.data.jobAddress,
+      longitude: 0,
+      latitude: 0,
+    }]
     console.log("本次被保存的对象是：",position)
-
-
+    var method = this.data.id ? 'PUT' : 'POST'
+    wx.request({
+      url: app.globalData.BaseUrl+'enterprise-position-positionInfo',
+      method: method,
+      header: {
+        'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+        'content-type': 'application/json' // 默认值
+      },
+      data: {
+        enterpriseId: wx.getStorageSync('enterpriseId'),
+        id: this.data.id,//职位id
+        releaseMode: 'GeneralRelease',//发布方式
+        positionName: position.jobName,//职位名称
+        sex: '',
+        positionNature: position.jobType,//职位性质
+        monthlyRangeMin: 0,//最小月薪转数字
+        monthlyRangeMax: 0,//最大月薪转数字
+        minimumEducational: position.xueliValue,//学历要求
+        workingLifeMin: position.workingLifeMin,//工作年限转数字
+        workingLifeMax: position.workingLifeMax,//工作年限转数字
+        jobDescription: this.data.jobDesc,//职位描述
+        jobHighlights: this.data.job_by,
+        workingPlaces: position.workingPlaces
+      },
+      success: function (res) {
+        if(res.statusCode == 200 ||res.statusCode == 201) {
+          self.setData({
+            step: 1
+          })
+        }else {
+          wx.showToast({
+          title: res.errMsg,
+          icon: 'none'
+        })
+      }
+      },
+      fail: function (error) {
+        wx.showToast({
+          title: error,
+          icon: 'none'
+        })
+      },
+    })
   },
   getJobDy: function (e) {
     this.setData({

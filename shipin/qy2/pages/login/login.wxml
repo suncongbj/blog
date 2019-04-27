@@ -10,8 +10,8 @@
         <view class="btn-area">
             <button  disabled="{{disabled}}" style="background-color:{{loginBtnBgBgColor}}"   formType="submit"  loading="{{btnLoading}}"> {{loginBtnTxt}} </button>
            <view class="txt-area">
-                <navigator redirect url="../regist/index"><text class="register">注册账号</text></navigator> 
-                <navigator redirect url="../register/register"><text class="register">忘记密码</text></navigator> 
+                <navigator url="../regist/index"><text class="register">注册账号</text></navigator> 
+                <navigator url="../register/register"><text class="register">忘记密码</text></navigator> 
             </view>
         </view>
     </form>

@@ -1,29 +1,21 @@
 <view class="content">
-  <view class="logo">
-    视聘
-  </view>
-  <form bindsubmit="formSubmit">
-    <view wx:if="step1">
-      <view class="input-area">
-        <view class="modal-input">
-          <input id="username" name="moblie" maxlength='40' type="text" placeholder="手机号" bindinput="getPhone" />
-        </view>
-         <view class="modal-input">
-          <input id="username" name="smscode" maxlength='40' type="text" placeholder="验证码" bindinput="getCode" />
-           <button class="btn-Code" bindtap="onCode" data-status="confirm">获取验证码</button>
-        </view>
-           <view class="modal-input">
-          <input id="username" name="username" maxlength='40' type="text" placeholder="手机号" bindinput="getusername" />
-        </view>
-        <view class="modal-input">
-          <input id="password" name="password" maxlength='20' type="password" placeholder="密码" bindinput="getpwd" />
-        </view>
-      </view>
-      <view class="btn-area">
-        <button style="background-color:{{loginBtnBgBgColor}}"> 下一步 </button>
-      </view>
+    <view class = "logo">
+        鲲鹏招聘
     </view>
-  </form>
+    <form bindsubmit="formSubmit">
+        <view class="input-area">
+          <input id="username" name="username" maxlength='11' type="text"  placeholder="手机号" bindchange="getPhoneNum" />
+          <view class="smsCode">
+            <input id="smsCode" name="smsCode" maxlength='6' type="text" placeholder="验证码" />
+            <button bindtap = "getSmsCode" disabled="{{smsCodeDisabled}}" style="background-color:{{getSmsCodeBtnColor}}" class="getSmsCodeBtn">{{getSmsCodeBtnTxt}}</button>
+          </view>
+          <input id="password" name="password" maxlength='20' type="password" placeholder="新密码" />
+        </view>
+        <view class="btn-area">
+            <button  disabled="{{registDisabled}}" style="background-color:{{registBtnBgBgColor}}"   formType="submit"  loading="{{btnLoading}}"> {{registBtnTxt}} </button>
+        </view>
+    </form>
 
-
+    <!--<progress class="myprogress" percent="{{percent }}" color="{{color}}" active/>-->
+    
 </view>

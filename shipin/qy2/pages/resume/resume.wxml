@@ -24,7 +24,7 @@
     </view>
 
     <!-- 数据加载 -->
-    <view wx:if="hasMore" style="display: flex;justify-content: center;">
+    <view wx:if="{{hasMore}}" style="display: flex;justify-content: center;">
       <view class="weui-loading"></view>
       <view style="color: #666;font-size: 14px">正在加载</view>
     </view>

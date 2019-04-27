@@ -8,9 +8,16 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hasMore: false
   },
-  Newfun:function(){ 
+  Newfun:function(){
+    if(!wx.getStorageSync('enterpriseId')) {
+      return wx.showToast({
+        title: '请等待认证通过',
+        icon: 'none'
+      })
+    }
     wx.navigateTo({
       url: '../positionadd/positionadd'
     })
@@ -48,7 +55,9 @@ Page({
     // }
   },
   handlerItem:function(e) {
-    console.log(e.currentTarget)
+    wx.navigateTo({
+      url: '../positionadd/positionadd?id='+e.currentTarget.dataset.url.id
+    })
   },
   deleteItem:function(e) {
     console.log(e.currentTarget)
@@ -68,7 +77,7 @@ Page({
     wx.request({
       ///api/enterprise-position-positionInfo?page=2&size=5&enterpriseId={企业 id}&projection=manage&sort=lengthRecruitment,asc
       //url: 'http://58.87.91.223:8083/api/enterprise-position-positionInfo', //仅为示例，并非真实的接口地址
-        url:'http://www.shipinzp.com/api/enterprise-position-positionInfo',
+        url: app.globalData.BaseUrl+'enterprise-position-positionInfo',
         method: 'Get',
         data: data,
         header: {
@@ -105,6 +114,11 @@ Page({
         complete: function () {
         //  wx.hideLoading();
         }
+      })
+    }else{
+      wx.showToast({
+        title: '请等待认证通过',
+        icon: 'none'
       })
     }
   },
