@@ -1,0 +1,51 @@
+ 
+<view style="width:{{width}}px;height:{{height}}px;" class="allcontain">
+<template name="lists">
+   <view class="item"  id="{{id}}" bindlongtap="mylongtap" bindtap='myworkjob'>
+       <view class="item_doci">
+         
+          <image src="/images/resume_circle.png" class="item_doci_image"></image>
+          <image src="/images/resume_circle.png"
+              class="item_doci_image"></image>
+          <image src="/images/resume_circle.png"
+               class="item_doci_image"></image>
+          <image src="/images/resume_circle.png"
+               class="item_doci_image"></image>
+       </view>
+       <view class="item_cont">
+           <view class="cont_title">
+              <view class="cont_title_biru">
+                <image src="/images/resumepage_btn_education.png" 
+                class="con_edu_image"></image>
+                <view class="con_title_text">{{companyName}}
+                </view>
+                </view>
+                <view class="con_title_time">{{jobTitle}}</view>      
+           </view>
+           <view class="cont_edu">
+            <image src="/images/resumepage_btn_industry.png" class="con_edu_image"></image>
+            <view class="con_edu_text">{{jobCategory}}</view> 
+           </view>
+           <view class="cont_deg">
+             <image src="/images/resumepage_btn_professional.png" class="con_edu_image"></image> 
+             <view class="con_edu_text">{{industry}}</view> 
+           </view>
+       </view>
+    </view> 
+    </template >
+
+     <!--列表 循环 start-->
+        <view wx:for="{{workListData}}">
+        <template is="lists" data="{{...item}}"/>
+
+    </view>
+
+    
+   <view class ="addbutn">
+  <navigator url="/pages/workbj/addWorkbj">
+    <view class="add">添加更多工作经历</view>
+   </navigator>
+   </view>
+  
+</view>
+

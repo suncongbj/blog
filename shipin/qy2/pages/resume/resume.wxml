@@ -5,10 +5,10 @@
   <scroll-view style="height: 100%;margin-top:30px;" scroll-y="true" class="container postion-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
 
     <view wx:for="{{recommends}}">
-      <view class="list-wrapper" data-url="{{item}}" bindtap="handlerItem" bindlongtap="deleteItem">
+      <view class="list-wrapper" style="position: relative;" data-url="{{item}}" bindtap="handlerItem" bindlongtap="deleteItem">
         <view class="list-top">
           <view class="list-left">{{item.positionName}}</view>
-          <view class="list-right">{{item.MRMin}}/{{item.MRMax}}K</view>
+          <view class="list-right">{{item.MRMin}}/{{item.MRMax}}千</view>
 
         </view>
         <view class="list-center">
@@ -20,6 +20,7 @@
         <view class="list-bottom">
           <view class="list-left"> {{item.lengthRecruitment}} </view>
         </view>
+        <button style="position:absolute;right:10px;bottom:22px;width:53px;height:27px;font-size:12px;background:#FDD000;color:#fff;" bindtap="handlerItem">管理</button>
       </view>
     </view>
 

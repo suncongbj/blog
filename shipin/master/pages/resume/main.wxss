@@ -1,0 +1,91 @@
+/* pages/resume/main.wxss */
+@import "../../wx.wxss"
+
+.integrity{
+  font-size: 12px;
+  padding-left: 20px;
+}
+/* .rigth-t1{
+  width: 90%;
+  text-align: right;
+  margin-right: 20px;
+} */
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx 0;
+  align-items: center;
+  background: #FDD000;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.info_list {
+  background: #fff;
+}
+
+.userinfo-nickname {
+  color: #333;
+}
+
+.userinfo-nickname2 {
+  color: #fff;
+}
+
+.weui_cell {
+  position: relative;
+  display: flex;
+  padding: 15px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid #dadada;
+}
+
+.weui_cell_hd {
+  display: inline-block;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.weui_cell_hd image {
+  width: 100%;
+  height: 20px;
+  vertical-align: -2px;
+}
+
+.weui_cell_bd {
+  display: inline-block;
+}
+
+.weui_cell_bd_p {
+  font-size: 14px;
+  color: #939393;
+}
+
+.with_arrow {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.usName {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.usRegin {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #bdbdbd;
+}

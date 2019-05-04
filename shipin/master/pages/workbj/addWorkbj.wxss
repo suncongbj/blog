@@ -1,0 +1,101 @@
+/* pages/workbj/addWorkbj.wxss */
+
+page{
+    background-color: #f3f4f8
+}
+
+.myScrollView{
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+}
+
+.cellType0{
+    position: relative;
+    margin-right: 20px;
+    display: flex;
+    padding: 15px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+       background: #ffffff;
+    border-bottom: 1px solid #dadada;
+}
+
+.cellType1{
+    position: relative;
+    margin-right: 20px;
+    display: flex;
+    padding: 15px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+       background: #ffffff;
+}
+
+.sepColorView{
+    position: relative;
+    display: flex;
+    padding: 15px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #DBF6F4
+}
+
+.input0{
+    position: absolute;
+  right: 15px;
+  text-align: center;
+ font-size: 12px;
+ color: #939393;
+  height: 15px;
+ 
+}
+
+.weui_cell_bd{
+  display: inline-block;
+}
+.weui_cell_bd_p{
+  font-size: 14px;
+  color: #939393;
+}
+
+.with_arrow{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+ 
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.weui_cell_bd2{
+  position: absolute;
+  right: 30px;
+}
+
+.rightView{
+    margin-right: 3px;
+}
+
+.sureBtn{
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px;
+    line-height: 30px;
+    width: 80%;
+    background-color: #FDD000;
+    text-align: center;
+    
+}
+.textarea{
+    background: #ffffff;
+    margin: 2px;
+    border: 1px solid #ccc;
+    width: 95%;
+}

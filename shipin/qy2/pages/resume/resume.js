@@ -55,9 +55,13 @@ Page({
     // }
   },
   handlerItem:function(e) {
-    wx.navigateTo({
-      url: '../positionadd/positionadd?id='+e.currentTarget.dataset.url.id
-    })
+    // wx.navigateTo({
+    //   url: '../positionadd/positionadd?id='+e.currentTarget.dataset.url.id
+    // })
+    wx.showToast({
+      title: '请前往app进行职位管理',
+      icon: 'none'
+,    })
   },
   deleteItem:function(e) {
     console.log(e.currentTarget)

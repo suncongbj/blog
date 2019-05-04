@@ -1,0 +1,153 @@
+/* pages/addedu/addedu.wxss */
+.allcontain{
+  
+  background: #f3f4f8;
+}
+.schoolview{
+    height: 50px;
+    /* margin: 10px; */
+    background: #ffffff;
+    display: flex;
+    border-top:1px solid #ccc; 
+     border-bottom: 1px solid #ccc; 
+    align-items: center
+}
+.name{
+  font-size: 14px;
+  margin-left: 10px;
+}
+.inputview{
+   box-sizing: border-box;
+   flex: 1;
+    color: ff3333;
+  padding: 2px;
+   height: 35px;
+   margin-left: 8px;
+   margin-right: 10px;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 12px;
+   border: 1px solid  #dadada;
+
+}
+.weui_cell{
+    position: relative;
+    display: flex;
+    padding: 15px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+       background: #ffffff;
+    border-bottom: 1px solid #dadada;
+}
+.weui_cell_hd{
+  display: inline-block;
+  width: 20px;
+  margin-right: 5px;
+}
+.weui_cell_bd{
+  display: inline-block;
+}
+.weui_cell_bd_p{
+  font-size: 14px;
+  color: #939393;
+}
+
+.with_arrow{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+ 
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.timeView{
+   position: absolute;
+  top: 18px;
+  right: 30px;
+  height: 15px;
+ font-size: 12px;
+ color: #939393;
+}
+.input2{
+    position: absolute;
+  right: 15px;
+  text-align: center;
+ font-size: 12px;
+ color: #939393;
+  height: 15px;
+ 
+}
+.addbutn{
+   /* margin-left: 40px;
+   margin-right: 40px;
+   margin-top: 20px; */
+
+   background: #FDD000;
+   border-radius: 5px;
+   color: #ffffff;
+   align-items: center;
+  align-self: center;
+    position: fixed;
+  bottom: 0;
+  width: 100%;
+  
+}
+.add{
+    align-items: center;
+      padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.common_cell{
+    position: relative;
+    display: flex;
+    padding: 15px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #dadada;
+    background-color: white;
+}
+.common_cell_hd{
+  display: inline-block;
+  width: 20px;
+  margin-right: 5px;
+}
+.common_cell_hd image{
+  width: 100%;
+  height: 20px;
+  vertical-align: -2px;
+}
+.common_cell_bd{
+  display: inline-block;
+}
+.common_cell_bd_p{
+  font-size: 14px;
+  color: #939393;
+}
+.badge{
+  position: absolute;
+  top: 18px;
+  right: 40px;
+  
+  line-height: 15px;
+  
+  color:#939393;
+
+  text-align: center;
+  font-size: 14px;
+}
+.with_arrow{
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  /* background-image: url(../../../images/jian_r.png); */
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

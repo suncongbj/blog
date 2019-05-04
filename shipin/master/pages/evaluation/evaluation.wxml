@@ -1,0 +1,7 @@
+<view class='title'>自我介绍：</view>
+<view class='textarea'>
+<textarea bindinput="bindinput" value='{{evaluation}}'   ></textarea>
+</view>
+<view>
+<button bindtap='sumbit' class='btn'>提交</button>
+</view>

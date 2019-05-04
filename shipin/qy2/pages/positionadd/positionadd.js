@@ -115,15 +115,17 @@ Page({
       position.workingLifeMax = Number(max_str.substring(0,max_str.length-1))
     }
     position.workingPlaces = [{
-      province: '',
-      city: '',
-      county: '',
+      province: 'null',
+      city: 'null',
+      county: 'null',
       address: this.data.jobAddress,
-      longitude: 0,
-      latitude: 0,
+      longitude: 'null',
+      latitude: 'null',
     }]
+    position.id= 'null'
+    position.sex = 'null'
     console.log("本次被保存的对象是：",position)
-    var method = this.data.id ? 'PUT' : 'POST'
+    var method = this.data.id ? 'PUT':  'POST'
     wx.request({
       url: app.globalData.BaseUrl+'enterprise-position-positionInfo',
       method: method,
@@ -133,13 +135,17 @@ Page({
       },
       data: {
         enterpriseId: wx.getStorageSync('enterpriseId'),
-        id: this.data.id,//职位id
         releaseMode: 'GeneralRelease',//发布方式
         positionName: position.jobName,//职位名称
-        sex: '',
+        sex: 'null',
         positionNature: position.jobType,//职位性质
         monthlyRangeMin: 0,//最小月薪转数字
         monthlyRangeMax: 0,//最大月薪转数字
+        positionCategory1: '测试',//职位类别1
+        positionCategory2: '测试',//职位类别2
+        positionCategory3: '测试',//职位类别3
+        numberRecruits: position.jobNum,//招聘人数
+        lengthRecruitment: '',//结束时间
         minimumEducational: position.xueliValue,//学历要求
         workingLifeMin: position.workingLifeMin,//工作年限转数字
         workingLifeMax: position.workingLifeMax,//工作年限转数字
@@ -149,9 +155,10 @@ Page({
       },
       success: function (res) {
         if(res.statusCode == 200 ||res.statusCode == 201) {
-          self.setData({
-            step: 1
+          wx.showToast({
+            title: '职位添加成功！',
           })
+          wx.navigateBack()
         }else {
           wx.showToast({
           title: res.errMsg,

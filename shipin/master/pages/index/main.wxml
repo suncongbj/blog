@@ -1,0 +1,106 @@
+<view style="backgroud-color:#f3f4f8;">
+
+  <!--搜索框 start -->
+  <view class="serachview">
+   
+      <view class="weui_cell_bd">
+        <view class="weui_cell_bd_p"> 视聘</view>
+      </view>
+    
+    <form class="formview">
+      <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="请输入职位或公司名" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="sumit" />
+            <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+              <icon type="clear" size="14"></icon>
+            </view>
+          </view>
+          <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+            <icon class="weui-icon-search" type="search" size="14"></icon>
+            <view class="weui-search-bar__text">请输入职位或公司名</view>
+          </label>
+           
+        </view>
+
+      </view>
+    </form>
+   
+      <view class="weui_cell_bd" bindtap='searchList'>
+        <view class="weui_cell_bd_p"> 查询 </view>
+      </view>
+
+  </view>
+  <!--搜索框 end -->
+  <view style="width:{{width}}px;height:{{height}}px;backgroud-color:#f3f4f8;" class="itemb">
+
+    <!--数据列表模版 begin-->
+    <template name="lists">
+
+      <scroll-view scroll-y="true" style="height: 100%; background: #ffffff;" bindscrolltolower="loadMore" bindscrolltoupper="refesh">
+        <view wx:if="{{hasRefesh}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
+          <icon type="waiting" size="45" />
+          <text class="_head_price">刷新中...</text>
+        </view>
+
+        <navigator url="/pages/jobDetail/main?id={{id}}" class="navigator">
+
+          <view class="_head">
+            <text class="_head_title">{{positionName}}</text>
+            <view class="_head_price red_color">{{salar}}</view>
+          </view>
+
+          <view class="_head content_color">
+            <text class="_head_title">{{city}}  {{workingLife}}  {{minimumEducational}} </text>
+            <view class="_head_price">{{time}}</view>
+          </view>
+ 
+
+          <view class="middle" wx:if="{{jobHighlights}}">
+            <view class="middle_view">
+              <view class="weui_cell_bd">
+                <view class="weui_cell_bd_p"> {{jobHighlights}} </view>
+              </view>
+            </view>
+
+          </view>
+           
+         <view class="middle">
+
+            <view class="middle_view">
+                <view class="weui_cell_bd">
+                  <view class="weui_cell_bd_p"> {{enterpriseName}} </view>
+                </view>
+              </view>
+
+             
+         </view>
+
+        </navigator>
+
+      </scroll-view>
+
+    </template>
+
+    <!--数据列表模版 end-->
+
+    <!--列表 循环 start-->
+    <view wx:for="{{newsList}}">
+      <template is="lists" data="{{...item}}" />
+    </view>
+
+    <!--列表 循环 end-->
+
+    <view class="tips1">
+      <view wx:if="{{hasMore}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+
+      <view wx:else>
+        <text class="weui-loadmore__tips">没有相应职位</text>
+      </view>
+    </view>
+  </view>
+</view>

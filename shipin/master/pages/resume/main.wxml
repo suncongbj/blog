@@ -1,0 +1,52 @@
+<view>
+  <view  class="userinfo" style="">
+      <image   class="userinfo-avatar" src="{{resumeInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{resumeInfo.name}}</text>
+  </view>
+  </view>
+
+<view class='rigth-t1'>
+  <text class='integrity'>简历完整度：{{resumeInfo.integrity}}%</text>
+</view>
+
+<view class='weui-cells'>
+  <view class="weui-cell weui-cell_access" bindtap='goPage' id="1">
+    <view class="weui-cell__bd">
+      <view style="display: inline-block; vertical-align: middle">求职意向</view> 
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{jobIntentionNotEmpty}}</view>
+  </view>
+
+  <view class="weui-cell weui-cell_access" bindtap='goPage' id="2">
+    <view class="weui-cell__bd">
+      <view style="display: inline-block; vertical-align: middle">工作经历</view> 
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{workExperienceNotEmpty}}</view>
+  </view>
+
+   <view class="weui-cell weui-cell_access" bindtap='goPage' id="3">
+    <view class="weui-cell__bd">
+      <view style="display: inline-block; vertical-align: middle">教育背景</view> 
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{educationNotEmpty}}</view>
+  </view>
+
+    <view class="weui-cell weui-cell_access" bindtap='goPage' id="4">
+    <view class="weui-cell__bd">
+      <view style="display: inline-block; vertical-align: middle">项目经验（选填）</view> 
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{projectNotEmpty}}</view>
+  </view>
+
+   <view class="weui-cell weui-cell_access" bindtap='goPage' id="5">
+    <view class="weui-cell__bd">
+      <view style="display: inline-block; vertical-align: middle">自我介绍</view> 
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{evaluationNotEmpty}}</view>
+  </view>
+
+</view>
+
+
+
+ 

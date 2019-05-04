@@ -1,0 +1,78 @@
+<!--pages/addedu/addedu.wxml-->
+<view class="allcontain">
+
+  <view class="schoolview">
+    <view class="name">学校名称</view>
+    <input placeholder="请输入学校名称" class="inputview" bindinput="input1js" value="{{schoolname}}" />
+  </view>
+  <view class="weui_cell">
+
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> 入学时间 </view>
+    </view>
+    <view class="timeView">
+      <picker wx:if="{{ctype==1}}" mode="date" start="1977-01-01" value="{{cData.enrollmentDate}}" bindchange="bindstartsttuChange" name="enteance">{{byears}}</picker>
+      <picker wx:else mode="date" value="{{bdate}}" start="1977-01-01" bindchange="bindstartsttuChange" name="birthday">{{byears}}</picker>
+    </view>
+
+
+    <image class="with_arrow" src="{{rightimg}}"></image>
+  </view>
+  <view class="weui_cell">
+
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> 毕业时间</view>
+    </view>
+
+    <view class="timeView">
+      <picker wx:if="{{ctype==1}}" mode="date" start="1977-01-01" value="{{cData.graduationDate}}" bindchange="bindgradtimeChange" name="enteance">{{jyears}}</picker>
+      <picker wx:else mode="date" value="{{jdate}}" start="1977-01-01" bindchange="bindgradtimeChange" name="birthday">{{jyears}}</picker>
+    </view>
+
+
+
+    <image class="with_arrow" src="{{rightimg}}"></image>
+  </view>
+  <view class="weui_cell">
+
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> 专业名称 </view>
+    </view>
+
+    <input placeholder="请输入专业名称" class="input2" bindinput="input2js" value="{{specialfieldName}}"></input>
+
+
+  </view>
+
+  <view class="weui_cell" bindtap="choose">
+
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p">学历/学位</view>
+    </view>
+ 
+    <view class="timeView" >{{degreeText}}</view>
+  </view>
+
+      <picker bindchange="bindPickerChange" value="{{index_xz}}" range="{{workXz}}" id="0">
+      <view class="common_cell">
+        <view class="common_cell_bd">
+          <view class="common_cell_bd_p">是否统招</view>
+        </view>
+        <view class="badge">{{workXz[index_xz]}}</view>
+        <view class="with_arrow"></view>
+      </view>
+    </picker>
+
+  <view class="addbutn">
+
+    <view class="add" bindtap="sumbitbutton" loading="{{loading}}">保存</view>
+
+  </view>
+
+  <action-sheet hidden="{{actionSheetHidden}}" bindchange="choose">
+    <block wx:for-items="{{items}}" wx:for-index="index">
+      <action-sheet-item bindtap="bindItemTap" data-name="{{item}}" data-id="{{index}}">{{item}}</action-sheet-item>
+    </block>
+    <action-sheet-cancel>取消</action-sheet-cancel>
+  </action-sheet>
+</view>

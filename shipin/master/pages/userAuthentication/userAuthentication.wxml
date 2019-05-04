@@ -1,0 +1,17 @@
+<view class="content">
+    <view class = "logo">
+        用户认证
+    </view>
+    <form bindsubmit="formSubmit">
+        <view class="input-area">
+          <input id="username" name="username" maxlength='10' type="text" placeholder="姓名" bindinput="getPhone" />
+          <input id="password" name="password" maxlength='18' type="text" placeholder="身份证号" bindinput="getpwd" />
+        </view>
+        <view class="btn-area">
+            <button  disabled="{{disabled}}" style="background-color:{{loginBtnBgBgColor}}"   formType="submit"  loading="{{btnLoading}}"> {{loginBtnTxt}} </button>
+          
+        </view>
+    </form>
+
+     
+</view>
