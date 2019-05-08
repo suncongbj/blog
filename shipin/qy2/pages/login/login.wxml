@@ -15,4 +15,9 @@
             </view>
         </view>
     </form>
+
+    
+    <button bindtap="weixinLogin" style=";color:#fff;margin-top: 300rpx;text-align: center;width:400rpx;background: #00CE35;border-radius: 100px;">
+        微信快捷登录
+    </button>
 </view>

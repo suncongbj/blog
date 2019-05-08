@@ -23,10 +23,10 @@ Page({
     salaryValue: '',//薪资范围
 
     jobType:'',//职位类型
-    jobCity:'',//上班地点
     jobXz:'',//职位性质
 
-    id:''
+    id:'',
+    liveRegion: [],
   },
 // /api/enterprise-position-positionInfo      POST新增
 // /api/enterprise-position-positionInfo      PUT全量更新
@@ -47,6 +47,12 @@ Page({
    */
   onShow: function () {
 
+  },
+  
+  bindRegionChange(e) {
+    this.setData({
+      liveRegion: e.detail.value
+    })
   },
   getPositionDetail() {
     var self = this
@@ -86,7 +92,6 @@ Page({
     position.jobAddress = this.data.jobAddress
     position.salaryValue = this.data.salaryValue
     position.jobType = this.data.jobType
-    position.jobCity = this.data.jobCity
     position.jobXz = this.data.jobXz
     for(var i in position) {
       if(position[i] == '' ) {
@@ -115,16 +120,15 @@ Page({
       position.workingLifeMax = Number(max_str.substring(0,max_str.length-1))
     }
     position.workingPlaces = [{
-      province: 'null',
-      city: 'null',
-      county: 'null',
+      province: this.data.liveRegion[1],
+      city: this.data.liveRegion[2],
+      county: this.data.liveRegion[0],
       address: this.data.jobAddress,
-      longitude: 'null',
-      latitude: 'null',
+      longitude: '',
+      latitude: '',
     }]
     position.id= 'null'
     position.sex = 'null'
-    console.log("本次被保存的对象是：",position)
     var method = this.data.id ? 'PUT':  'POST'
     wx.request({
       url: app.globalData.BaseUrl+'enterprise-position-positionInfo',
@@ -145,12 +149,12 @@ Page({
         positionCategory2: '测试',//职位类别2
         positionCategory3: '测试',//职位类别3
         numberRecruits: position.jobNum,//招聘人数
-        lengthRecruitment: '',//结束时间
+        lengthRecruitment: this.getNowFormatDate(),//结束时间
         minimumEducational: position.xueliValue,//学历要求
         workingLifeMin: position.workingLifeMin,//工作年限转数字
         workingLifeMax: position.workingLifeMax,//工作年限转数字
         jobDescription: this.data.jobDesc,//职位描述
-        jobHighlights: this.data.job_by,
+        jobHighlights: this.data.job_dy,
         workingPlaces: position.workingPlaces
       },
       success: function (res) {
@@ -173,6 +177,17 @@ Page({
         })
       },
     })
+  },
+  getNowFormatDate:function() {//获取当前时间
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1<10? "0"+(date.getMonth() + 1):date.getMonth() + 1;
+    var strDate = date.getDate()<10? "0" + date.getDate():date.getDate();
+    var currentdate = date.getFullYear() + seperator1  + month  + seperator1  + strDate
+        + " "  + date.getHours()  + seperator2  + date.getMinutes()
+        + seperator2 + date.getSeconds();
+    return currentdate;
   },
   getJobDy: function (e) {
     this.setData({

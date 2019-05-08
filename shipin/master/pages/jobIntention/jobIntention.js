@@ -294,7 +294,7 @@ Page({
       success: function (res) {
         // success
         console.log("详情返回", res)
-        if(res.statusCode==200){
+        if(res.statusCode==204){
           wx.navigateBack({ changed: true });
         } else if (res.statusCode == 401) {
           app.validToken();

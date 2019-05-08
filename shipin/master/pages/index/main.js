@@ -15,6 +15,8 @@ Page({
   data: {
     focus: false,
     newsList: [],
+    bidList: [],
+    topList: [],
     hidden: false,
     hasMore: true,
     hasRefesh: false,
@@ -114,6 +116,7 @@ Page({
           if(user_use.cerStatus=='personalunauthoriz') {
             wx.redirectTo({url:'../userAuthentication/userAuthentication'})
           }else{
+            wx.setStorageSync('cerStatus', true)
             return
           }
         }
@@ -148,6 +151,61 @@ Page({
         if (res.statusCode == 200) {
             var list = res.data.res
             var newsList = that.data.newsList
+            if(that.data.page==1){
+              var bidList=[]
+              var topList=[]
+              res.data.bid.forEach(element => {
+                element.time = that.date_time(element.createTime)
+                element.city = element.city == null ? "" : element.city+" | "
+                element.workingLife = element.workingLife == null ? "" : element.workingLife + " | "
+                element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
+                element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
+                if (!element.monthlyRangeMin){
+                  element.salar = "面议"
+                }else{
+                  if (element.monthlyRangeMax == null) {
+                    element.salar = element.monthlyRangeMin+"以上/月"
+                  }else{
+                    element.salar = element.monthlyRangeMin + "~" + element.monthlyRangeMax + "/月"
+                  }
+                }
+                if(element.vipLevel=='general') {
+                  element.isVip =false
+                }else{
+                  element.isVip = true
+                }
+                bidList.push(element)
+              })
+              res.data.top.forEach(element => {
+                element.time = that.date_time(element.createTime)
+                element.city = element.city == null ? "" : element.city+" | "
+                element.workingLife = element.workingLife == null ? "" : element.workingLife + " | "
+                element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
+                element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
+                if (!element.monthlyRangeMin){
+                  element.salar = "面议"
+                }else{
+                  if (element.monthlyRangeMax == null) {
+                    element.salar = element.monthlyRangeMin+"以上/月"
+                  }else{
+                    element.salar = element.monthlyRangeMin + "~" + element.monthlyRangeMax + "/月"
+                  }
+                }
+                if(element.vipLevel=='general') {
+                  element.isVip =false
+                }else{
+                  element.isVip = true
+                }
+                topList.push(element)
+              })
+
+              that.setData({
+                bidList: bidList
+              })
+              that.setData({
+                topList: topList
+              })
+            }
             list.forEach(element => {
               element.time = that.date_time(element.createTime)
               element.city = element.city == null ? "" : element.city+" | "
@@ -163,10 +221,19 @@ Page({
                   element.salar = element.monthlyRangeMin + "~" + element.monthlyRangeMax + "/月"
                 }
               }
+              if(element.vipLevel=='general') {
+                element.isVip =false
+              }else{
+                element.isVip = true
+              }
               newsList.push(element)
             })
+            if(res.data.totalpage == that.data.page) {
+              that.setData({
+                hasMore:false
+              })
+            }
             that.setData({
-              hasMore: false,
               newsList: newsList
             });
         } else if (res.statusCode == 401) {

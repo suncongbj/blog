@@ -166,12 +166,39 @@ Page({
         url: '../resume/main',
       })
     } else if (type == 1) {
+      wx.request({
+        url: app.getpath + '/api/unified-history-positionDelivery',
+        data: {
+          userId: app.getUserId(),
+          lookOver: false,
+          projection: 'info',
+          page: 1,
+          size: 30
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'Authorization': app.getAuthorization(),
+          'content-type': 'application/json',
+          'access_token': app.getaccess_token()
+        },
+        // header: {}, // 设置请求的 header
+        success: function (res) {
+
+        }
+      })
       wx.showModal({
         title: '友情提示',
       showCancel:false,
         content: '请前往APP查看',
       })
     } else if (type == 5) {
+      if(wx.getStorageSync('cerStatus')) {
+        return wx.showToast({
+          title: '已认证',
+          icon: 'none'
+        })
+      }
+      
       wx.navigateTo({
         url: '../userAuthentication/userAuthentication',
       })

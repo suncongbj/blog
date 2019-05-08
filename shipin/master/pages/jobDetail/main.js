@@ -68,7 +68,6 @@ Page({
             element.salar = element.monthlyRangeMin + "~" + element.monthlyRangeMax + "/月"
           }
         }
-
         that.setData({
           dataDatils: element
         });
@@ -134,6 +133,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  phoneCall:function(e) {//打电话
+    console.log(e)
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.num
+    })
   },
   applypos:function(){
     var path = app.getpath + "/api/unified-history-positionDelivery";

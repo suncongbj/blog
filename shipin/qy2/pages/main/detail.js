@@ -36,7 +36,7 @@ Page({
                 res.data.perSonalUser[i] = ''
               }
             }
-            res.data.perSonalUser.birthDate=res.data.perSonalUser.birthDate.substr(0,10)
+            res.data.perSonalUser.birthDate=res.data.perSonalUser.birthDate.substr(0,10)+'('+(new Date().getFullYear()-res.data.perSonalUser.birthDate.substr(0,4))+'岁)'
             res.data.perSonalUser.workingDate=res.data.perSonalUser.workingDate.substr(0,10)
             //工作经验处理
             for (let i in res.data.jobIntention) {

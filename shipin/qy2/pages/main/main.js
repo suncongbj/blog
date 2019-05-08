@@ -59,9 +59,14 @@ Page({
       },
       success: function (res) {
         if (!!res.data && !!res.data._embedded) {
-          if(res.data.totalPages == _this.data.page) {
+          if(res.data.page.totalPages == _this.data.page) {
             _this.setData({
               hasMore: false,
+            })
+            console.log(_this.data.hasMore)
+          }else{
+            _this.setData({
+              hasMore: true,
             })
           }
           var jobdata = res.data._embedded.resumeListInfoes
@@ -69,7 +74,7 @@ Page({
             if(jobdata[i].expectSalaryMin == 0){
               jobdata[i].expectSalaryMin ='面议'
             }else{
-              jobdata[i].expectSalaryMin = jobdata[i].expectSalaryMin +jobdata[i].expectSalaryMax
+              jobdata[i].expectSalaryMin = jobdata[i].expectSalaryMin +'-'+jobdata[i].expectSalaryMax
             }
           }
           var new_list = _this.data.recommends.concat(jobdata)

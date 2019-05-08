@@ -83,7 +83,7 @@ background: #ffffff;
 }
 .bottom_textview5{
 line-height: 30px;
-  color: #999;
+  color: #333;
 background: #ffffff;
   font-size: 13px;
   padding-left: 10px;

@@ -11,7 +11,7 @@
         <image src="/images/btn_degree.png"></image>
       </view>
       <view class="weui_cell_bd">
-        <view class="weui_cell_bd_p"> {{dataDatils.minimumEducational}}</view>
+        <view class="weui_cell_bd_p" style="color: #333"> {{dataDatils.minimumEducational}}</view>
       </view>
 
     </view>
@@ -20,7 +20,7 @@
         <image src="/images/btn_experience.png"></image>
       </view>
       <view class="weui_cell_bd">
-        <view class="weui_cell_bd_p"> {{dataDatils.workingLife==null?"":dataDatils.workingLife}} </view>
+        <view class="weui_cell_bd_p" style="color: #333"> {{dataDatils.workingLife==null?"":dataDatils.workingLife}} </view>
       </view>
     </view>
       <view class="middle_view">
@@ -28,7 +28,7 @@
         <image src="/images/btn_dingwei.png"></image>
       </view>
       <view class="weui_cell_bd">
-        <view class="weui_cell_bd_p"> {{dataDatils.city==null?"":dataDatils.city}} </view>
+        <view class="weui_cell_bd_p" style="color: #333"> {{dataDatils.city==null?"":dataDatils.city}} </view>
       </view>
     </view>
    
@@ -62,7 +62,7 @@
   <view class="bottom_textview5" style='margin-bottom: 5px;'>{{dataDatils.jobHighlights==null?"":dataDatils.jobHighlights}}</view>
   <!--职位亮点 end-->
 
-<view class="renzhi" style='margin-bottom: 5px;height:35px'>公司电话{{dataDatils.contactNumber==null?"":dataDatils.contactNumber}}</view>
+<view class="renzhi" style='margin-bottom: 5px;height:35px' bindtap="phoneCall" data-num='{{dataDatils.contactNumber==null?"":dataDatils.contactNumber}}'>公司电话：{{dataDatils.contactNumber==null?"":dataDatils.contactNumber}}</view>
 
   <!--职位发布者-->
   <view class="renzhi">职位发布者</view>
@@ -72,7 +72,7 @@
       
       <view class="viewV">
         <view class="bottomtype">
-          <view class="bottom_textview3">{{dataDatils.enterpriseUser.name}}</view>
+          <view class="bottom_textview3" style="color: #333;">{{dataDatils.enterpriseUser.name}}</view>
         </view>
       </view>
       <!-- <image class="with_arrow" src="{{rightimg}}"></image> -->
@@ -92,17 +92,17 @@
       <view class="viewV">
         <!--公司名称 认证 start -->
         <view class="bottomtype">
-          <view class="bottom_textview3">{{dataDatils.enterpriseInfo.enterpriseName}}</view>
+          <view class="bottom_textview3" style="color: #333">{{dataDatils.enterpriseInfo.enterpriseName}}</view>
         </view>
         <!--公司名称 认证 end-->
         <!--地区 start-->
         <view class="bottomtype">
-          <text class="bottom_textview1">{{dataDatils.enterpriseInfo.address}}</text>
+          <text class="bottom_textview1" style="color: #333" wx:if="{{dataDatils.enterpriseInfo.address}}">{{dataDatils.enterpriseInfo.address}}</text>
         </view>
         <!--地区 end-->
         <!--规模 start-->
         <view class="bottomtype">
-          <view class="bottom_textview1">招聘岗位：{{dataDatils.enterpriseInfo.positionNumber}}</view>
+          <view class="bottom_textview1" style="color: #333">招聘岗位：{{dataDatils.enterpriseInfo.positionNumber}}</view>
 
         </view>
         <!--规模end-->

@@ -11,6 +11,37 @@ Page({
     inputPassword: '',
   },
   onLoad:function(options){
+    
+  },
+  onReady:function(){
+    // 页面渲染完成
+    
+  },
+  onShow:function(){
+    // 页面显示
+    wx.clearStorage();
+  },
+  onHide:function(){
+    // 页面隐藏
+    
+  },
+  onUnload:function(){
+    // 页面关闭
+    
+  },
+  formSubmit:function(e){
+    var param = e.detail.value;
+    this.mysubmit(param);
+  },
+  mysubmit:function (param){
+    var flag = this.checkUserName(param)&&this.checkPassword(param)
+    if(flag){
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        this.setLoginData1();
+    } 
+    
+  },
+  weixinLogin:function() {
     let self = this
     // 页面初始化 options为页面跳转所带来的参数
     wx.login({
@@ -124,34 +155,6 @@ Page({
         }
       }
     })
-  },
-  onReady:function(){
-    // 页面渲染完成
-    
-  },
-  onShow:function(){
-    // 页面显示
-    wx.clearStorage();
-  },
-  onHide:function(){
-    // 页面隐藏
-    
-  },
-  onUnload:function(){
-    // 页面关闭
-    
-  },
-  formSubmit:function(e){
-    var param = e.detail.value;
-    this.mysubmit(param);
-  },
-  mysubmit:function (param){
-    var flag = this.checkUserName(param)&&this.checkPassword(param)
-    if(flag){
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-        this.setLoginData1();
-    } 
-    
   },
   setLoginData1:function(){
     this.setData({

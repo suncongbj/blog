@@ -44,8 +44,143 @@ Page({
     } 
     
   },
+  weixinLogin:function() {
+    let self = this
+    let that = this
+    wx.showLoading()
+    // 页面初始化 options为页面跳转所带来的参数
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          console.log(res)
+          //获取openid
+          wx.request({
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+            },
+            method: 'GET',
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            data: {
+              appid: 'wxfaab92a346113ace',
+              secret: '22a674266402533f6b410d53b8c3abea',
+              js_code: res.code,
+              grant_type: 'authorization_code',
+            },
+            success:function(res2) {
+              console.log(res2.data.openid)
+              //openid注册
+              wx.request({
+                url: 'http://www.shipinzp.com/api/enterprise-user-enterpriseUser/thirdreg',
+                data: {
+                  openid: res2.data.openid,
+                  regType: 'wechat',
+                  avatarUrl: null,
+                },
+                header: {
+                  // 'Authorization':'Basic d2ViYXBwOjg4ODg=',
+                  // 'content-type': 'application/x-www-form-urlencoded'
+                  'content-type': 'application/json'
+                },
+                method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                // header: {}, // 设置请求的 header
+                success: function (res3) {
+                  console.log(res3)
+                  if (res3.statusCode == 401 || res3.statusCode == 400) {
+                
+                    wx.showModal({
+                      title: '提示',
+                      showCancel: false,
+                      content: '登录失败',
+                      success: function () {
+                        that.setLoginData2();
+                      }
+                    })
+                  } else {
+                    //openid登录
+                    wx.request({
+                      url: 'http://shipinzp.com:8081/oauth/token',
+                      data: {
+                        grant_type: 'thirdParty',
+                        openid: res2.data.openid,
+                        platform:'wechat',
+                        userType: 'enterprise'
+                      },
+                      header: {
+                        'Authorization':'Basic d2ViYXBwOjg4ODg=',
+                        'content-type': 'application/x-www-form-urlencoded'
+                        // 'content-type': 'application/json'
+                      },
+                      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                      // header: {}, // 设置请求的 header
+                      success: function (res4) {
+                        wx.hideLoading()
+                        console.log(res4)
+                        if(res4.statusCode == 401 || res4.statusCode == 400) {
+                          wx.showToast({
+                            title: '账号信息过期请重新登录',
+                          })
+                          that.setLoginData2()
+                        }else{
+                          app.globalData.mobile=that.data.inputUserName;
+                          app.globalData.token_type = res4.data.token_type;
+                          app.globalData.access_token = res4.data.access_token;
+                          var tokenarray = res4.data.access_token.split(".");
+                          console.log(tokenarray)
+                          var tokenone = that.base64_decode(tokenarray[1]);
+                          var userId = that.base64_decode(tokenarray[1])
+                          wx.setStorageSync('userId',userId)
+                          wx.setStorageSync('weixin','weixin')
+                          wx.setStorageSync('enterprise', tokenone)
+                          wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
+                          // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
+                          if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
+                          //说明未认证企业去认证
+                            wx.redirectTo({
+                              url: '../guide/guide'
+                            })
+                            wx.showToast({
+                              title:'请先完成认证',
+                              icon: 'none'
+                            })
+                            return
+                          }else{
+                            wx.switchTab({
+                              url: '../main/main'//参数只能是字符串形式，不能为json对象
+                            })
+                          }
+                        }
+                      },
+                    })
+                  }
+                },
+              })
+
+            }
+          })
+        }
+      })
+      // 获取用户信息
+      // wx.getSetting({
+      //   success: res => {
+      //     if (res.authSetting['scope.userInfo']) {
+      //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+      //       wx.getUserInfo({
+      //         success: res => {
+      //           // 可以将 res 发送给后台解码出 unionId
+      //           this.globalData.userInfo = res.userInfo
+
+      //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      //           // 所以此处加入 callback 以防止这种情况
+      //           if (this.userInfoReadyCallback) {
+      //             this.userInfoReadyCallback(res)
+      //           }
+      //         }
+      //       })
+      //     }
+      //   }
+      // })
+  },
   autoLogin: function() {//检查本地缓存自动登录
-    console.log('自动登录检测')
     var that = this
     console.log(wx.getStorageSync('mobile'))
     if(wx.getStorageSync('mobile')){
@@ -68,7 +203,7 @@ Page({
             wx.showToast({
               title: '账号信息过期请重新登录',
             })
-            that.setLoginData2
+            that.setLoginData2()
           }else{
             app.globalData.mobile=that.data.inputUserName;
             app.globalData.token_type = res.data.token_type;
@@ -81,7 +216,7 @@ Page({
             wx.setStorageSync('enterprise', tokenone)
             wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
             // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
-            if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
+            if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
             //说明未认证企业去认证
               wx.redirectTo({
                 url: '../guide/guide'
@@ -99,6 +234,8 @@ Page({
           }
         }
       })
+    }else if(wx.getStorageSync('weixin')) {
+      this.weixinLogin()
     }
   },
   setLoginData1:function(){
@@ -148,7 +285,7 @@ Page({
           wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
           wx.setStorageSync('mobile',phone)
           wx.setStorageSync('password',password)
-          if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
+          if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
             //说明未认证企业去认证证
             wx.navigateTo({
               url: '../guide/guide'
