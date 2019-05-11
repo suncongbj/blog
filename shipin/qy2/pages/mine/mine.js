@@ -1,7 +1,5 @@
-//index.js
-//获取应用实例
 const app = getApp()
-
+const receiveResume = app.globalData.BaseUrl + 'unified-history-positionDelivery/receiveResume'//?page=1&size=10
 Page({
   data: {
     motto: 'Hello World',
@@ -61,7 +59,22 @@ Page({
         hasUserInfo: true
       })
     })
-
+    wx.request({
+        url: receiveResume,
+        header: {
+          'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+          'content-type': 'application/json' // 默认值
+        },
+        data: {
+          page: 1,
+          size: 10,
+        },
+        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function (res) {
+          
+        },
+      })
   },
   getUserInfo: function(e) {
     console.log(e)

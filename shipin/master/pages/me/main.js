@@ -1,7 +1,8 @@
 // pages/me/main.js
 var app = getApp();
 var myResume_path = app.getpath + "/api/personal-user-perSonalUser/resume/";
-var authentication = app.getpath +'/api/personal-user-perSonalUser/infohome'
+var authentication = app.getpath +'/api/unified-history-interviewInvitation';
+// var authentication = app.getpath +'/api/unified-history-interviewInvitation';//POST
 Page({
 
   /**
@@ -171,6 +172,9 @@ Page({
         url: authentication,
         data: {
           userId: app.getUserId(),
+          projection: 'info',
+          page: 1,
+          size: 10
         },
         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {

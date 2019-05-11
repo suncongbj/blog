@@ -1,6 +1,7 @@
 var app = getApp();
-const submit_path = app.getpath + '/api/enterprise-user-enterpriseUser/resetPassword'//PATCH phone password smsCodeId
-const sms_path = app.getpath + '/api/sms-code/send'
+const submit_path = app.globalData.BaseUrl + 'enterprise-user-enterpriseUser/resetPasswordPost'//PATCH phone password smsCodeId
+const sms_path = app.globalData.BaseUrl + 'sms-code/send'
+const sms_check = app.globalData.BaseUrl + 'sms-code/check'
 
 Page({
   data:{
@@ -57,16 +58,14 @@ Page({
   },
   mysubmit:function (param){
     var that = this;
-    // if(!this.data.phoneNum) return 
-    // if(!this.sms_code) return
     if(this.checkPassword()) {
       this.setregistData1();
       wx.request({
-        url: submit_path,
+        url: sms_check,
         data: {
           phone: this.data.phoneNum,
-          password: this.data.password,
-          smsCodeId: this.data.sms_code,
+          userType: 'enterprise',
+          code: this.data.sms_code,
         },
         header: {
           
@@ -74,14 +73,35 @@ Page({
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
         success: function (res) {
-          if(res.statusCode == 201 || res.statusCode == 200) {
-            wx.showToast({
-              title: '成功',
-              icon: 'success',
-              duration: 1500
-            });
-            wx.redirectTo({
-              url: '../login/login' //参数只能是字符串形式，不能为json对象
+          if(res.statusCode == 201|| res.statusCode == 200) {
+            wx.request({
+              url: submit_path,
+              data: {
+                phone: that.data.phoneNum,
+                password: that.data.password,
+                codeId: res.data.id,
+                regType: 'recruitmentPhone',
+              },
+              method: 'POST',
+              success:function(res2) {
+                if(res2.statusCode == 201 || res2.statusCode == 200 || res2.statusCode == 204) {
+                  wx.showToast({
+                    title: '修改成功！',
+                    icon: 'success',
+                  });
+                  setTimeout(()=>{
+                    wx.redirectTo({
+                      url: '../login/login' //参数只能是字符串形式，不能为json对象
+                    })
+                  },500)
+                }else {
+                  wx.showToast({
+                    title: res.data.message,
+                    icon: 'none'
+                  })
+                  that.setregistData2();
+                }
+              }
             })
           }else{
             wx.showToast({

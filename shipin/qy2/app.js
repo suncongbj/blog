@@ -29,6 +29,13 @@ App({
       })
     }
   },
+  regexConfig: function() {
+    var reg = {
+      email: /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
+      phone: /^1(3|4|5|7|8)\d{9}$/
+    }
+    return reg;
+  },
   globalData: {
     BaseUrl:"http://shipinzp.com/api/",
     userInfo: null,
