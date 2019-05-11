@@ -64,6 +64,10 @@ Page({
           for(var i=0;i<jobdata.length;i++){
             jobdata[i].MRMin= jobdata[i].monthlyRangeMin/1000
             jobdata[i].MRMax= jobdata[i].monthlyRangeMax/1000
+            jobdata[i].MRresult = jobdata[i].MRMin + '/' + jobdata[i].MRMax + '千'
+            if(jobdata[i].MRMin == 0) {
+              jobdata[i].MRresult = '面议/月'
+            }
             if(!!jobdata[i].workingPlaces[0]){
               jobdata[i].Wp=jobdata[i].workingPlaces[0].province+jobdata[i].workingPlaces[0].city+jobdata[i].workingPlaces[0].county;
             }
@@ -104,6 +108,12 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  handlerVideo:function() {
+    wx.showToast({
+      title: '请前往app查看',
+      icon: 'none'
     })
   }
 })

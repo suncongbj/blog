@@ -19,7 +19,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fdd000",
-    "navigationBarTitleText": "鲲鹏视聘",
+    "navigationBarTitleText": "视聘",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -38,12 +38,6 @@
         "iconPath": "images/icon-resume1.png",
         "pagePath": "pages/resume/resume",
         "text": "发布"
-      },
-      {
-        "selectedIconPath": "images/icon_pressed.png",
-        "iconPath": "images/icon_normal.png",
-        "pagePath": "pages/video/video",
-        "text": "视聘专区"
       },
       {
         "selectedIconPath": "images/icon-me1.png",

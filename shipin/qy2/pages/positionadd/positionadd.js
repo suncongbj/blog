@@ -143,8 +143,8 @@ Page({
         positionName: position.jobName,//职位名称
         sex: 'null',
         positionNature: position.jobType,//职位性质
-        monthlyRangeMin: 0,//最小月薪转数字
-        monthlyRangeMax: 0,//最大月薪转数字
+        monthlyRangeMin: position.monthlyRangeMin,//最小月薪转数字
+        monthlyRangeMax: position.monthlyRangeMax,//最大月薪转数字
         positionCategory1: '测试',//职位类别1
         positionCategory2: '测试',//职位类别2
         positionCategory3: '测试',//职位类别3

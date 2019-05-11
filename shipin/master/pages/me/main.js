@@ -1,6 +1,7 @@
 // pages/me/main.js
 var app = getApp();
 var myResume_path = app.getpath + "/api/personal-user-perSonalUser/resume/";
+var authentication = app.getpath +'/api/personal-user-perSonalUser/infohome'
 Page({
 
   /**
@@ -167,15 +168,11 @@ Page({
       })
     } else if (type == 1) {
       wx.request({
-        url: app.getpath + '/api/unified-history-positionDelivery',
+        url: authentication,
         data: {
           userId: app.getUserId(),
-          lookOver: false,
-          projection: 'info',
-          page: 1,
-          size: 30
         },
-        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {
           'Authorization': app.getAuthorization(),
           'content-type': 'application/json',
@@ -183,7 +180,7 @@ Page({
         },
         // header: {}, // 设置请求的 header
         success: function (res) {
-
+          
         }
       })
       wx.showModal({

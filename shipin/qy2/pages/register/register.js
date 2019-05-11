@@ -1,15 +1,20 @@
 var app = getApp();
+const submit_path = app.getpath + '/api/enterprise-user-enterpriseUser/resetPassword'//PATCH phone password smsCodeId
+const sms_path = app.getpath + '/api/sms-code/send'
+
 Page({
   data:{
     registBtnTxt:"提交",
     registBtnBgBgColor:"#FDD000",
     getSmsCodeBtnTxt:"获取验证码",
     getSmsCodeBtnColor:"#FDD000",
-    // getSmsCodeBtnTime:60,
     btnLoading:false,
     registDisabled:false,
     smsCodeDisabled:false,
+
     phoneNum: '',
+    sms_code: '',
+    password: '',
     
   },
   onLoad:function(options){
@@ -32,32 +37,62 @@ Page({
     // 页面关闭
     
   },
+  keyPassword:function(e){
+   var value  = e.detail.value;
+   this.setData({
+    password: value     
+   });
+  },
+  keySmsCode:function(e){
+   var value  = e.detail.value;
+   this.setData({
+    sms_code: value     
+   });
+  },
   getPhoneNum:function(e){
    var value  = e.detail.value;
    this.setData({
     phoneNum: value     
    });
   },
-  formSubmit:function(e){
-    var param = e.detail.value;
-    this.mysubmit(param);
-  },
   mysubmit:function (param){
-    var num = param.username.trim();
-    var flag = this.checkUserName(num)&&this.checkPhoneIsRegist(param.username)&&this.checkPassword(param)&&this.checkSmsCode(param)
     var that = this;
-    if(flag){
-        this.setregistData1();
-        setTimeout(function(){
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 1500
-          });
-          that.setregistData2();
-          that.redirectTo(param);
-        },2000);
-    } 
+    // if(!this.data.phoneNum) return 
+    // if(!this.sms_code) return
+    if(this.checkPassword()) {
+      this.setregistData1();
+      wx.request({
+        url: submit_path,
+        data: {
+          phone: this.data.phoneNum,
+          password: this.data.password,
+          smsCodeId: this.data.sms_code,
+        },
+        header: {
+          
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function (res) {
+          if(res.statusCode == 201 || res.statusCode == 200) {
+            wx.showToast({
+              title: '成功',
+              icon: 'success',
+              duration: 1500
+            });
+            wx.redirectTo({
+              url: '../login/login' //参数只能是字符串形式，不能为json对象
+            })
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+            that.setregistData2();
+          }
+        },
+      })
+    }
   },
   setregistData1:function(){
     this.setData({
@@ -76,7 +111,8 @@ Page({
     });
   },
   checkUserName:function(num){ 
-    if(num.length == 11){
+    var phone = app.regexConfig().phone;
+    if(phone.test(num)){
       return true;
     }else{
       wx.showModal({
@@ -87,30 +123,15 @@ Page({
       return false;
     }
   },
-  checkPhoneIsRegist:function(phoneNum){
-      var tempPhoneNum = "13211112222";//测试未注册手机号码
-      if(phoneNum==tempPhoneNum){
-          wx.showModal({
-          title: '提示',
-          showCancel:false,
-          content: '该手机尚未注册！'
-        });
-        return false;
-      }else{
-        return true;
-      }
-  },
-  checkPassword:function(param){
-    var userName = param.username.trim();
-    var password = param.password.trim();
-    if(password.length<=0){
+  checkPassword:function(){
+    if(this.data.password.length<=0){
       wx.showModal({
         title: '提示',
         showCancel:false,
         content: '请设置新密码'
       });
       return false;
-    }else if(password.length<6||password.length>20){
+    }else if(this.data.password.length<6||this.data.password.length>20){
       wx.showModal({
         title: '提示',
         showCancel:false,
@@ -125,49 +146,49 @@ Page({
     var phoneNum = this.data.phoneNum;
     var that = this;
     var count = 60;
-    if(this.checkUserName(phoneNum)&&this.checkPhoneIsRegist(phoneNum)){
-      //获取验证码接口
+    if(this.checkUserName(phoneNum)){
+      //获取验证码接口sms_path
+      wx.request({
+        url: sms_path,
+        data: {
+          phone: this.data.phoneNum,
+          sendType: 'resetPassword',
+          userType: 'enterprise',
+        },
+        header: {
+          
+        },
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        // header: {}, // 设置请求的 header
+        success: function (res) {
+          if(res.statusCode == 201 || res.statusCode == 200) {
+            var si = setInterval(function(){
+              if(count > 0){
+                count--;
+                that.setData({
+                  getSmsCodeBtnTxt:count+' s',
+                  getSmsCodeBtnColor:"#999",
+                  smsCodeDisabled: true
+                });
+              }else{
+                that.setData({
+                  getSmsCodeBtnTxt:"获取验证码",
+                  getSmsCodeBtnColor:"#FDD000",
+                  smsCodeDisabled: false
+                });
+                count = 60;
+                clearInterval(si);
+              }
+            },1000);
+          }else{
+            wx.showToast({
+              title: res.data.message,
+              icon: 'none'
+            })
+          }
+        },
+      })
       
-      var si = setInterval(function(){
-        if(count > 0){
-          count--;
-          that.setData({
-            getSmsCodeBtnTxt:count+' s',
-            getSmsCodeBtnColor:"#999",
-            smsCodeDisabled: true
-          });
-        }else{
-          that.setData({
-            getSmsCodeBtnTxt:"获取验证码",
-            getSmsCodeBtnColor:"#FDD000",
-            smsCodeDisabled: false
-          });
-          count = 60;
-          clearInterval(si);
-        }
-      },1000);
     } 
   },
-  checkSmsCode:function(param){
-    var smsCode = param.smsCode.trim();
-    var tempSmsCode = '000000';//演示效果临时变量，正式开发需要通过wx.request获取
-    if(smsCode!=tempSmsCode){
-      wx.showModal({
-        title: '提示',
-        showCancel:false,
-        content: '请输入正确的短信验证码'
-      });
-      return false;
-    }else{
-      return true;
-    }
-  },
-  redirectTo:function(param){
-    //需要将param转换为字符串
-    param = JSON.stringify(param);
-    wx.redirectTo({
-      url: '../main/index?param='+ param//参数只能是字符串形式，不能为json对象
-    })
-  }
-
 })
