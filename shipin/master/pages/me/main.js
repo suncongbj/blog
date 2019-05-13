@@ -168,29 +168,8 @@ Page({
         url: '../resume/main',
       })
     } else if (type == 1) {
-      wx.request({
-        url: authentication,
-        data: {
-          userId: app.getUserId(),
-          projection: 'info',
-          page: 1,
-          size: 10
-        },
-        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-        header: {
-          'Authorization': app.getAuthorization(),
-          'content-type': 'application/json',
-          'access_token': app.getaccess_token()
-        },
-        // header: {}, // 设置请求的 header
-        success: function (res) {
-          
-        }
-      })
-      wx.showModal({
-        title: '友情提示',
-      showCancel:false,
-        content: '请前往APP查看',
+      wx.navigateTo({
+        url: '../progress/progress'
       })
     } else if (type == 5) {
       if(wx.getStorageSync('cerStatus')) {

@@ -9,7 +9,8 @@
     "pages/positionadd/positionadd",
     "pages/mine/mine",
     "pages/logs/logs",
-    "pages/video/video"
+    "pages/video/video",
+    "pages/seeker/seeker"
   ],
   "permission": {
     "scope.userLocation": {
@@ -40,7 +41,7 @@
         "text": "发布"
       },
       {
-        "selectedIconPath": "images/icon-me1.png",
+        "selectedIconPath": "images/icon-me2.png",
         "iconPath": "images/icon-me1.png",
         "pagePath": "pages/mine/mine",
         "text": "我的"

@@ -1,0 +1,47 @@
+.box {
+	width: 100%;height: 100%;
+}
+.item{
+	width: 100%;
+	color: #333;font-size: 14px;
+	padding: 0 24rpx;box-sizing: border-box;
+	margin-top: 15rpx;
+}
+.item>view{
+	margin-top: 20rpx;
+}
+.item_tit{
+	display: flex;justify-content: space-between;align-items: flex-end;
+
+}
+.item_tit_name{
+	color: #000;font-size: 18px;
+}
+.item_tit_money{
+	color: #435DDD;font-size: 16px;
+}
+.item_welfares{
+	display: flex;
+}
+.item_welfare {
+	margin-left: 8rpx;background: #EFF7FF;
+	padding: 0 2rpx;
+}
+.item_componey{
+	margin-top: 46rpx;
+}
+.item_btns{
+	display: flex;justify-content: flex-end;
+}
+.item_btns>view>view{
+	padding: 10rpx 20rpx;
+	border-radius: 3px;
+	margin-right: 20rpx;
+	color: #fff;
+}
+.item_btns>view:nth-child(1) {
+	display: flex;
+}
+.item_componey {
+	font-size: 18px;color: #000; 
+}

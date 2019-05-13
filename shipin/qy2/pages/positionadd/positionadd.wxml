@@ -34,8 +34,12 @@
     <view class="weui_cell_bd">
       <view class="weui_cell_bd_p"><label style='color:red'>*</label>  职位性质 </view>
     </view>
-    <input placeholder="请输入职位性质" class="input0" bindinput="getjobXz" value='{{jobXz}}'>
-    </input>
+      <picker style="width: 470rpx;height: 22px;"bindchange="pickerJobXz" range="{{jobXz_picker}}" class="badge">
+        <view class="ship_citychoose" wx:if="{{jobXz}}" style="position:absolute;right:15px;text-align:left;font-size:12px;color:#939393;height:15px;width:60%;">
+          {{jobXz}}
+        </view>
+        <input disabled="true" placeholder="请选择职位性质" class="input0" wx:else></input>
+      </picker>
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
@@ -47,7 +51,7 @@
         <view class="ship_citychoose" wx:if="{{liveRegion[0]}}" style="position:absolute;right:15px;text-align:left;font-size:12px;color:#939393;height:15px;width:60%;">
           {{liveRegion[0]}}{{liveRegion[1]}}{{liveRegion[2]}}
         </view>
-        <input disabled="true" placeholder="请输入详细地址" class="input0" bindinput="getJobAddress" value='{{jobAddress}}' wx:else></input>
+        <input disabled="true" placeholder="请选择上班地点" class="input0" bindinput="getJobAddress" value='{{jobAddress}}' wx:else></input>
       </picker>
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>

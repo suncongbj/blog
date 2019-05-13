@@ -14,6 +14,7 @@
     "pages/evaluation/evaluation",
     "pages/me/main",
     "pages/jobIntention/jobIntention",
+    "pages/progress/progress",
     "pages/userAuthentication/userAuthentication",
     "pages/findpassword/index"
   ],

@@ -61,17 +61,38 @@ Page({
         },
         success: function (res) {
           var jobdata=res.data._embedded.positionInfoes
+          let workingAge
           for(var i=0;i<jobdata.length;i++){
+            if(jobdata[i].workingLifeMin == null){
+              workingAge = '不限'
+            }else if(jobdata[i].workingLifeMin == '-1'){
+              workingAge = '应届'
+            }else if(jobdata[i].workingLifeMin == '0'){
+              workingAge = '往届'
+            }else if(jobdata[i].workingLifeMin == '1'){
+              workingAge = '1-3年经验'
+            }else if(jobdata[i].workingLifeMin == '3'){
+              if(jobdata[i].workingLifeMax == '5'){
+                workingAge = '3-5年经验'
+              }else{
+                workingAge = '5年以上'
+              }
+            }
+            jobdata[i].workingAge = workingAge
             jobdata[i].MRMin= jobdata[i].monthlyRangeMin/1000
             jobdata[i].MRMax= jobdata[i].monthlyRangeMax/1000
             jobdata[i].MRresult = jobdata[i].MRMin + '/' + jobdata[i].MRMax + '千'
-            if(jobdata[i].MRMin == 0) {
+            if(jobdata[i].MRMin == 0 && jobdata[i].MRMax == 0) {
               jobdata[i].MRresult = '面议/月'
+            }else if(jobdata[i].MRMin == 0&&jobdata[i].MRMax == 1) {
+              jobdata[i].MRresult = '一千以下/月'
+            }else if(jobdata[i].MRMin == 25) {
+              jobdata[i].MRresult = '25000以上/月'
             }
             if(!!jobdata[i].workingPlaces[0]){
               jobdata[i].Wp=jobdata[i].workingPlaces[0].province+jobdata[i].workingPlaces[0].city+jobdata[i].workingPlaces[0].county;
             }
-           
+            jobdata[i].lengthRecruitment = jobdata[i].lengthRecruitment.substr(0,19)
           }
           _this.setData({
             recommends:jobdata

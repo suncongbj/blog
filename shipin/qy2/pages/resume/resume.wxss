@@ -57,6 +57,7 @@ flex-direction: column;
   }
   .list-wrapper .list-top .list-right {
     color: #ec675d;
+    white-space: nowrap;
   }
   .list-wrapper .list-center {
     line-height: 22px;

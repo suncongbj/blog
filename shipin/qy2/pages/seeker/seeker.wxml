@@ -1,0 +1,25 @@
+<view  class="bgClass">
+<scroll-view style="height: 100%;" scroll-y="true" class="container film-list" bindscroll="scroll" bindscrolltolower="queryBooks">
+ <view wx:for="{{recommends}}" style="border-bottom: 1px solid #f0f0f0">
+    <view class="list-wrapper" data-type="{{item}}" bindtap="handlerItem">
+          <view class="list-left" style="text-align: left;">
+           <view class="list-top">{{item.name}}</view>
+           <view class="list-mid" wx:if="item.positionCategory3" style="width: 300rpx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align: left;">{{item.positionCategory3}}</view>
+           <view class="list-mid" wx:if="item.degree">{{item.degree}}</view>
+        </view>
+          <view class="list-right">
+          <view class="list-top" wx:if="item.expectSalaryMin">{{item.expectSalaryMin}}</view>
+        </view>
+    </view>
+  </view>
+  <!-- 数据加载 -->
+  <view wx:if="{{hasMore}}" style="display: flex;justify-content: center;">
+    <view class="weui-loading"></view>
+    <view style="color: #666;font-size: 14px">正在加载</view>
+  </view>
+  <!-- 没有更多了 -->
+  <view style="text-align: center;" wx:else>
+    <view style="color: #666;font-size:14px">- 暂无更多 -</view>
+  </view>
+</scroll-view>
+</view>

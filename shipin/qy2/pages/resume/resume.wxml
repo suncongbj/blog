@@ -13,7 +13,7 @@
 
         </view>
         <view class="list-center">
-          <view class="list-top1"> {{item.Wp}}|{{item.workingLifeMin}}-{{item.workingLifeMax}}年|{{item.minimumEducational}}</view>
+          <view class="list-top1"> {{item.Wp}}|{{item.workingAge}}|{{item.minimumEducational}}</view>
         </view>
          <view class="list-center">
           <view class="list-bottom1"> {{item.jobHighlights}}</view>

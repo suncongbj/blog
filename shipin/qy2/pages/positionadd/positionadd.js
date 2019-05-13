@@ -8,23 +8,25 @@ Page({
     jobName: "",//职位名称
     jobDesc: "",//职位描述
     job_dy: "", // 职位待遇,
-    workAge: ['1年以下', '1-2年', '2-3年', '3-5年', '5-10年','无要求'],
+    workAge: ['不限', '应届', '往届', '1-3年经验', '3-5年经验','5年以上'],
+    workAge_result: [[null,null],['-1','-1'],['0','0'],['1','3'],['3','5'],['3','1']],
     workAgeSelectShow:true,
-    workAgeValue:'', //工作年限
+    workAgeValue: '', //工作年限
+    workAgeValue_show: '',//工作年限展示
 
-    xueliArray: ['小学', '初中', '高中', '专科', '本科', '硕士', '博士', '博士后'],
+    xueliArray: ['不限','小学', '初中', '高中', '技校','中专','大专', '本科', '硕士', '博士'],
     xueliSelectShow: true,
     xueliValue: '',//学历
     jobNum:'',  //招聘人数
     jobAddress:'',//详细地址
 
-    salaryArray: ['面议', '1000~2000', '2000~5000', '5000~10000', '10000~15000', '15000~20000', '20000~25000', '25000'],
+    salaryArray: ['面议', '1000以下', '1000~2000', '2000~4000', '4000~6000', '6000~8000', '8000~10000', '10000~15000', '15000~25000', '25000以上'],
     salarySelectShow: true,
     salaryValue: '',//薪资范围
 
     jobType:'',//职位类型
     jobXz:'',//职位性质
-
+    jobXz_picker: ['全职','兼职'],
     id:'',
     liveRegion: [],
   },
@@ -104,21 +106,18 @@ Page({
     if(position.salaryValue == '面议'){
       position.monthlyRangeMin = 0
       position.monthlyRangeMax = 0
+    }else if(position.salaryValue == '1000以下'){
+      position.monthlyRangeMin = 0
+      position.monthlyRangeMax = 1000
+    }else if(position.salaryValue == '25000以上') {
+      position.monthlyRangeMin = 25000
+      position.monthlyRangeMax = null
     }else{
       position.monthlyRangeMin = Number(position.salaryValue.split('~')[0])
       position.monthlyRangeMax = Number(position.salaryValue.split('~')[1])
     }
-    if(position.workAgeValue == '1年以下') {
-      position.workingLifeMin = 0
-      position.workingLifeMax = 1
-    }else if(position.workAgeValue == '无要求') {
-      position.workingLifeMin = 0 
-      position.workingLifeMax = 0
-    }else{
-      position.workingLifeMin = Number(position.workAgeValue.split('-')[0])
-      var max_str = position.workAgeValue.split('-')[1]
-      position.workingLifeMax = Number(max_str.substring(0,max_str.length-1))
-    }
+    position.workingLifeMin = this.data.workAge_result[0]
+    position.workingLifeMax = this.data.workAge_result[1]
     position.workingPlaces = [{
       province: this.data.liveRegion[1],
       city: this.data.liveRegion[2],
@@ -151,8 +150,8 @@ Page({
         numberRecruits: position.jobNum,//招聘人数
         lengthRecruitment: this.getNowFormatDate(),//结束时间
         minimumEducational: position.xueliValue,//学历要求
-        workingLifeMin: position.workingLifeMin,//工作年限转数字
-        workingLifeMax: position.workingLifeMax,//工作年限转数字
+        workingLifeMin: position.workingLifeMin,//工作年限
+        workingLifeMax: position.workingLifeMax,//工作年限
         jobDescription: this.data.jobDesc,//职位描述
         jobHighlights: this.data.job_dy,
         workingPlaces: position.workingPlaces
@@ -248,7 +247,8 @@ Page({
     var num = e.currentTarget.dataset.id;
     that.setData({
       workAgeSelectShow: !that.data.workAgeSelectShow,
-      workAgeValue: e.currentTarget.dataset.name
+      workAgeValue: e.currentTarget.dataset.name,
+      workAgeValue_show: this.data.workAge_result[e.currentTarget.dataset.id]
     });
   },
   xueliSelect: function () {
@@ -278,5 +278,10 @@ Page({
       salarySelectShow: !that.data.salarySelectShow,
       salaryValue: e.currentTarget.dataset.name
     });
+  },
+  pickerJobXz:function(e) {
+    this.setData({
+      jobXz: this.data.jobXz_picker[e.detail.value]
+    })
   },
 })
