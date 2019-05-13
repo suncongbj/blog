@@ -115,7 +115,7 @@
   
   <view class="cellType0">
     <view class="weui_cell_bd">
-      <view class="weui_cell_bd_p"><label style='color:red'>*</label>  职位待遇 </view>
+      <view class="weui_cell_bd_p"> 职位待遇 </view>
     </view>
       <view style="width: 470rpx;height: 22px;"bindtap="handleDy"  class="badge">
         <view class="ship_citychoose" wx:if="{{job_dy}}" style="position:absolute;right:15px;text-align:left;font-size:12px;color:#939393;height:15px;width:60%;">

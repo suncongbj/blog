@@ -153,8 +153,8 @@ Page({
       position.monthlyRangeMin = Number(position.salaryValue.split('~')[0])
       position.monthlyRangeMax = Number(position.salaryValue.split('~')[1])
     }
-    position.workingLifeMin = this.data.workAgeValue_arr[0]
-    position.workingLifeMax = this.data.workAgeValue_arr[1]
+    position.workingLifeMin = Number(this.data.workAgeValue_arr[0])
+    position.workingLifeMax = Number(this.data.workAgeValue_arr[1])
     position.workingPlaces = [{
       province: this.data.liveRegion[1],
       city: this.data.liveRegion[2],
@@ -178,7 +178,7 @@ Page({
         releaseMode: 'GeneralRelease',//发布方式
         positionName: position.jobName,//职位名称
         sex: 'null',
-        positionNature: position.jobType,//职位性质
+        positionNature: this.data.jobXz,//职位性质
         monthlyRangeMin: position.monthlyRangeMin,//最小月薪转数字
         monthlyRangeMax: position.monthlyRangeMax,//最大月薪转数字
         positionCategory1: this.data.jobType_list_result1,//职位类别1
@@ -198,7 +198,9 @@ Page({
           wx.showToast({
             title: '职位添加成功！',
           })
-          wx.navigateBack()
+          setTimeout(()=>{
+            wx.navigateBack()
+          },1000)
         }else {
           wx.showToast({
           title: res.errMsg,
@@ -367,7 +369,7 @@ Page({
     console.log(str)
     this.setData({
       jobType_list_result3: str,
-      jobType_show: false,
+      jobType_show: !this.data.jobType_show,
       jobType_list3: [],
       jobType_list2: [],
     })
