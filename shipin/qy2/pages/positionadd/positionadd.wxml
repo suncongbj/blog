@@ -9,13 +9,15 @@
   </view>
 
 
-  <view class="cellType0">
+  <view class="cellType0" bindtap="hanldeType">
     <view class="weui_cell_bd">
       <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 职位类型 </view>
     </view>
-    <input placeholder="请输入职位类型" class="input0" bindinput="getjobType" value='{{jobType}}'>
+    <input wx:if="{{jobType_list_result3}}" placeholder="请输入职位类型" class="input0" disabled="true" value='{{jobType_list_result3}}'>
     </input>
-    <image class="with_arrow" src="/images/jian_r.png"></image>
+    <input wx:else placeholder="请输入职位类型" class="input0" disabled="true" value=''>
+    </input>
+    <image style="opacity: 0" class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
  
@@ -25,7 +27,8 @@
       <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 职位月薪 </view>
     </view>
     <view class="weui_cell_bd2">
-      <view class="rightView"> {{salaryValue}} </view>
+      <view class="rightView" wx:if="{{salaryValue}}"> {{salaryValue}} </view>
+      <view class="rightView" wx:else>请选择职位月薪</view>
     </view>
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
@@ -71,7 +74,7 @@
     </view>
     <input placeholder="请输入招聘人数" type='number' class="input0" bindinput="getJobNum" value='{{jobNum}}'>
     </input>
-    <image class="with_arrow" src="/images/jian_r.png"></image>
+    <image style="opacity: 0" class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
  
@@ -81,7 +84,8 @@
       <view class="weui_cell_bd_p"> <label style='color:red'>*</label> 学历要求 </view>
     </view>
     <view class="weui_cell_bd2">
-      <view class="rightView"> {{xueliValue}} </view>
+      <view class="rightView" wx:if="{{xueliValue}}"> {{xueliValue}} </view>
+      <view class="rightView" style="color: #999" wx:else>请选择学历要求</view>
     </view>
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
@@ -91,7 +95,8 @@
       <view class="weui_cell_bd_p"><label style='color:red'>*</label>  工作年限 </view>
     </view>
     <view class="weui_cell_bd2">
-      <view class="rightView"> {{workAgeValue}} </view>
+      <view class="rightView" wx:if="{{workAgeValue}}"> {{workAgeValue}} </view>
+      <view class="rightView" wx:else>请选择工作年限</view>
     </view>
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
@@ -107,16 +112,44 @@
   </view>
 
 
-  <view class="sepColorView">
+  
+  <view class="cellType0">
     <view class="weui_cell_bd">
-      <view class="weui_cell_bd_p"> 职位待遇 </view>
+      <view class="weui_cell_bd_p"><label style='color:red'>*</label>  职位待遇 </view>
+    </view>
+      <view style="width: 470rpx;height: 22px;"bindtap="handleDy"  class="badge">
+        <view class="ship_citychoose" wx:if="{{job_dy}}" style="position:absolute;right:15px;text-align:left;font-size:12px;color:#939393;height:15px;width:60%;">
+          {{job_dy}}
+        </view>
+        <input disabled="true" placeholder="请选择职位福利" class="input0" wx:else></input>
+      </view>
+    <image class="with_arrow" src="/images/jian_r.png"></image>
+  </view>
+
+  <view style="position: fixed;top: 0;left: 0;background: #fff;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;z-index: 999" wx:if="{{job_dy_show}}">
+    <checkbox-group bindchange="checkboxChange" style="display: flex;flex-direction: column;">
+      <label style="margin-top: 6px" class="checkbox" wx:for="{{job_dy_list}}">
+        <checkbox value="{{item}}"/>
+        {{item}}
+      </label>
+    </checkbox-group>
+    <view style="display: flex;width: 60%;flex-direction: row-reverse;color: #FDD000;margin-top: 20px">
+      <view bindtap="checkboxSubmit" style="margin-left: 18px">确认</view>
+      <view bindtap="checkboxClose">取消</view>
     </view>
   </view>
-  <view>
-    <textarea value='{{job_dy}}' class='textarea' bindinput="getJobDy"></textarea>
+
+  <view class="jobtype_box" wx:if="{{jobType_show}}">
+    <scroll-view>
+      <view wx:for="{{jobType_list1}}" bindtap="hanldeType1" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
+    <scroll-view wx:if="{{jobType_list2.length>0}}" data-detail="{{item}}">
+      <view wx:for="{{jobType_list2}}" bindtap="hanldeType2" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
+    <scroll-view wx:if="{{jobType_list3.length>0}}" bindtap="hanldeType3" data-detail="{{item}}">
+      <view wx:for="{{jobType_list3}}" bindtap="hanldeType3" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
   </view>
-
-
 
   <button class="sureBtn" bindtap='submitInfo' style="color:white"> 保 存 </button>
 
