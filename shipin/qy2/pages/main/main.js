@@ -57,7 +57,7 @@ Page({
       },
       success: function (res) {
         if (!!res.data && !!res.data._embedded) {
-          if(res.data.page.totalPages == _this.data.page) {
+          if(res.data.page.totalPages == _this.data.page||res.data.page.totalElements==0) {
             _this.setData({
               hasMore: false,
             })
@@ -69,11 +69,17 @@ Page({
           }
           var jobdata = res.data._embedded.resumeListInfoes
           for (let i = 0; i < jobdata.length;i++) {
-            if(jobdata[i].expectSalaryMin == 0){
-              jobdata[i].expectSalaryMin ='面议'
-            }else{
-              jobdata[i].expectSalaryMin = jobdata[i].expectSalaryMin +'-'+jobdata[i].expectSalaryMax
+            jobdata[i].MRMin= jobdata[i].expectSalaryMin
+            jobdata[i].MRMax= jobdata[i].expectSalaryMax
+            jobdata[i].MRresult = jobdata[i].MRMin + '-' + jobdata[i].MRMax + '千'
+            if(jobdata[i].MRMin == 0 && jobdata[i].MRMax == 0) {
+              jobdata[i].MRresult = '面议/月'
+            }else if(jobdata[i].MRMin == 0&&jobdata[i].MRMax == 1000) {
+              jobdata[i].MRresult = '一千以下/月'
+            }else if(jobdata[i].MRMin == 25000) {
+              jobdata[i].MRresult = '25000以上/月'
             }
+            jobdata[i].birthDate = parseInt((new Date() - jobdata[i].birthDate)/1000/60/60/24/365)
           }
           var new_list = _this.data.recommends.concat(jobdata)
           _this.setData({

@@ -10,7 +10,8 @@
     "pages/mine/mine",
     "pages/logs/logs",
     "pages/video/video",
-    "pages/seeker/seeker"
+    "pages/seeker/seeker",
+    "pages/bindPhone/bindPhone"
   ],
   "permission": {
     "scope.userLocation": {

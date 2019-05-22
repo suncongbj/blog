@@ -51,6 +51,12 @@ Page({
    */
   onShow: function() {
     app.validLogin();
+    this.setData({
+      inputVal: "",
+      inputShowed: false,
+      searchIng: false,
+      newsList: []
+    });
     this.getData()
   },
 
@@ -110,20 +116,19 @@ Page({
       },
       method: 'GET',
       success: function(res) {
-        console.log(res)
         if(res.data._embedded.perSonalUsers.length) {
           let user_use = res.data._embedded.perSonalUsers[0]
-          if(user_use.cerStatus=='personalunauthoriz') {
+          if(!user_use.phone) {
+            //未绑定手机号
+            // wx.redirectTo({url:'../bindPhone/bindPhone'})
+          }else if(user_use.cerStatus=='personalunauthoriz') {
+            //用户未认证
             wx.redirectTo({url:'../userAuthentication/userAuthentication'})
           }else{
             wx.setStorageSync('cerStatus', true)
             return
           }
         }
-      },
-      fail: function() {
-      },
-      complete: function() {
       }
     })
   },
@@ -147,7 +152,6 @@ Page({
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res) {
-        console.log(res)
         if (res.statusCode == 200) {
             var list = res.data.res
             var newsList = that.data.newsList
@@ -221,10 +225,10 @@ Page({
                   element.salar = element.monthlyRangeMin + "~" + element.monthlyRangeMax + "/月"
                 }
               }
-              if(element.vipLevel=='general') {
-                element.isVip =false
+              if(element.onShelfVip) {
+                element.isVip =true
               }else{
-                element.isVip = true
+                element.isVip = false
               }
               newsList.push(element)
             })
@@ -239,15 +243,7 @@ Page({
         } else if (res.statusCode == 401) {
             app.validToken();
         }
-
       },
-      fail: function() {
-        // fail
-        console.log('fail')
-      },
-      complete: function() {
-        // complete
-      }
     })
   },
   date_time: function(val) {

@@ -2,7 +2,6 @@
 var app = getApp();
 var myResume_path = app.getpath + "/api/personal-user-perSonalUser/resume/";
 var authentication = app.getpath +'/api/unified-history-interviewInvitation';
-// var authentication = app.getpath +'/api/unified-history-interviewInvitation';//POST
 Page({
 
   /**
@@ -54,7 +53,6 @@ Page({
     
   }, 
   getUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     wx.setStorageSync("userInfo", e.detail.userInfo)
     this.setData({
@@ -76,7 +74,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("返回", res)
         if (res.statusCode == 200) {
           var obj = res.data;
           var userInfo = wx.getStorageSync("userInfo")

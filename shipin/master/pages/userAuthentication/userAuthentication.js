@@ -70,8 +70,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log("认证信息")
-        console.log(res)
         if (res.statusCode == 201 || res.statusCode == 200) {
           wx.showToast({
             title: '认证成功',
@@ -90,11 +88,9 @@ Page({
       },
       fail: function () {
         // fail
-        console.log('register fail')
         that.setLoginData2();
       },
       complete: function () {
-        console.log('register complete')
       }
     })
 

@@ -16,7 +16,8 @@
     "pages/jobIntention/jobIntention",
     "pages/progress/progress",
     "pages/userAuthentication/userAuthentication",
-    "pages/findpassword/index"
+    "pages/findpassword/index",
+    "pages/bindPhone/bindPhone"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -65,7 +65,6 @@
     </view>
     <input placeholder="请输入详细地址" class="input0" bindinput="getJobAddress" value='{{jobAddress}}'>
     </input>
-    <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
   <view class="cellType0">
@@ -77,7 +76,14 @@
     <image style="opacity: 0" class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
- 
+  
+  <view class="cellType0">
+    <view class="weui_cell_bd">
+      <view class="weui_cell_bd_p"> <label style='color:red'>*</label>  联系方式 </view>
+    </view>
+    <input placeholder="请输入联系方式" maxlength="11" class="input0" bindinput="handleContactNumber" value='{{handleContactNumber}}'>
+    </input>
+  </view>
 
   <view class="cellType1 cellType1_bottom" bindtap="xueliSelect">
     <view class="weui_cell_bd">
@@ -126,11 +132,11 @@
     <image class="with_arrow" src="/images/jian_r.png"></image>
   </view>
 
-  <view style="position: fixed;top: 0;left: 0;background: #fff;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;z-index: 999" wx:if="{{job_dy_show}}">
-    <checkbox-group bindchange="checkboxChange" style="display: flex;flex-direction: column;">
+  <view style="position: fixed;top: 0;left: 0;background: #fff;width: 100%;height: 100%;;justify-content: center;align-items: center;flex-direction: column;z-index: 999;display: {{job_dy_show}}">
+    <checkbox-group bindchange="checkboxChange" style="padding-top: 100rpx;padding-left: 100rpx;box-sizing: border-box;display: flex;flex-direction: column;">
       <label style="margin-top: 6px" class="checkbox" wx:for="{{job_dy_list}}">
-        <checkbox value="{{item}}"/>
-        {{item}}
+        <checkbox value="{{item.value}}" checked="{{item.checked}}"/>
+        {{item.value}}
       </label>
     </checkbox-group>
     <view style="display: flex;width: 60%;flex-direction: row-reverse;color: #FDD000;margin-top: 20px">

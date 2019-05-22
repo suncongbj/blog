@@ -20,7 +20,6 @@ Page({
 	},
 	getUserInfo() {
 		var user_info = wx.getStorageSync('enterprise')
-		console.log(user_info)
 		this.setData({
 			userId: user_info.userId
 		})

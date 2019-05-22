@@ -2,8 +2,8 @@
 	<scroll-view style="width: 100%;height: 100%;" scroll-y="true" bindscroll="scroll" bindscrolltolower="getData">
 		<view class="item" wx:for="{{list}}">
 			<view class="item_tit">
-				<view class="item_tit_name">职位名称</view>
-				<view class="item_tit_money">4000-6000/月</view>
+				<view class="item_tit_name">{{item.positionInfo.positionName}}</view>
+				<view class="item_tit_money">{{item.money}}/月</view>
 			</view>
 			<view class="item_education">未知 | 本科</view>
 			<view class="item_welfares">
@@ -15,7 +15,7 @@
 			<view class="item_componet_item">联系人：{{item.contact}}</view>
 			<view class="item_componet_item">联系方式：{{item.contactInformation}}</view>
 			<view class="item_btns">
-				<view wx:if="{{item.status == ''}}">
+				<view wx:if="{{item.status == null}}">
 					<view style="background: #00D684" bindtap="acceptRefuse" data-item="{{item}}" data-type="yes" data-index="{{index}}">接受</view>
 					<view style="background: #FF6D6B" bindtap="acceptRefuse" data-item="{{item}}" data-type="no" data-index="{{index}}">拒绝</view>
 				</view>

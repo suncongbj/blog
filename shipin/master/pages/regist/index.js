@@ -1,7 +1,4 @@
 var app = getApp();
-// var message_path = app.getpath + '/api/sms-code/send';
-// var vaild_code_path = app.getpath +'/api/sms-code/check';
-// var register_path = app.getpath + '/api/personal-user-perSonalUser/platformreg';
 var message_path = 'http://www.shipinzp.com' + '/api/sms-code/send';
 var vaild_code_path = 'http://www.shipinzp.com' +'/api/sms-code/check';
 var register_path = 'http://www.shipinzp.com' + '/api/personal-user-perSonalUser/platformreg';
@@ -81,8 +78,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log("登录信息")
-        console.log(res)
         if (res.statusCode == 401 || res.statusCode == 400) {
       
           wx.showModal({
@@ -100,14 +95,6 @@ Page({
           })
         }
       },
-      fail: function () {
-        // fail
-        console.log('register fail')
-        that.setLoginData2();
-      },
-      complete: function () {
-        console.log('register complete')
-      }
     })
   },
   validCode:function(){
@@ -125,8 +112,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log("校验结果")
-        console.log(res)
         if (res.statusCode==200){
           that.register(res.data.id);
         }else{
@@ -144,11 +129,9 @@ Page({
       },
       fail: function () {
         // fail
-        console.log('validCode fail')
         that.setregistData2();
       },
       complete: function () {
-        console.log('validCode complete')
       }
     })
   },
@@ -169,7 +152,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
       
-        console.log(res)
         if (res.statusCode==201){
             wx.showModal({
               title: '提示',
@@ -191,12 +173,9 @@ Page({
         }
       },
       fail: function () {
-        // fail
-        console.log('register fail')
         that.setregistData2();
       },
       complete: function () {
-        console.log('register complete')
       }
     })
   },
@@ -211,7 +190,6 @@ Page({
   checkUserName:function(param){ 
     var phone = app.regexConfig().phone;
     var inputUserName = this.data.inputUserName;
-    console.log(inputUserName)
     if(phone.test(inputUserName)){
       return true;
     }else{
@@ -266,7 +244,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log(res)
         if (res.statusCode==201){
           wx.showModal({
             title: '短信发送',
@@ -304,10 +281,8 @@ Page({
       },
       fail: function () {
         // fail
-        console.log('fail')
       },
       complete: function () {
-        console.log('complete')
       }
     })
     

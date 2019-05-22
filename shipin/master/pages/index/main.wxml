@@ -19,7 +19,7 @@
           </view>
           <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
             <icon class="weui-icon-search" type="search" size="14"></icon>
-            <view class="weui-search-bar__text">请输入职位或公司名</view>
+            <view class="weui-search-bar__text">请输入关键字</view>
           </label>
            
         </view>
@@ -36,13 +36,13 @@
   <view style="width:{{width}}px;height:{{height}}px;backgroud-color:#f3f4f8;" class="itemb">
 
     <!--数据列表模版 begin-->
-
+      
       <scroll-view scroll-y="true" style="height: 100%; background: #ffffff;" bindscrolltolower="loadMore" bindscrolltoupper="refesh">
         <view wx:if="{{hasRefesh}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
           <icon type="waiting" size="45" />
           <text class="_head_price">刷新中...</text>
         </view>
-
+        
         <navigator url="/pages/jobDetail/main?id={{item.id}}" class="navigator" wx:for="{{topList}}">
 
           <view class="_head">
@@ -165,7 +165,7 @@
         <view class="weui-loadmore__tips">正在加载</view>
       </view>
 
-      <view wx:else>
+      <view wx:if="{{!searchIng&&!hasMore}}">
         <text class="weui-loadmore__tips" style="text-align: center;">没有相应职位</text>
       </view>
     </view>

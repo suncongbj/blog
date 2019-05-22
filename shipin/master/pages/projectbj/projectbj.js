@@ -20,7 +20,6 @@ Page({
         'access_token': app.getaccess_token()
       },
       success: function (res) {
-        console.log(res)
 
         var list = res.data._embedded.projectExperiences
         list.forEach(element => {
@@ -59,7 +58,6 @@ Page({
     // 页面关闭
   },
   mylongtap: function (e) {
-    console.log(e)
     var id = e.currentTarget.id
     var that = this
     var path = app.getpath + "/api/personal-position-projectExperience/" + id;
@@ -80,7 +78,6 @@ Page({
             // header: {}, // 设置请求的 header
             success: function (res) {
               // success
-              console.log("xxxxxx返回", res)
               if (res.statusCode == 200 || res.statusCode == 204) {
                 wx.showToast({
                   title: '删除成功',

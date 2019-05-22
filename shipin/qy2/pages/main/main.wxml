@@ -5,16 +5,17 @@
     <button type="primary" style="background-color:#FDD000" bindtap="stopSearch" wx:else>返回</button>
   </view>
 <scroll-view style="height: 100%;margin-top: 100rpx;" scroll-y="true" class="container film-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
- <view wx:for="{{recommends}}" style="border-bottom: 1px solid #f0f0f0">
-    <view class="list-wrapper" data-type="{{item}}" bindtap="handlerItem">
-          <view class="list-left" style="text-align: left;">
-           <view class="list-top">{{item.name}}</view>
-           <view class="list-mid" wx:if="item.positionCategory3" style="width: 300rpx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align: left;">{{item.positionCategory3}}</view>
-           <view class="list-mid" wx:if="item.degree">{{item.degree}}</view>
-        </view>
-          <view class="list-right">
-          <view class="list-top" wx:if="item.expectSalaryMin">{{item.expectSalaryMin}}</view>
-        </view>
+ <view wx:for="{{recommends}}" class="box" bindtap="handlerItem" data-type="{{item}}">
+    <view class="box_cl">
+      <text style="font-size: 15px;color: #333;">{{item.name}} {{item.birthDate}}岁 {{item.gender}}</text>
+      <text style="font-size: 13px;color: #666;" wx:if="{{item.degree}}">{{item.degree}}</text>
+    </view>
+    <view class="box_cl">
+      <text style="font-size: 14px;color: #666;width: 250px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" wx:if="{{item.positionCategory3}}">{{item.positionCategory3}}</text>
+      <text style="font-size: 13px;color: #ec675d" wx:if="{{item.expectSalaryMax!=null}}">{{item.MRresult}}/月</text>
+    </view>
+    <view style="font-size: 12px;color: #666;" wx:if="{{item.selfAssessment}}">
+      {{item.selfAssessment}}
     </view>
   </view>
   <!-- 数据加载 -->
@@ -24,7 +25,7 @@
   </view>
   <!-- 没有更多了 -->
   <view style="text-align: center;" wx:else>
-    <view style="color: #666;font-size:14px">- 暂无更多 -</view>
+    <view style="color: #666;font-size:14px">- 暂无数据 -</view>
   </view>
 </scroll-view>
 </view>

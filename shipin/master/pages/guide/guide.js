@@ -28,7 +28,6 @@ Page({
 		})
 	},
 	bindBirthDate(e) {
-		console.log(e.detail.value)
 	    this.setData({
 			birthDate: e.detail.value
 		})

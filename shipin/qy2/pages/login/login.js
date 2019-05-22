@@ -9,12 +9,15 @@ Page({
     disabled:false,
     inputUserName: '',
     inputPassword: '',
+
+    phone: '',
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     // wx.redirectTo({
     //   url: '../guide/guide'
     // })
+    this.getUserInfo()
     this.autoLogin()
   },
   onReady:function(){
@@ -39,10 +42,8 @@ Page({
   mysubmit:function (param){
     var flag = this.checkUserName(param)&&this.checkPassword(param)
     if(flag){
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         this.setLoginData1();
     } 
-    
   },
   weixinLogin:function() {
     let self = this
@@ -52,7 +53,6 @@ Page({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          console.log(res)
           //获取openid
           wx.request({
             header: {
@@ -67,7 +67,6 @@ Page({
               grant_type: 'authorization_code',
             },
             success:function(res2) {
-              console.log(res2.data.openid)
               //openid注册
               wx.request({
                 url: 'http://www.shipinzp.com/api/enterprise-user-enterpriseUser/thirdreg',
@@ -84,7 +83,6 @@ Page({
                 method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                 // header: {}, // 设置请求的 header
                 success: function (res3) {
-                  console.log(res3)
                   if (res3.statusCode == 401 || res3.statusCode == 400) {
                 
                     wx.showModal({
@@ -108,13 +106,11 @@ Page({
                       header: {
                         'Authorization':'Basic d2ViYXBwOjg4ODg=',
                         'content-type': 'application/x-www-form-urlencoded'
-                        // 'content-type': 'application/json'
                       },
                       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                       // header: {}, // 设置请求的 header
                       success: function (res4) {
                         wx.hideLoading()
-                        console.log(res4)
                         if(res4.statusCode == 401 || res4.statusCode == 400) {
                           wx.showToast({
                             title: '账号信息过期请重新登录',
@@ -125,15 +121,19 @@ Page({
                           app.globalData.token_type = res4.data.token_type;
                           app.globalData.access_token = res4.data.access_token;
                           var tokenarray = res4.data.access_token.split(".");
-                          console.log(tokenarray)
                           var tokenone = that.base64_decode(tokenarray[1]);
                           var userId = that.base64_decode(tokenarray[1])
                           wx.setStorageSync('userId',userId)
                           wx.setStorageSync('weixin','weixin')
                           wx.setStorageSync('enterprise', tokenone)
                           wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
-                          // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
-                          if(!tokenone.enterpriseId||tokenone.userState == 'personalunauthoriz'){
+                          let phone = self.data.phone
+                          if(!phone){
+                            //去绑定手机
+                            wx.redirectTo({
+                              url: '../bindPhone/bindPhone'
+                            })
+                          }else if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
                           //说明未认证企业去认证
                             wx.redirectTo({
                               url: '../guide/guide'
@@ -159,30 +159,9 @@ Page({
           })
         }
       })
-      // 获取用户信息
-      // wx.getSetting({
-      //   success: res => {
-      //     if (res.authSetting['scope.userInfo']) {
-      //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-      //       wx.getUserInfo({
-      //         success: res => {
-      //           // 可以将 res 发送给后台解码出 unionId
-      //           this.globalData.userInfo = res.userInfo
-
-      //           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      //           // 所以此处加入 callback 以防止这种情况
-      //           if (this.userInfoReadyCallback) {
-      //             this.userInfoReadyCallback(res)
-      //           }
-      //         }
-      //       })
-      //     }
-      //   }
-      // })
   },
   autoLogin: function() {//检查本地缓存自动登录
     var that = this
-    console.log(wx.getStorageSync('mobile'))
     if(wx.getStorageSync('mobile')){
       //说明已存储用户手机号自动登录
       wx.request({
@@ -209,14 +188,20 @@ Page({
             app.globalData.token_type = res.data.token_type;
             app.globalData.access_token = res.data.access_token;
             var tokenarray = res.data.access_token.split(".");
-            console.log(tokenarray)
             var tokenone = that.base64_decode(tokenarray[1]);
             var userId = that.base64_decode(tokenarray[1])
             wx.setStorageSync('userId',userId)
             wx.setStorageSync('enterprise', tokenone)
             wx.setStorageSync('enterpriseId', tokenone.enterpriseId)
-            // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
-            if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
+            let phone = that.data.phone
+            console.log(phone)
+            if(!phone){
+              //去绑定手机
+              wx.redirectTo({
+                url: '../bindPhone/bindPhone'
+              })
+              console.log(phone)
+            }else if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
             //说明未认证企业去认证
               wx.redirectTo({
                 url: '../guide/guide'
@@ -237,6 +222,28 @@ Page({
     }else if(wx.getStorageSync('weixin')) {
       this.weixinLogin()
     }
+  },
+  getUserInfo: function(e) {
+    let that = this
+    var user_info = wx.getStorageSync('enterprise')
+    wx.request({
+        url: app.globalData.BaseUrl + 'enterprise-user-enterpriseUser', //仅为示例，并非真实的接口地址
+        method: 'GET',
+        data: {
+          id: user_info.userId,
+          projection: 'info'
+        },
+        header: {
+          'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          let infos = res.data._embedded.enterpriseUsers[0]
+          that.setData({
+            phone: infos.phone
+          }) 
+        },
+      })
   },
   setLoginData1:function(){
     this.setData({
@@ -263,8 +270,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log("登录信息")
-        console.log(res)
         if (res.statusCode == 401 || res.statusCode == 400) {
           wx.showModal({
             title: '提示',
@@ -299,17 +304,8 @@ Page({
               url: '../main/main'//参数只能是字符串形式，不能为json对象
             })
           }
-          // var enterprise = JSON.parse(tokenone.substring(0, tokenone.length - 1))
         }
       },
-      fail: function () {
-        // fail
-        console.log('register fail')
-        that.setLoginData2();
-      },
-      complete: function () {
-        console.log('register complete')
-      }
     })
 
 
@@ -348,29 +344,6 @@ Page({
       return false;
     }else{
       return true;
-    }
-  },
-  checkUserInfo:function(param){
-    var username = param.username.trim();
-    var password = param.password.trim();
-    var that = this;
-    if((username=='admin@163.com'||username=='18500334462')&&password=='000000'){
-        setTimeout(function(){
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 1500
-          });
-          that.setLoginData2();
-          that.redirectTo(param);
-        },2000);
-    }else{
-      wx.showModal({
-        title: '提示',
-        showCancel:false,
-        content: '用户名或密码有误，请重新输入'
-      });
-      this.setLoginData2();
     }
   },
   redirectTo:function(){

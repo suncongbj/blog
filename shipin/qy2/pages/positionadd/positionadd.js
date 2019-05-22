@@ -9,8 +9,20 @@ Page({
     jobName: "",//职位名称
     jobDesc: "",//职位描述
     job_dy: "", // 职位待遇,
-    job_dy_show: false,
-    job_dy_list: ['五险一金','五险','包住','年底双薪','周末双休','交通补助','加班补助','饭补','话补','房补','外派津贴'],
+    job_dy_show: 'none',
+    job_dy_list: [
+      {value: '五险一金',checked: false},
+      {value: '五险',checked: false},
+      {value: '包住',checked: false},
+      {value: '年底双薪',checked: false},
+      {value: '周末双休',checked: false},
+      {value: '交通补助',checked: false},
+      {value: '加班补助',checked: false},
+      {value: '饭补',checked: false},
+      {value: '话补',checked: false},
+      {value: '房补',checked: false},
+      {value: '外派津贴',checked: false}    
+    ],
     workAge: ['不限', '应届', '往届', '1-3年经验', '3-5年经验','5年以上'],
     workAge_result: [[null,null],['-1','-1'],['0','0'],['1','3'],['3','5'],['3','1']],
     workAgeSelectShow:true,
@@ -42,7 +54,7 @@ Page({
     id:'',
     liveRegion: [],
 
-    
+    contactNumber: '',//联系方式
     
 
   },
@@ -132,6 +144,7 @@ Page({
     position.salaryValue = this.data.salaryValue
     position.jobType_list_result3 = this.data.jobType_list_result3
     position.jobXz = this.data.jobXz
+    position.contactNumber = this.data.contactNumber
     for(var i in position) {
       if(position[i] == '' ) {
         return wx.showToast({
@@ -191,7 +204,8 @@ Page({
         workingLifeMax: position.workingLifeMax,//工作年限
         jobDescription: this.data.jobDesc,//职位描述
         jobHighlights: this.data.job_dy,
-        workingPlaces: position.workingPlaces
+        workingPlaces: position.workingPlaces,
+        contactNumber: position.contactNumber
       },
       success: function (res) {
         if(res.statusCode == 200 ||res.statusCode == 201) {
@@ -284,7 +298,6 @@ Page({
   bindWorkAgeTap: function (e) {
     var that = this
     var num = e.currentTarget.dataset.id;
-    console.log(e.currentTarget.dataset)
     that.setData({
       workAgeSelectShow: !that.data.workAgeSelectShow,
       workAgeValue: e.currentTarget.dataset.name,
@@ -327,7 +340,7 @@ Page({
   },
   handleDy:function(e) {
     this.setData({
-      job_dy_show: !this.data.job_dy_show
+      job_dy_show: 'block'
     })
   },
   checkboxChange(e) {
@@ -338,13 +351,12 @@ Page({
   },
   checkboxClose() {
     this.setData({
-      job_dy_show: !this.data.job_dy_show,
-      job_dy: ''
+      job_dy_show: 'none',
     })
   },
   checkboxSubmit() {
     this.setData({
-      job_dy_show: !this.data.job_dy_show
+      job_dy_show: 'none'
     })
   },
   hanldeType() {
@@ -372,6 +384,12 @@ Page({
       jobType_show: !this.data.jobType_show,
       jobType_list3: [],
       jobType_list2: [],
+    })
+  },
+  handleContactNumber(e) {
+    let num = e.detail.value
+    this.setData({
+      contactNumber: num
     })
   }
 })

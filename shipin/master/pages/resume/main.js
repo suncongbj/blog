@@ -52,7 +52,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("返回", res)
         if (res.statusCode== 200) {
           var obj = res.data;
           var userInfo = wx.getStorageSync("userInfo")
@@ -125,7 +124,6 @@ Page({
   },
   goPage:function(e){
     var select = e.currentTarget.id
-    console.log(e.currentTarget.id)
     if(select==1){
       wx.navigateTo({
         url: '../jobIntention/jobIntention?id=' + this.data.resumeInfo.jobIntentionId,

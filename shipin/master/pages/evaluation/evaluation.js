@@ -51,7 +51,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("详情返回", res)
         if(res.statusCode==200){
             that.setData({
               
@@ -138,7 +137,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("==返回", res)
         if (res.statusCode == 201 || res.statusCode == 200) {
           wx.navigateBack({ changed: true });
         } else if (res.statusCode == 401) {

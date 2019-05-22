@@ -16,7 +16,6 @@ Page({
   },
 
   bindDateBegin: function(e) {
-    console.log(e.detail.value)
     var that = this;
     that.setData({
       beginDate: e.detail.value
@@ -37,6 +36,9 @@ Page({
     if(id!=undefined){
       this.setData({
         id: id
+      })
+      wx.setNavigationBarTitle({
+        title: '编辑工作经历' 
       })
     }
     
@@ -118,7 +120,6 @@ Page({
         'access_token': app.getaccess_token()
       },
       success: function (res) {
-        console.log(res)
         if(res.data.statusCode == 400){
           wx.showToast({
             title: res.errors[0].message,
@@ -164,7 +165,6 @@ Page({
         'access_token': app.getaccess_token()
       },
       success: function (res) {
-        console.log("获取到的数据",res)
         if (res.statusCode == 200 || res.statusCode == 201) {
           that.setData({
             companyName: res.data.companyName,

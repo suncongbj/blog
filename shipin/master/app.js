@@ -105,7 +105,6 @@ App({
     this.globalData.loginUser.userId = userId
     user.userId = userId
     user.time = new Date()
-    console.log("=====", user)
     wx.setStorage({
       key: 'loginUser',
       data: user,
@@ -194,7 +193,6 @@ App({
         url: '../login/index' //参数只能是字符串形式，不能为json对象
       })
     } else {
-      console.log(new Date().getTime() - new Date(loginUser.time).getTime())
       if (new Date().getTime() - new Date(loginUser.time).getTime() > loginUser.expires_in * 1000) {
         //清除缓存
         // wx.clearStorage();
@@ -268,7 +266,6 @@ App({
       return
     }
 
-    console.log("refresh_token 方法")
 
     //刷新tonken
     var path = this.loginPath;
@@ -288,19 +285,16 @@ App({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function(res) {
-        console.log("xxxxxxxxxxxxxxxx")
-        console.log(res)
         if (res.statusCode == 200 || res.statusCode == 201) {
           that.setLoginUser(res.data);
         }
       },
       fail: function() {
         // fail
-        console.log('register fail')
         that.setLoginData2();
       },
       complete: function() {
-        console.log('register complete')
+        
       }
     })
 

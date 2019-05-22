@@ -37,7 +37,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("职称详情返回",res)
         if (res.data.status==500){
           wx.showModal({
             title: '服务器异常',
@@ -135,7 +134,6 @@ Page({
 
   },
   phoneCall:function(e) {//打电话
-    console.log(e)
     wx.makePhoneCall({
       phoneNumber: e.currentTarget.dataset.num
     })
@@ -150,7 +148,7 @@ Page({
         positionId:that.data.id,
         userId: app.getUserId()
       },
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       header: {
         'Authorization': app.getAuthorization(),
         'content-type': 'application/json',
@@ -158,7 +156,7 @@ Page({
       },
       // header: {}, // 设置请求的 header
       success: function (res) {
-        if (res.statusCode==200){
+        if (res.statusCode==201){
           that.setData({
             isapply: true
           })

@@ -79,20 +79,20 @@ Page({
               }
             }
             jobdata[i].workingAge = workingAge
-            jobdata[i].MRMin= jobdata[i].monthlyRangeMin/1000
-            jobdata[i].MRMax= jobdata[i].monthlyRangeMax/1000
-            jobdata[i].MRresult = jobdata[i].MRMin + '/' + jobdata[i].MRMax + '千'
+            jobdata[i].MRMin= jobdata[i].monthlyRangeMin
+            jobdata[i].MRMax= jobdata[i].monthlyRangeMax
+            jobdata[i].MRresult = jobdata[i].MRMin + '-' + jobdata[i].MRMax + '千'
             if(jobdata[i].MRMin == 0 && jobdata[i].MRMax == 0) {
               jobdata[i].MRresult = '面议/月'
-            }else if(jobdata[i].MRMin == 0&&jobdata[i].MRMax == 1) {
+            }else if(jobdata[i].MRMin == 0&&jobdata[i].MRMax == 1000) {
               jobdata[i].MRresult = '一千以下/月'
-            }else if(jobdata[i].MRMin == 25) {
+            }else if(jobdata[i].MRMin == 25000) {
               jobdata[i].MRresult = '25000以上/月'
             }
             if(!!jobdata[i].workingPlaces[0]){
               jobdata[i].Wp=jobdata[i].workingPlaces[0].province+jobdata[i].workingPlaces[0].city+jobdata[i].workingPlaces[0].county;
             }
-            jobdata[i].lengthRecruitment = jobdata[i].lengthRecruitment.substr(0,19)
+            jobdata[i].lengthRecruitment = jobdata[i].lengthRecruitment.substr(5,2) + '月' + jobdata[i].lengthRecruitment.substr(8,2) + '日'
           }
           _this.setData({
             recommends:jobdata

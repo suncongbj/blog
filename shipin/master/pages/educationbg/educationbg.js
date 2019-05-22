@@ -36,7 +36,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("xxxxxx返回", res)
         if (res.statusCode == 200) {
           var data = res.data._embedded.educationExperiences
           that.setData({
@@ -104,7 +103,6 @@ Page({
     })
   },
   mylongtap:function(e){
-    console.log(e)
     var id = e.currentTarget.id
     var that = this
     var path = app.getpath +"/api/personal-position-educationExperience/"+id;
@@ -125,7 +123,6 @@ Page({
             // header: {}, // 设置请求的 header
             success: function (res) {
               // success
-              console.log("xxxxxx返回", res)
               if (res.statusCode == 200 || res.statusCode == 204) {
                wx.showToast({
                  title: '删除成功',

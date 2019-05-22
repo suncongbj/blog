@@ -1,3 +1,11 @@
+.box {
+  padding: 20rpx;
+  border-bottom: 8px solid #f0f0f0;
+}
+.box_cl{
+  display: flex;justify-content: space-between;
+  margin-bottom: 8px;
+}
 .bgClass {
   height: 100%;
 }
@@ -21,7 +29,7 @@
   font-size: 30rpx;
   color: #fbf9fe;
   margin: 0;
-  margin-left: 12px;
+  margin-left: 20px;
 }
 
 .search-bar input {

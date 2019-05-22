@@ -32,8 +32,9 @@ Page({
      this.setData({
        id: options.id
      })
+    
    }
-
+    
 
   },
   onReady: function () {
@@ -111,7 +112,6 @@ Page({
         'access_token': app.getaccess_token()
       },
       success: function (res) {
-        console.log(res)
         if (res.statusCode == 200 || res.statusCode == 201) {
           wx.showToast({
             title: '添加成功',

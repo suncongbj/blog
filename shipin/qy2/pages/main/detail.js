@@ -36,18 +36,22 @@ Page({
                 res.data.perSonalUser[i] = ''
               }
             }
-            res.data.perSonalUser.birthDate=res.data.perSonalUser.birthDate.substr(0,10)+'('+(new Date().getFullYear()-res.data.perSonalUser.birthDate.substr(0,4))+'岁)'
+            if(res.data.perSonalUser.birthDate){
+              res.data.perSonalUser.birthDate=res.data.perSonalUser.birthDate.substr(0,10)+'('+(parseInt((new Date() - Date.parse(res.data.perSonalUser.birthDate))/1000/60/60/24/365)) +'岁)'
+            }
             res.data.perSonalUser.workingDate=res.data.perSonalUser.workingDate.substr(0,10)
             //工作经验处理
-            for (let i in res.data.jobIntention) {
-              if(res.data.jobIntention[i] == null){
-                res.data.jobIntention[i] = ''
+            if(res.data.jobIntention){
+              for (let i in res.data.jobIntention) {
+                if(res.data.jobIntention[i] == null){
+                  res.data.jobIntention[i] = ''
+                }
               }
-            }
-            if(res.data.jobIntention.expectSalaryMin==0){
-              res.data.jobIntention.expectSalaryMin = '面议'
-            }else{
-              res.data.jobIntention.expectSalaryMin = res.data.jobIntention.expectSalaryMin+'-'+res.data.jobIntention.expectSalaryMax
+              if(res.data.jobIntention.expectSalaryMin==0){
+                res.data.jobIntention.expectSalaryMin = '面议'
+              }else{
+                res.data.jobIntention.expectSalaryMin = res.data.jobIntention.expectSalaryMin+'-'+res.data.jobIntention.expectSalaryMax
+              }
             }
             //教育背景处理
             for (let i=0;i<res.data.educationExperience.length;i++){

@@ -36,7 +36,6 @@ Page({
   mysubmit:function (param){
     var flag = this.checkUserName(param)&&this.checkPassword(param)
     if(flag){
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         this.setLoginData1();
     } 
     
@@ -47,7 +46,6 @@ Page({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res)
         //获取openid
         wx.request({
           header: {
@@ -62,7 +60,6 @@ Page({
             grant_type: 'authorization_code',
           },
           success:function(res2) {
-            console.log(res2.data.openid)
             //openid注册
             wx.request({
               url: 'http://www.shipinzp.com/api/personal-user-perSonalUser/thirdreg',
@@ -79,7 +76,6 @@ Page({
               method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
               // header: {}, // 设置请求的 header
               success: function (res3) {
-                console.log(res3)
                 if (res3.statusCode == 401 || res3.statusCode == 400) {
               
                   wx.showModal({
@@ -108,7 +104,6 @@ Page({
                     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                     // header: {}, // 设置请求的 header
                     success: function (res4) {
-                      console.log(res4)
                       if (res4.statusCode == 401 || res4.statusCode == 400) {
                     
                         wx.showModal({
@@ -182,8 +177,6 @@ Page({
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
-        console.log("登录信息")
-        console.log(res)
         if (res.statusCode == 401 || res.statusCode == 400) {
       
           wx.showModal({
@@ -201,14 +194,6 @@ Page({
           })
         }
       },
-      fail: function () {
-        // fail
-        console.log('register fail')
-        that.setLoginData2();
-      },
-      complete: function () {
-        console.log('register complete')
-      }
     })
 
 
@@ -247,29 +232,6 @@ Page({
       return false;
     }else{
       return true;
-    }
-  },
-  checkUserInfo:function(param){
-    var username = param.username.trim();
-    var password = param.password.trim();
-    var that = this;
-    if((username=='admin@163.com'||username=='18500334462')&&password=='000000'){
-        setTimeout(function(){
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 1500
-          });
-          that.setLoginData2();
-          that.redirectTo(param);
-        },2000);
-    }else{
-      wx.showModal({
-        title: '提示',
-        showCancel:false,
-        content: '用户名或密码有误，请重新输入'
-      });
-      this.setLoginData2();
     }
   },
   redirectTo:function(){

@@ -42,6 +42,11 @@ Page({
         		for(let i = 0 ; i < list.length; i ++) {
         			list[i].positionInfo.jobHighlights = list[i].positionInfo.jobHighlights.split(',')
         			list[i].interviewTime = new Date(Number(list[i].interviewTime)).toJSON().substr(0, 19).replace('T', ' ').replace(/-/g, '.')
+        			if(list[i].positionInfo.monthlyRangeMin == 0) {
+						list[i].money = '面议'
+        			}else{
+        				list[i].money = list[i].positionInfo.monthlyRangeMin + '-' + list[i].positionInfo.monthlyRangeMax
+        			}
         		}
         		list = self.data.list.concat(list)
         		self.setData({

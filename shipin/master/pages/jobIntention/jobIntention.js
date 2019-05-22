@@ -29,7 +29,6 @@ Page({
    */
   onLoad: function(options) {
     var id = options.id
-    console.log("id = ",id)
   
     var that = this;
     tcity.init(that);
@@ -40,11 +39,9 @@ Page({
     for (let i = 0; i < cityData.length; i++) {
       provinces.push(cityData[i].name);
     }
-    console.log('省份完成');
     for (let i = 0; i < cityData[0].sub.length; i++) {
       citys.push(cityData[0].sub[i].name)
     }
-    console.log('city完成');
     for (let i = 0; i < cityData[0].sub[0].sub.length; i++) {
       countys.push(cityData[0].sub[0].sub[i].name)
     }
@@ -116,7 +113,6 @@ Page({
         // header: {}, // 设置请求的 header
         success: function (res) {
           // success
-          console.log("详情返回", res)
            if(res.statusCode == 401) {
             app.validToken();
             return;
@@ -162,7 +158,6 @@ Page({
 
   
   bindChange: function(e) {
-    //console.log(e);
     var val = e.detail.value
     var t = this.data.values;
     var cityData = this.data.cityData;
@@ -170,7 +165,6 @@ Page({
 
 
     if (val[0] != t[0]) {
-      console.log('province no ');
       const citys = [];
       const countys = [];
 
@@ -200,7 +194,6 @@ Page({
       
     }
     if (val[1] != t[1]) {
-      console.log('city no');
       const countys = [];
 
 
@@ -221,7 +214,6 @@ Page({
       
     }
     if (val[2] != t[2]) {
-      console.log('county no');
       this.setData({
         county: this.data.countys[val[2]],
         values: val
@@ -293,7 +285,6 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        console.log("详情返回", res)
         if(res.statusCode==204){
           wx.navigateBack({ changed: true });
         } else if (res.statusCode == 401) {
