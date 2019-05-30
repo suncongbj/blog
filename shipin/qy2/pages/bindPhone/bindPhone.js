@@ -72,10 +72,8 @@ Page({
       header: {
         'Authorization':'Basic d2ViYXBwOjg4ODg=',
         'content-type': 'application/x-www-form-urlencoded'
-        // 'content-type': 'application/json'
       },
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      method: 'POST', 
       success: function (res) {
         if (res.statusCode == 401 || res.statusCode == 400) {
       
@@ -240,17 +238,13 @@ Page({
     if(!flag){
       return;
     }
-
     var that = this;
-
-
-
     wx.request({
       url: message_path,
       data: {
         phone: userName,
         sendType: 'reg',
-        userType: 'personal'
+        userType: 'enterprise'
       },
       header: 'application/Json',
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT

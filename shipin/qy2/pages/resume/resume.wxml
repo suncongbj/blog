@@ -1,6 +1,6 @@
 <view class="bgClass">
   <view class="search-bar">
-    <button class="addbtn" style="background-color:#FDD000"type="primary" bindtap="handlerVideo">视聘专区</button>
+    <button class="addbtn" style="background-color:#FDD000;white-space: nowrap;"type="primary" bindtap="handlerVideo">视聘专区</button>
     <button class="addbtn" style="background-color:#FDD000" type="primary" bindtap="Newfun">新增</button>
   </view>
   <scroll-view style="height: 100%;margin-top:30px;" scroll-y="true" class="container postion-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
@@ -9,7 +9,7 @@
       <view class="list-wrapper" style="position: relative;" data-url="{{item}}" bindtap="handlerItem" bindlongtap="deleteItem">
         <view class="list-top">
           <view class="list-left">{{item.positionName}}</view>
-          <view class="list-right">{{item.MRresult}}</view>
+          <view class="list-right" style="color: #4167C3">{{item.MRresult}}</view>
         </view>
         <view class="list-center">
           <view class="list-top1"> {{item.Wp}}|{{item.workingAge}}|{{item.minimumEducational}}</view>

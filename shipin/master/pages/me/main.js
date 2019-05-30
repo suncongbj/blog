@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    user_name: '',
+    user_avatar: '',
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     rightimg: '/images/jian_r.png',
@@ -50,13 +51,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    
+    this.showMyResume()
   }, 
   getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
-    wx.setStorageSync("userInfo", e.detail.userInfo)
+    e.detail.userInfo.name = e.detail.userInfo.nickName
+    wx.setStorageSync('user_name',e.detail.userInfo.name)
+    wx.setStorageSync('user_avatar',e.detail.userInfo.avatarUrl)
+    console.log(wx.getStorageSync('user_name'))
     this.setData({
-      userInfo: e.detail.userInfo,
+      user_name: e.detail.userInfo.name,
+      user_avatar: e.detail.userInfo.avatarUrl,
       hasUserInfo: true
     })
   },
@@ -76,16 +80,25 @@ Page({
         // success
         if (res.statusCode == 200) {
           var obj = res.data;
-          var userInfo = wx.getStorageSync("userInfo")
-          if (obj.name != null && obj.name != '') {
-            obj.nickName = obj.name
+          if(wx.getStorageSync('user_name')&&wx.getStorageSync('user_avatar')){
             that.setData({
-              userInfo: obj,
+              user_name: wx.getStorageSync('user_name'),
+              user_avatar: wx.getStorageSync('user_avatar'),
               hasUserInfo: true
             })
+          }else{
+            if(obj.name&&obj.avatarUrl) {
+              wx.setStorageSync('user_name',obj.name)
+              wx.setStorageSync('user_avatar',obj.avatarUrl)
+              that.setData({
+                user_name: obj.name,
+                user_avatar: obj.avatarUrl,
+                hasUserInfo: true
+              })
+            }
           }
-         
-        } else if (res.statusCode == 401) {
+        }
+        if (res.statusCode == 401) {
           app.validToken();
           return;
         }

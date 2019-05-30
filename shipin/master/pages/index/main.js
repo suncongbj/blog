@@ -120,7 +120,7 @@ Page({
           let user_use = res.data._embedded.perSonalUsers[0]
           if(!user_use.phone) {
             //未绑定手机号
-            // wx.redirectTo({url:'../bindPhone/bindPhone'})
+            wx.redirectTo({url:'../bindPhone/bindPhone'})
           }else if(user_use.cerStatus=='personalunauthoriz') {
             //用户未认证
             wx.redirectTo({url:'../userAuthentication/userAuthentication'})
@@ -164,7 +164,7 @@ Page({
                 element.workingLife = element.workingLife == null ? "" : element.workingLife + " | "
                 element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
                 element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
-                if (!element.monthlyRangeMin){
+                if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
                   element.salar = "面议"
                 }else{
                   if (element.monthlyRangeMax == null) {
@@ -186,7 +186,7 @@ Page({
                 element.workingLife = element.workingLife == null ? "" : element.workingLife + " | "
                 element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
                 element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
-                if (!element.monthlyRangeMin){
+                if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
                   element.salar = "面议"
                 }else{
                   if (element.monthlyRangeMax == null) {
@@ -216,7 +216,7 @@ Page({
               element.workingLife = element.workingLife == null ? "" : element.workingLife + " | "
               element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
               element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
-              if (!element.monthlyRangeMin){
+              if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
                 element.salar = "面议"
               }else{
                 if (element.monthlyRangeMax == null) {
@@ -232,9 +232,13 @@ Page({
               }
               newsList.push(element)
             })
-            if(res.data.totalpage == that.data.page) {
+            if(res.data.totalpage == that.data.page || !res.data.totalpage) {
               that.setData({
                 hasMore:false
+              })
+            }else{
+              that.setData({
+                hasMore:true
               })
             }
             that.setData({

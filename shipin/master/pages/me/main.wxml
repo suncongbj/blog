@@ -1,16 +1,10 @@
 <view>
-  <view bindtap="bindViewTap" class="userinfo" style="background-size:100%;background-repeat:space">
-    <!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="usName">{{userInfo.nickName}}</text> -->
-
-   
+  <view class="userinfo" style="background-size:100%;background-repeat:space">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="weui-btn mini-btn" type="warn" size="mini"> 获取头像昵称 </button>
     <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <image class="userinfo-avatar" src="{{user_avatar}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{user_name}}</text>
     </block>
-   
-
   </view>
 
   <view class="info_list">

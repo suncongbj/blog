@@ -188,9 +188,7 @@ Page({
     });
   },
   checkUserName:function(param){ 
-    var phone = app.regexConfig().phone;
-    var inputUserName = this.data.inputUserName;
-    if(phone.test(inputUserName)){
+    if(this.data.inputUserName.length == 11){
       return true;
     }else{
       wx.showModal({

@@ -8,7 +8,7 @@
            <view class="list-mid" wx:if="item.degree">{{item.degree}}</view>
         </view>
           <view class="list-right">
-          <view class="list-top" wx:if="item.expectSalaryMin">{{item.expectSalaryMin}}</view>
+          <view class="list-top" wx:if="item.expectSalaryMin" style="color: #4167C3">{{item.expectSalaryMin}}/月</view>
         </view>
     </view>
   </view>

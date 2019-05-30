@@ -17,8 +17,11 @@ Page({
     // wx.redirectTo({
     //   url: '../guide/guide'
     // })
+    let self = this
     this.getUserInfo()
-    this.autoLogin()
+    setTimeout(function(){
+      self.autoLogin()
+    },100)
   },
   onReady:function(){
     // 页面渲染完成
@@ -130,7 +133,7 @@ Page({
                           let phone = self.data.phone
                           if(!phone){
                             //去绑定手机
-                            wx.redirectTo({
+                            wx.navigateTo({
                               url: '../bindPhone/bindPhone'
                             })
                           }else if(tokenone.enterpriseState == 'enterpriseunauthoriz'){
@@ -197,7 +200,7 @@ Page({
             console.log(phone)
             if(!phone){
               //去绑定手机
-              wx.redirectTo({
+              wx.navigateTo({
                 url: '../bindPhone/bindPhone'
               })
               console.log(phone)
@@ -240,8 +243,8 @@ Page({
         success: function (res) {
           let infos = res.data._embedded.enterpriseUsers[0]
           that.setData({
-            phone: infos.phone
-          }) 
+            phone: infos.phone || ''
+          })
         },
       })
   },
@@ -307,8 +310,6 @@ Page({
         }
       },
     })
-
-
   },
   setLoginData2:function(){
     this.setData({
@@ -320,7 +321,7 @@ Page({
   },
   checkUserName:function(param){
     
-    var phone = /^1(3|4|5|7|8)\d{9}$/;
+    var phone = /^1(0|1|2|3|4|5|6|7|8|9)\d{9}$/;
     var inputUserName = this.data.inputUserName;
     if(phone.test(inputUserName)){
       return true;

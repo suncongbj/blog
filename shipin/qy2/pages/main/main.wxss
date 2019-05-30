@@ -15,30 +15,27 @@
   z-index: 2;
   top: 0;
   left: 0;
-  background: #007acc;
   width: 100%;
   background: #f0f0f0;
-  height: 100rpx;
-  display: flex;align-items: center;justify-content: center;
+  height: 44px;
+  padding: 0 15px;box-sizing: border-box;
+  display: flex;align-items: center;justify-content: space-between;
 }
 
 .search-bar button {
-  height: 70rpx;
-  line-height: 70rpx;
-  width: 140rpx;
-  font-size: 30rpx;
-  color: #fbf9fe;
+  height: 30px;
+  width: 52px;
+  font-size: 12px;
+  background: #fd0000;
   margin: 0;
-  margin-left: 20px;
 }
 
 .search-bar input {
   background-color: #fff;
-  border-radius: 5px;
-  width: 480rpx;
-  height: 70rpx;
-  padding-left: 10px;
-  box-sizing: border-box;
+  padding-left: 8px;box-sizing: border-box;
+  
+  height: 20px;
+  font-size: 12px;
 }
 .header {
   width: 100%;

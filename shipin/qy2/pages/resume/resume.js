@@ -81,11 +81,11 @@ Page({
             jobdata[i].workingAge = workingAge
             jobdata[i].MRMin= jobdata[i].monthlyRangeMin
             jobdata[i].MRMax= jobdata[i].monthlyRangeMax
-            jobdata[i].MRresult = jobdata[i].MRMin + '-' + jobdata[i].MRMax + '千'
+            jobdata[i].MRresult = jobdata[i].MRMin + '-' + jobdata[i].MRMax + '/月'
             if(jobdata[i].MRMin == 0 && jobdata[i].MRMax == 0) {
               jobdata[i].MRresult = '面议/月'
             }else if(jobdata[i].MRMin == 0&&jobdata[i].MRMax == 1000) {
-              jobdata[i].MRresult = '一千以下/月'
+              jobdata[i].MRresult = '1000以下/月'
             }else if(jobdata[i].MRMin == 25000) {
               jobdata[i].MRresult = '25000以上/月'
             }

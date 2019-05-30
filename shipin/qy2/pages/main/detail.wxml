@@ -54,7 +54,7 @@
 			</view>
 			<view class="item_content_line">
 				<view class="item_content_line_key">期望薪资：</view>
-				<view class="item_content_line_value">{{jobIntention.expectSalaryMin}}</view>
+				<view class="item_content_line_value" style="color: #ec675d">{{jobIntention.expectSalaryMin}}</view>
 			</view>
 			<view class="item_content_line">
 				<view class="item_content_line_key">职位类别：</view>

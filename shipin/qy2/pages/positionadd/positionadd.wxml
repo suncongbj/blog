@@ -114,7 +114,7 @@
   </view>
 
   <view>
-    <textarea value='{{jobDesc}}' class='textarea' bindinput="getJobDesc"></textarea>
+    <textarea value='{{jobDesc}}' class='textarea' bindinput="getJobDesc" style="z-index: 1" wx:if="{{!jobType_show&&workAgeSelectShow&&xueliSelectShow&&job_dy_show=='none'&&salarySelectShow}}"></textarea>
   </view>
 
 

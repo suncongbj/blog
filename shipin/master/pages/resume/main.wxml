@@ -1,7 +1,10 @@
 <view>
-  <view  class="userinfo" style="">
-      <image   class="userinfo-avatar" src="{{resumeInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{resumeInfo.name}}</text>
+  <view class="userinfo" wx:if="{{!hasUserInfo && canIUse}}">
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="weui-btn mini-btn" type="warn" size="mini"> 获取头像昵称 </button>
+  </view>
+  <view  class="userinfo" style="" wx:else>
+      <image class="userinfo-avatar" src="{{user_avatar}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{user_name}}</text>
   </view>
   </view>
 

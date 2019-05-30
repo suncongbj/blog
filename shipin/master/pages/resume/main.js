@@ -13,7 +13,11 @@ Page({
     educationNotEmpty: "待完善",//教育背景
     projectNotEmpty: "待完善",//项目经验
     evaluationNotEmpty: "待完善",//自我评价
-    userInfo: {},
+    user_name: '',
+    user_avatar: '',
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+
   },
 
   /**
@@ -38,6 +42,16 @@ Page({
     this.showMyResume();
     
   },
+  getUserInfo: function (e) {
+    e.detail.userInfo.name = e.detail.userInfo.nickName
+    wx.setStorageSync('user_name',e.detail.userInfo.name)
+    wx.setStorageSync('user_avatar',e.detail.userInfo.avatarUrl)
+    this.setData({
+      user_name: e.detail.userInfo.name,
+      user_avatar: e.detail.userInfo.avatarUrl,
+      hasUserInfo: true
+    })
+  },
   showMyResume:function(){
     var that = this;
     wx.request({
@@ -54,15 +68,21 @@ Page({
         // success
         if (res.statusCode== 200) {
           var obj = res.data;
-          var userInfo = wx.getStorageSync("userInfo")
-          if (obj.name == null || obj.name==''){
-            if (userInfo != null && userInfo!=''){
-              obj.name = userInfo.nickName
-            }
-          }
-          if (obj.avatarUrl == null || obj.avatarUrl == '') {
-            if (userInfo != null && userInfo != '') {
-              obj.avatarUrl = userInfo.avatarUrl
+          if(wx.getStorageSync('user_name')&&wx.getStorageSync('user_avatar')){
+            that.setData({
+              user_name: wx.getStorageSync('user_name'),
+              user_avatar: wx.getStorageSync('user_avatar'),
+              hasUserInfo: true
+            })
+          }else{
+            if(obj.name&&obj.avatarUrl) {
+              wx.setStorageSync('user_name',obj.name)
+              wx.setStorageSync('user_avatar',obj.avatarUrl)
+              that.setData({
+                user_name: obj.name,
+                user_avatar: obj.avatarUrl,
+                hasUserInfo: true
+              })
             }
           }
           that.setData({

@@ -292,7 +292,7 @@ border-radius: 8px;
     text-align: center;
 }
 .formview{
-  width: 70%;
+  width: 85%;
 }
 .choosesity{
   align-items: center;

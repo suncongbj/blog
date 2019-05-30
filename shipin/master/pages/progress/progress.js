@@ -33,7 +33,7 @@ Page({
         		self.setData({
         			page: page
         		})
-        		if(res.data.page.totalPages == self.data.page) {
+        		if(res.data.page.totalPages == self.data.page || res.data.page.totalElements == 0) {
         			self.setData({
         				hasMore: false
         			})

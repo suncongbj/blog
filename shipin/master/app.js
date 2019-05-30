@@ -31,6 +31,7 @@ App({
           var code = res.code;
           wx.getUserInfo({
             success: function(res) {
+              console.log(res.userInfo)
               var gender = res.userInfo.gender //性别 0：未知、1：男、2：女
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
@@ -94,7 +95,7 @@ App({
   regexConfig: function() {
     var reg = {
       email: /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
-      phone: /^1(3|4|5|7|8)\d{9}$/
+      phone: /^1(1|2|3|4|5|6|7|8|9|0)\d{9}$/
     }
     return reg;
   },
