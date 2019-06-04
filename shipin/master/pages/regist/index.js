@@ -1,7 +1,8 @@
 var app = getApp();
-var message_path = 'http://www.shipinzp.com' + '/api/sms-code/send';
-var vaild_code_path = 'http://www.shipinzp.com' +'/api/sms-code/check';
-var register_path = 'http://www.shipinzp.com' + '/api/personal-user-perSonalUser/platformreg';
+var message_path = app.getpath + '/api/sms-code/send';
+var vaild_code_path = app.getpath +'/api/sms-code/check';
+var register_path = app.getpath + '/api/personal-user-perSonalUser/platformreg';
+var login_path = app.loginPath
 Page({
   data:{
     registBtnTxt:"注册",
@@ -63,7 +64,7 @@ Page({
     var phone = this.data.inputUserName;
     var password = this.data.inputPassword;
     wx.request({
-      url: 'http://shipinzp.com:8081/oauth/token',
+      url: login_path,
       data: {
         username: phone,
         password: password,

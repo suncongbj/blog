@@ -1,5 +1,5 @@
  
-var login_path = 'http://shipinzp.com:8081/oauth/token';
+var login_path = 'https://shipinzp.com:8081/oauth/token';
 
 Page({
   data:{

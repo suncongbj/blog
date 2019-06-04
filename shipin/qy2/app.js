@@ -37,7 +37,8 @@ App({
     return reg;
   },
   globalData: {
-    BaseUrl:"http://shipinzp.com/api/",
+    BaseUrl:"https://shipinzp.com:8443/api/",
+    LoginPath: "https://shipinzp.com:8081/oauth/token",
     userInfo: null,
     access_token:"",
     token_type:"",

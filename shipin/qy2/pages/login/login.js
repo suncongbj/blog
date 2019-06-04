@@ -72,7 +72,7 @@ Page({
             success:function(res2) {
               //openid注册
               wx.request({
-                url: 'http://www.shipinzp.com/api/enterprise-user-enterpriseUser/thirdreg',
+                url: app.globalData.BaseUrl+'enterprise-user-enterpriseUser/thirdreg',
                 data: {
                   openid: res2.data.openid,
                   regType: 'wechat',
@@ -99,7 +99,7 @@ Page({
                   } else {
                     //openid登录
                     wx.request({
-                      url: 'http://shipinzp.com:8081/oauth/token',
+                      url: app.globalData.LoginPath,
                       data: {
                         grant_type: 'thirdParty',
                         openid: res2.data.openid,
@@ -168,7 +168,7 @@ Page({
     if(wx.getStorageSync('mobile')){
       //说明已存储用户手机号自动登录
       wx.request({
-        url: 'http://shipinzp.com:8081/oauth/token',
+        url: app.globalData.LoginPath,
         data: {
           username: wx.getStorageSync('mobile'),
           password: wx.getStorageSync('password'),
@@ -259,7 +259,7 @@ Page({
     var phone = this.data.inputUserName;
     var password = this.data.inputPassword;
     wx.request({
-      url: 'http://shipinzp.com:8081/oauth/token',
+      url: app.globalData.LoginPath,
       data: {
         username: phone,
         password: password,

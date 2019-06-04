@@ -12,9 +12,9 @@ App({
   onShow: function(options) {
 
   },
-  getpath: 'http://www.shipinzp.com',
+  getpath: 'https://www.shipinzp.com:8443',
 
-  loginPath: 'http://shipinzp.com:8081/oauth/token',
+  loginPath: 'https://shipinzp.com:8081/oauth/token',
 
   globalData: {
     userInfo: null,

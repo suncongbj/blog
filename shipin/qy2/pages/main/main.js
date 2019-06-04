@@ -41,7 +41,7 @@ Page({
   queryBooks: function () {
     var _this = this;
     var enterpriseId = wx.getStorageSync('enterpriseId') || ''
-    let url = this.searchIng?'http://shipinzp.com/api/personal-search/resume':'http://shipinzp.com/api/personal-search/recommend'
+    let url = this.searchIng?app.globalData.BaseUrl+'personal-search/resume':app.globalData.BaseUrl+'personal-search/recommend'
     var data = {
       keyword: this.data.searchKey,
       page: _this.data.page,

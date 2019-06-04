@@ -1,7 +1,7 @@
 var app = getApp();
-var message_path = 'http://shipinzp.com/api/sms-code/send';
-var vaild_code_path = 'http://shipinzp.com/api/sms-code/check';
-var register_path ='http://shipinzp.com/api/enterprise-user-enterpriseUser/platformreg';
+var message_path = app.globalData.BaseUrl+'sms-code/send';
+var vaild_code_path = app.globalData.BaseUrl+'sms-code/check';
+var register_path =app.globalData.BaseUrl+'enterprise-user-enterpriseUser/platformreg';
 
 Page({
   data: {

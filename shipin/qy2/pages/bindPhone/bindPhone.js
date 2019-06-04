@@ -62,7 +62,7 @@ Page({
     var phone = this.data.inputUserName;
     var password = this.data.inputPassword;
     wx.request({
-      url: 'http://shipinzp.com:8081/oauth/token',
+      url: app.globalData.LoginPath,
       data: {
         username: phone,
         password: password,

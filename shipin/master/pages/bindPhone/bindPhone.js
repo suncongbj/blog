@@ -2,6 +2,7 @@ var app = getApp();
 var message_path = app.getpath + '/api/sms-code/send';
 var vaild_code_path = app.getpath +'/api/sms-code/check';
 var register_path = app.getpath + '/api/personal-user-perSonalUser/changePhonePost';
+var loginPath = app.loginPath
 Page({
   data:{
     registBtnTxt:"完成",
@@ -63,7 +64,7 @@ Page({
     var phone = this.data.inputUserName;
     var password = this.data.inputPassword;
     wx.request({
-      url: 'http://shipinzp.com:8081/oauth/token',
+      url: loginPath,
       data: {
         username: phone,
         password: password,

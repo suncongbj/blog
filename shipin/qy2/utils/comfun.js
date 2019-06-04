@@ -9,7 +9,7 @@ module.exports = {
       'userType':'enterprise'
     }
     wx.request({
-      url: 'http://shipinzp.com:8081/oauth/token', //仅为示例，并非真实的接口地址
+      url: app.globalData.LoginPath, //仅为示例，并非真实的接口地址
       method: 'POST',
       data: data,
       header: {
