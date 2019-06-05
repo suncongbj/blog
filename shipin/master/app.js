@@ -14,7 +14,7 @@ App({
   },
   getpath: 'https://www.shipinzp.com:8443',
 
-  loginPath: 'https://shipinzp.com:8081/oauth/token',
+  loginPath: 'https://shipinzp.com:8442/oauth/token',
 
   globalData: {
     userInfo: null,
