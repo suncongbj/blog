@@ -19,7 +19,8 @@ Page({
         	userId: app.getUserId(),
         	projection: 'info',
         	page: 1,
-        	size: 20
+        	size: 20,
+        	sort: 'createTime,desc'
         },
         method: 'GET', 
         header: {

@@ -146,13 +146,13 @@ Page({
       },
       fail: function (e) {
         // fail
-        var mess = "服务器异常"
-        if (e.errMsg =='request:fail method is invalid'){
-          mess = "不支持PATCH请求"
-        }
-        wx.showToast({
-          title: mess,
-        }) 
+        // var mess = "服务器异常"
+        // if (e.errMsg =='request:fail method is invalid'){
+        //   mess = "不支持PATCH请求"
+        // }
+        // wx.showToast({
+        //   title: mess,
+        // }) 
       },
       complete: function () {
         // complete

@@ -58,8 +58,8 @@ Page({
         element.city = element.city == null ? "未知" : element.city 
         element.workingLife = element.workingLife == null ? "" : element.workingLife 
         element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
-        if (element.monthlyRangeMin == null) {
-          element.salar = "面议"
+        if (!element.monthlyRangeMin&&!element.monthlyRangeMax) {
+          element.salar = "面议/月"
         } else {
           if (element.monthlyRangeMax == null) {
             element.salar = element.monthlyRangeMin + "以上/月"

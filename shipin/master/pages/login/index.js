@@ -1,6 +1,6 @@
 var app = getApp();
 var login_path = app.loginPath;
-
+var openidPath = app.openidPath
 Page({
   data:{
     loginBtnTxt:"登录",
@@ -52,12 +52,12 @@ Page({
             'content-type': 'application/x-www-form-urlencoded',
           },
           method: 'GET',
-          url: 'https://api.weixin.qq.com/sns/jscode2session',
+          url: openidPath + res.code,
           data: {
-            appid: 'wxbe718ba0e7c9d150',
-            secret: '0cb24d239cabb56043ce064b29ae9cb5',
-            js_code: res.code,
-            grant_type: 'authorization_code',
+            // appid: 'wxbe718ba0e7c9d150',
+            // secret: '0cb24d239cabb56043ce064b29ae9cb5',
+            // code: res.code,
+            // grant_type: 'authorization_code',
           },
           success:function(res2) {
             //openid注册

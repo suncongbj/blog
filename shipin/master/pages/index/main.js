@@ -165,7 +165,7 @@ Page({
                 element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
                 element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
                 if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
-                  element.salar = "面议"
+                  element.salar = "面议/月"
                 }else{
                   if (element.monthlyRangeMax == null) {
                     element.salar = element.monthlyRangeMin+"以上/月"
@@ -187,7 +187,7 @@ Page({
                 element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
                 element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
                 if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
-                  element.salar = "面议"
+                  element.salar = "面议/月"
                 }else{
                   if (element.monthlyRangeMax == null) {
                     element.salar = element.monthlyRangeMin+"以上/月"
@@ -217,7 +217,7 @@ Page({
               element.minimumEducational = element.minimumEducational == null ? "" : element.minimumEducational
               element.jobHighlights = element.jobHighlights ? element.jobHighlights : ''
               if (!element.monthlyRangeMin&&!element.monthlyRangeMax){
-                element.salar = "面议"
+                element.salar = "面议/月"
               }else{
                 if (element.monthlyRangeMax == null) {
                   element.salar = element.monthlyRangeMin+"以上/月"

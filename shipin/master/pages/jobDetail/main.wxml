@@ -68,7 +68,8 @@
   <view class="renzhi">职位发布者</view>
   <navigator url="" class="navigator">
     <view class="viewH">
-      <image src="{{dataDatils.enterpriseUser.avatarUrl}}" class="item_img" mode="scaleToFill"></image>
+      <image wx:if="{{dataDatils.enterpriseUser.avatarUrl}}" src="{{dataDatils.enterpriseUser.avatarUrl}}" class="item_img" mode="scaleToFill"></image>
+      <image wx:else src="../../images/no_avatar.png" class="item_img" mode="scaleToFill"></image>
       
       <view class="viewV">
         <view class="bottomtype">
@@ -86,7 +87,8 @@
 
       <!--公司头像 start -->
 
-      <image src="{{dataDatils.enterpriseInfo.avatarUrl}}" class="item_img" mode="scaleToFill"></image>
+      <image wx:if="{{dataDatils.enterpriseInfo.avatarUrl}}" src="{{dataDatils.enterpriseInfo.avatarUrl}}" class="item_img" mode="scaleToFill"></image>
+      <image wx:else src="../../images/no_avatar.png" class="item_img" mode="scaleToFill"></image>
       <!--公司头像 end -->
       <!--公司布局 start -->
       <view class="viewV">

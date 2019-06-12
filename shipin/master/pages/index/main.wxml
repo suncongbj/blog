@@ -26,7 +26,7 @@
           <icon type="waiting" size="45" />
           <text class="_head_price">刷新中...</text>
         </view>
-        <navigator url="/pages/jobDetail/main?id={{item.id}}" class="navigator" wx:for="{{topList}}">
+        <navigator url="/pages/jobDetail/main?id={{item.id}}" class="navigator" wx:for="{{bidList}}">
           <view class="_head">
             <view class="_head_title">{{item.positionName}}<view style="background: #FE4B01;font-size: 11.5px;color: #fff;border-radius: 10px;margin-left: 4px;width: 30px;text-align: center;height: 18px;margin-top: 2px;"> 竞价 </view>
             </view>
@@ -51,7 +51,7 @@
               </view>
          </view>
         </navigator>
-        <navigator url="/pages/jobDetail/main?id={{item.id}}" class="navigator" wx:for="{{bidList}}">
+        <navigator url="/pages/jobDetail/main?id={{item.id}}" class="navigator" wx:for="{{topList}}">
           <view class="_head">
             <view class="_head_title">{{item.positionName}}<view style="background: #00d144;font-size: 12px;color: #fff;border-radius: 10px;margin-left: 4px;width: 30px;text-align: center;height: 18px;margin-top: 2px;"> 置顶 </view>
             </view>
