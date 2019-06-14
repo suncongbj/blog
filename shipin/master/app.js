@@ -16,8 +16,6 @@ App({
 
   loginPath: 'https://shipinzp.com:8442/oauth/token',
 
-  openidPath: 'https://shipinzp.com:8442/api/personal-user-perSonalUser/getOpenid/',
-
   globalData: {
     userInfo: null,
     loginUser: null

@@ -1,6 +1,5 @@
 var app = getApp();
 var login_path = app.loginPath;
-var openidPath = app.openidPath
 Page({
   data:{
     loginBtnTxt:"登录",
@@ -47,18 +46,15 @@ Page({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         //获取openid
+        wx.showLoading({
+          title: '登录中',
+        })
         wx.request({
           header: {
             'content-type': 'application/x-www-form-urlencoded',
           },
           method: 'GET',
-          url: openidPath + res.code,
-          data: {
-            // appid: 'wxbe718ba0e7c9d150',
-            // secret: '0cb24d239cabb56043ce064b29ae9cb5',
-            // code: res.code,
-            // grant_type: 'authorization_code',
-          },
+          url: app.getpath +'/api/personal-user-perSonalUser/getOpenid/'+res.code,
           success:function(res2) {
             //openid注册
             wx.request({
