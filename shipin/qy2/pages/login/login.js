@@ -57,18 +57,15 @@ Page({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           //获取openid
+          wx.showLoading({
+            title: '登录中',
+          })
           wx.request({
             header: {
               'content-type': 'application/x-www-form-urlencoded',
             },
             method: 'GET',
-            url: 'https://api.weixin.qq.com/sns/jscode2session',
-            data: {
-              appid: 'wxfaab92a346113ace',
-              secret: '22a674266402533f6b410d53b8c3abea',
-              js_code: res.code,
-              grant_type: 'authorization_code',
-            },
+            url: app.globalData.BaseUrl+'personal-user-perSonalUser/getOpenidEnterprise/' + res.code,
             success:function(res2) {
               //openid注册
               wx.request({
@@ -79,15 +76,13 @@ Page({
                   avatarUrl: null,
                 },
                 header: {
-                  // 'Authorization':'Basic d2ViYXBwOjg4ODg=',
-                  // 'content-type': 'application/x-www-form-urlencoded'
                   'content-type': 'application/json'
                 },
                 method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                 // header: {}, // 设置请求的 header
                 success: function (res3) {
                   if (res3.statusCode == 401 || res3.statusCode == 400) {
-                
+                    wx.hideLoading()
                     wx.showModal({
                       title: '提示',
                       showCancel: false,
@@ -115,6 +110,7 @@ Page({
                       success: function (res4) {
                         wx.hideLoading()
                         if(res4.statusCode == 401 || res4.statusCode == 400) {
+                          wx.hideLoading()
                           wx.showToast({
                             title: '账号信息过期请重新登录',
                           })

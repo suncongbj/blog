@@ -73,7 +73,7 @@ Page({
               // header: {}, // 设置请求的 header
               success: function (res3) {
                 if (res3.statusCode == 401 || res3.statusCode == 400) {
-              
+                  wx.hideLoading()
                   wx.showModal({
                     title: '提示',
                     showCancel: false,
@@ -101,7 +101,7 @@ Page({
                     // header: {}, // 设置请求的 header
                     success: function (res4) {
                       if (res4.statusCode == 401 || res4.statusCode == 400) {
-                    
+                        wx.hideLoading()
                         wx.showModal({
                           title: '提示',
                           showCancel: false,

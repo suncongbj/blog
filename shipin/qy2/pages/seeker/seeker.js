@@ -26,7 +26,7 @@ Page({
       },
       success: function (res) {
         if (!!res.data && !!res.data._embedded) {
-          if(res.data.page.totalPages == _this.data.page) {
+          if(res.data.page.totalPages == _this.data.page || res.data.page.totalElements == 0) {
             _this.setData({
               hasMore: false,
             })
@@ -52,6 +52,10 @@ Page({
           _this.setData({
             page: new_page
           })
+        }else{
+          _this.setData({
+              hasMore: false,
+            })
         }
       },
       fail: function (error) {},
