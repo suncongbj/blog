@@ -42,17 +42,17 @@
 
 
 
-
+<!-- 
     <view class="sepColorView">
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 公司信息 </view>
             </view>
     </view>
-
+ -->
 
  
 
-     <view class="cellType0" >
+<!--      <view class="cellType0" >
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 所在行业 </view>
             </view>
@@ -61,7 +61,7 @@
             </input>
     </view>
 
- 
+  -->
 
 
 
@@ -70,34 +70,21 @@
                 <view class="weui_cell_bd_p"> 职位信息 </view>
             </view>
     </view>
-
- 
-
-
-     <view class="cellType0" >
+<!--      <view class="cellType0" >
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 岗位类别 </view>
             </view>
              
             <input  placeholder="请输入职位类别" class="input0" value='{{jobCategory}}'bindinput="getjobCategory">
             </input>
-    </view>
-
-
-
-
-
-    <view class="cellType0" >
+    </view> -->
+    <view class="cellType0" bindtap="hanldeType">
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 岗位名称 </view>
             </view>
-             
-            <input  placeholder="请输入职位名称" class="input0" value='{{jobTitle}}' bindinput="getjobTitle">
+            <input placeholder="请输入职位名称" class="input0" value='{{jobType_list_result3}}'   disabled>
             </input>
     </view>
-
- 
-
        <view class="cellType0" >
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 职位薪资（税前） </view>
@@ -106,7 +93,6 @@
             <input type='number'  placeholder="职位薪资（税前）数字" class="input0" value='{{salary}}' bindinput="getsalary">
             </input>
     </view>
-
     <view class="sepColorView">
             <view class="weui_cell_bd">
                 <view class="weui_cell_bd_p"> 工作描述 </view>
@@ -119,5 +105,16 @@
 
 
     <button class="sureBtn" bindtap='submitInfo' style="color:white"> 保    存       </button> 
-
+  <view class="jobtype_box" wx:if="{{jobType_show}}">
+    <scroll-view>
+      <view wx:for="{{jobType_list1}}" bindtap="hanldeType1" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
+    <scroll-view wx:if="{{jobType_list2.length>0}}" data-detail="{{item}}">
+      <view wx:for="{{jobType_list2}}" bindtap="hanldeType2" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
+    <scroll-view wx:if="{{jobType_list3.length>0}}" bindtap="hanldeType3" data-detail="{{item}}">
+      <view wx:for="{{jobType_list3}}" bindtap="hanldeType3" data-detail="{{item}}">{{item.name}}</view>
+    </scroll-view>
+  </view>
 </scroll-view>
+

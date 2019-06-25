@@ -39,7 +39,7 @@
       <view class="weui_cell_bd_p"> 专业名称 </view>
     </view>
 
-    <input placeholder="请输入专业名称" class="input2" bindinput="input2js" value="{{specialfieldName}}"></input>
+    <input placeholder="请输入专业名称" class="input2" bindinput="input2js" value="{{specialfieldName}}" style="text-align: right;"></input>
 
 
   </view>

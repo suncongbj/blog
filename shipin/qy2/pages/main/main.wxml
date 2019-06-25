@@ -10,7 +10,7 @@
 <scroll-view style="height: 100%;margin-top: 100rpx;" scroll-y="true" class="container film-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
  <view wx:for="{{recommends}}" class="box" bindtap="handlerItem" data-type="{{item}}">
     <view class="box_cl">
-      <text style="font-size: 15px;color: #333;">{{item.name}} {{item.birthDate}}岁 <text wx:if="{{item.gender}}">{{item.gender}}</text></text>
+      <text style="font-size: 15px;color: #333;white-space: nowrap;">{{item.name}} {{item.birthDate}}岁 <text wx:if="{{item.gender}}">{{item.gender}}</text></text>
       <text style="font-size: 13px;color: #666;" wx:if="{{item.degree}}">{{item.degree}}</text>
     </view>
     <view class="box_cl">

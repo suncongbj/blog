@@ -109,10 +109,10 @@ Page({
     this.setData({
       loading: true
     });
-    if (that.data.schoolname == null || that.data.schoolname == "") {
+    if (that.data.schoolname == null || that.data.schoolname == "" || that.data.schoolname.indexOf(' ')!=-1) {
       wx.showModal({
         title: '提示',
-        content: '请输入学校名称',
+        content: '学校名称输入有误，请重新输入',
         showCancel: false,
         success: function (res) {
 
@@ -130,8 +130,6 @@ Page({
         success: function (res) {
 
         }
-
-
       });
       return;
     }
@@ -171,7 +169,14 @@ Page({
     var schoolTimeStart = this.data.byears
     var schoolTimeStop = this.data.jyears
     var userId = app.getUserId()
-
+    if(new Date(schoolTimeStart)>=new Date(schoolTimeStop)) {
+      return wx.showModal({
+        title: '提示',
+        content: '在校时间选择有误，请重新选择',
+        showCancel: false,
+      });
+      
+    }
     var postData= {
       degree: degree,
       recruitment: recruitment,
@@ -228,7 +233,7 @@ Page({
     var path = app.getpath + "/api/personal-position-educationExperience";
     
     if(this.data.id!=undefined&&this.data.id!=null&&this.data.id!=''){
-      method = "PATCH"
+      method = "PUT"
       path = app.getpath + "/api/personal-position-educationExperience/"+this.data.id
     }
     

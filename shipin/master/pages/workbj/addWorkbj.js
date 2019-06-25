@@ -8,11 +8,20 @@ Page({
     industry : "", //  
     jobTitle:"",
     jobCategory:"",
-    salary : "",
+    salary : "",//薪资
     beginDate : "", // 任职开始日期
     endDate : "", // 任职结束日期
     jobDescription : "", // 工作描述,
-    id:""
+    id:"",
+
+    jobType:'',//职位类型
+    jobType_show: false,
+    jobType_list1: [],
+    jobType_list2: [],
+    jobType_list3: [],
+    jobType_list_result1: '',
+    jobType_list_result2: '',
+    jobType_list_result3: '',
   },
 
   bindDateBegin: function(e) {
@@ -41,8 +50,7 @@ Page({
         title: '编辑工作经历' 
       })
     }
-    
-
+    this.getBusiness()
   },
   onReady:function(){
     // 页面渲染完成
@@ -56,6 +64,28 @@ Page({
   },
   onUnload:function(){
     // 页面关闭
+  },
+  getBusiness:function() {//获取职位信息
+    var self = this
+    wx.showLoading()
+    wx.request({
+      url: app.getpath+'/api/admin-system-businessDicOne/all',
+      method: 'GET',
+      header: {
+        'Authorization': app.globalData.token_type + " " + app.globalData.access_token,
+        'content-type': 'application/json' // 默认值
+      },
+      data: {},
+      success:function(res){
+        wx.hideLoading()
+        self.setData({
+          jobType_list1: res.data._embedded.businessDicOnes
+        })
+      },
+      fail: function (error) {
+        
+      },
+    })
   },
   getcompanyName:function(e){
     this.setData({
@@ -89,14 +119,26 @@ Page({
   },
   submitInfo:function(){
     var that = this
+    if(!this.data.companyName||this.data.companyName.indexOf(' ')!=-1) return wx.showToast({
+      title: '公司名称输入有误请重新输入',
+      icon: 'none'
+    })
+    if(new Date(this.data.beginDate)>=new Date(this.data.endDate)) return wx.showToast({
+      title: '任职时间有误，请重新选择',
+      icon: 'none'
+    })
+    if(!this.data.jobType_list_result3) return wx.showToast({
+      title: '请选择岗位名称',
+      icon: 'none'
+    })
     var data = {
       userId:app.getUserId(),
       id: this.data.id,
       companyName: this.data.companyName,
-      industry: this.data.industry,
-      jobTitle: this.data.jobTitle,
-      salary: this.data.salary,
-      jobCategory: this.data.jobCategory,
+      industry: this.data.jobType_list_result1,//行业
+      jobCategory: this.data.jobType_list_result2,//类别
+      jobTitle: this.data.jobType_list_result3,//名称
+      salary: Number(this.data.salary),
       jobDescription: this.data.jobDescription,
       workingTimeStart: new Date(this.data.beginDate),
       workingTimeStop: new Date(this.data.endDate),
@@ -124,6 +166,7 @@ Page({
           wx.showToast({
             title: res.errors[0].message,
           })
+          return
         }
         if (res.statusCode == 401) {
           app.validToken();
@@ -168,9 +211,9 @@ Page({
         if (res.statusCode == 200 || res.statusCode == 201) {
           that.setData({
             companyName: res.data.companyName,
-            industry: res.data.industry,
-            jobTitle: res.data.jobTitle,
-            jobCategory: res.data.jobCategory,
+            jobType_list_result1: res.data.industry,
+            jobType_list_result3: res.data.jobTitle,
+            jobType_list_result2: res.data.jobCategory,
             salary: res.data.salary,
             jobDescription: res.data.jobDescription,
             beginDate: app.date_time_formart(res.data.workingTimeStart,'day'),
@@ -190,5 +233,32 @@ Page({
       }
     })
 
-  }
+  },
+  hanldeType() {
+    this.setData({
+      jobType_show: !this.data.jobType_show
+    })
+  },
+  hanldeType1(e) {
+    this.setData({
+      jobType_list2: e.currentTarget.dataset.detail.businessDicTwos,
+      jobType_list_result1: e.currentTarget.dataset.detail.name
+    })
+  },
+  hanldeType2(e) {
+    this.setData({
+      jobType_list3: e.currentTarget.dataset.detail.positionDics,
+      jobType_list_result2: e.currentTarget.dataset.detail.name
+    })
+  },
+  hanldeType3(e) {
+    let str = e.currentTarget.dataset.detail.name
+    console.log(str)
+    this.setData({
+      jobType_list_result3: str,
+      jobType_show: !this.data.jobType_show,
+      jobType_list3: [],
+      jobType_list2: [],
+    })
+  },
 })

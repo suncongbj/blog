@@ -67,23 +67,25 @@ Page({
   },
   submitInfo: function () {
     var that = this
-    if (this.data.projectName == null || this.data.projectName==''){
-      this.showMessage("友情提示","项目名称不能为空")
+    if (this.data.projectName == null || this.data.projectName==''|| this.data.projectName.indexOf(' ')!==-1){
+      this.showMessage("提示","项目名称输入有误，请重新输入")
       return
     }
     if (this.data.projectDescription == null || this.data.projectDescription == '') {
-      this.showMessage("友情提示", "项目描述不能为空")
+      this.showMessage("提示", "项目描述不能为空")
       return
     }
     if (this.data.obligation == null || this.data.obligation == '') {
-      this.showMessage("友情提示", "个人职责不能为空")
+      this.showMessage("提示", "个人职责不能为空")
       return
     }
     if (this.data.beginDate == null || this.data.beginDate == '') {
-      this.showMessage("友情提示", "开始时间不能为空")
+      this.showMessage("提示", "开始时间不能为空")
       return
     }
-
+    if(new Date(this.data.beginDate)>=new Date(this.data.endDate)) {
+      return this.showMessage('提示','项目时间有误，请重新选择')
+    }
 
     var data = {
       userId: app.getUserId(),
@@ -97,7 +99,7 @@ Page({
     var method = "POST"
 
     if (this.data.id != undefined && this.data.id != null && this.data.id != '') {
-      method = "PATCH"
+      method = "PUT"
       path = app.getpath + "/api/personal-position-projectExperience/" + this.data.id
     }
 
@@ -112,7 +114,7 @@ Page({
         'access_token': app.getaccess_token()
       },
       success: function (res) {
-        if (res.statusCode == 200 || res.statusCode == 201) {
+        if (res.statusCode == 200 || res.statusCode == 201|| res.statusCode == 204) {
           wx.showToast({
             title: '添加成功',
           })

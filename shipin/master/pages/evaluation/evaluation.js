@@ -53,7 +53,6 @@ Page({
         // success
         if(res.statusCode==200){
             that.setData({
-              
               reason_input: res.data.selfAssessment,
               evaluation: res.data.selfAssessment,
             })
@@ -119,7 +118,7 @@ Page({
     var path = app.getpath + "/api/personal-position-selfAssessment"
     var that= this
     if (this.data.id != null && this.data.id != '' && this.data.id != 'null') {
-      method = 'PATCH'
+      method = 'PUT'
       path = app.getpath + "/api/personal-position-selfAssessment/"+this.data.id
     }
     wx.request({
@@ -137,7 +136,7 @@ Page({
       // header: {}, // 设置请求的 header
       success: function (res) {
         // success
-        if (res.statusCode == 201 || res.statusCode == 200) {
+        if (res.statusCode == 201 || res.statusCode == 200|| res.statusCode == 204) {
           wx.navigateBack({ changed: true });
         } else if (res.statusCode == 401) {
           app.validToken();

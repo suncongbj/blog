@@ -43,7 +43,7 @@
 
    <view class="weui-cell weui-cell_access" bindtap='goPage' id="5">
     <view class="weui-cell__bd">
-      <view style="display: inline-block; vertical-align: middle">自我介绍</view> 
+      <view style="display: inline-block; vertical-align: middle">自我评价</view> 
     </view>
     <view class="weui-cell__ft weui-cell__ft_in-access">{{evaluationNotEmpty}}</view>
   </view>

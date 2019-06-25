@@ -60,6 +60,9 @@ Page({
     this.validCode();
 
   },
+  backLogin: function() {
+    wx.redirectTo({url:'../login/index'})
+  },
   autoLogin:function() {
     var phone = this.data.inputUserName;
     var password = this.data.inputPassword;
