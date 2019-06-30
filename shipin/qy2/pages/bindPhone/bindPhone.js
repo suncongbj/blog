@@ -45,6 +45,9 @@ Page({
     var that = this;
     this.setregistData1();
   },
+  backLogin: function() {
+    wx.redirectTo({url:'../login/login?is_bind_back=1'})
+  },
   setregistData1:function(){
     this.setData({
       registBtnTxt:"绑定中",

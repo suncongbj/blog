@@ -19,9 +19,11 @@ Page({
     // })
     let self = this
     this.getUserInfo()
+    if(options.is_bind_back!=1) {
     setTimeout(function(){
-      self.autoLogin()
-    },100)
+        self.autoLogin()
+      },100)
+    }
   },
   onReady:function(){
     // 页面渲染完成
@@ -129,7 +131,7 @@ Page({
                           let phone = self.data.phone
                           if(!phone){
                             //去绑定手机
-                            wx.navigateTo({
+                            wx.redirectTo({
                               url: '../bindPhone/bindPhone'
                             })
                           }else if(tokenone.enterpriseState == 'enterpriseunauthoriz'){

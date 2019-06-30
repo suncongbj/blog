@@ -172,7 +172,7 @@ Page({
     if(new Date(schoolTimeStart)>=new Date(schoolTimeStop)) {
       return wx.showModal({
         title: '提示',
-        content: '在校时间选择有误，请重新选择',
+        content: '入学开始时间不能大于入学结束时间',
         showCancel: false,
       });
       

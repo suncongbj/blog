@@ -124,7 +124,7 @@ Page({
       icon: 'none'
     })
     if(new Date(this.data.beginDate)>=new Date(this.data.endDate)) return wx.showToast({
-      title: '任职时间有误，请重新选择',
+      title: '任职开始时间不能大于结束时间',
       icon: 'none'
     })
     if(!this.data.jobType_list_result3) return wx.showToast({

@@ -14,6 +14,9 @@
         <view class="btn-area">
             <button  disabled="{{registDisabled}}" style="background-color:{{registBtnBgBgColor}}"   formType="submit"  loading="{{btnLoading}}"> {{registBtnTxt}} </button>
         </view>
+        <view class="btn-area" style="display: flex;" bindtap="backLogin">
+          <text style="color: #ff9900;margin-top: 30rpx;font-size: 30rpx;">返回登录</text>  
+        </view>
     </form>
 
     <!--<progress class="myprogress" percent="{{percent }}" color="{{color}}" active/>-->

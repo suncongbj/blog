@@ -84,7 +84,7 @@ Page({
       return
     }
     if(new Date(this.data.beginDate)>=new Date(this.data.endDate)) {
-      return this.showMessage('提示','项目时间有误，请重新选择')
+      return this.showMessage('提示','项目开始时间不能大于结束时间')
     }
 
     var data = {
