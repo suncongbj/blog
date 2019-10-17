@@ -2,6 +2,8 @@
 
 > My stellar Nuxt.js project
 
+nginx:  /etc/nginx/conf.d/blog-3001.conf
+
 ## Build Setup
 
 ``` bash
